@@ -19,8 +19,20 @@
         @yield('hero')
     </div>
 
-    <div class="container-fluid h-music" id="h-music">
+    <div class="container-fluid h-music slider" id="h-music">
         @yield('h-music')
+    </div>
+
+    <div class="container-fluid h-merchan" id="h-merchan">
+        @yield('h-merchan')
+    </div>
+
+    <div class="container-fluid h-videos" id="h-videos">
+        @yield('h-videos')
+    </div>
+    
+    <div class="container-fluid h-news" id="h-news">
+        @yield('h-news')
     </div>
 
 
