@@ -1,0 +1,134 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+    color: #fff;
+    font-family: "Inter", sans-serif;
+}
+
+/* navigation */
+
+.navbar {
+    background-color: rgba(10, 10, 10, 10%);
+    z-index: 99999;
+}
+
+.navbar a img.nav-logo {
+    margin: 0.5rem 1rem;
+    width: 67px;
+    height: 57px;
+}
+
+.navbar-brand,
+.navbar-nav .nav-item .nav-link {
+    position: relative;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 2px;
+    padding: 5px 2px;
+}
+
+.navbar-nav .nav-item .nav-link:hover::after {
+    content: "";
+    position: absolute;
+    left: 1%;
+    right: 1%;
+    bottom: 0;
+    border: 2px solid #6ca2dd;
+}
+
+.navbar-nav .nav-item .active {
+    color: #6ca2dd;
+}
+
+.navbar .navbar-nav {
+    gap: 45px;
+}
+
+/* hero section */
+
+.bg-hero {
+    margin-top: -100px;
+    padding-top: 80px;
+    background-image: url("/assets/img/bg-hero.jpg");
+    width: 100%;
+    height: 774px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.hero {
+    position: relative;
+}
+
+.logo {
+    position: absolute;
+    font-size: 4em;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/*  home music */
+
+.h-music {
+    position: relative;
+    display: flex;
+    padding: 86px 73px 116px 145px;
+    /* background-color: black; */
+    background-image: url("/assets/img/bg-music.png");
+    width: 100%;
+    height: 772px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.line {
+    position: absolute;
+    left: 73px;
+    top: 155px;
+}
+
+.h-music .text-music {
+    display: flex;
+    flex-direction: column;
+    margin-left: 65px;
+}
+
+.h-music .text-music h2 {
+    font-size: 128px;
+    font-weight: 800;
+    line-height: 155px;
+    letter-spacing: 0.18em;
+    color: rgba(0, 0, 0, 0);
+    -webkit-text-stroke: 6px #fefefe;
+}
+
+.h-music .text-music h3 {
+    margin-top: 49px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 64px;
+    font-family: "Times New Roman", Times, serif;
+}
+
+.h-music .text-music p {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 38px;
+}
+
+.h-music .text-music .btn-music {
+    margin-top: 90px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid #1159a6;
+    color: #1159a6;
+    font-size: 22px;
+    font-weight: 600;
+    width: 214px;
+    height: 47px;
+    text-transform: uppercase;
+    border-radius: 10px;
+}
