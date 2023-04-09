@@ -278,7 +278,7 @@ body {
     width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
-    z-index: -2;
+    z-index: 0;
     padding-bottom: 1rem;
 }
 
