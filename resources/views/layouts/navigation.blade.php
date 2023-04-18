@@ -28,13 +28,11 @@
                         <a class="nav-link {{ Request::is('/store') ? 'active' : '' }}" href="/store">Store</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/video') ? 'active' : '' }}" href="/video">video</a>
+                        <a class="nav-link {{ Request::is('/videos') ? 'active' : '' }}" href="/videos">videos</a>
                     </li>
                 </ul>
                 </div>
         </div> 
-        <div class="col-md-1"></div>
-            
-        
+        <div class="col-md-1"></div>   
     </div>
 </nav>
