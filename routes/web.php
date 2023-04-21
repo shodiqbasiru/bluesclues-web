@@ -6,7 +6,9 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\VideosController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardNewsController;
+use App\Http\Controllers\DashboardEventsController;
+use App\Http\Controllers\DashboardSongsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,22 +31,28 @@ Route::get('/video/{id}', [VideosController::class, 'show'])->name('video');
 
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{news:slug}', [NewsController::class, 'show']);
-Route::get('/create-news', [NewsController::class, 'createNews'])->middleware('auth');
+Route::get('/admin/create-news', [NewsController::class, 'createNews'])->middleware('auth');
 Route::get('/shownews', [NewsController::class, 'select']);
-Route::post('/create-news', [NewsController::class, 'store'])->middleware('auth')->name('news.store');
+Route::post('/admin/create-news', [NewsController::class, 'store'])->middleware('auth')->name('news.store');
 
 Route::get('/events', [EventsController::class, 'index'])->name('events.index');
-Route::get('/add-event', [EventsController::class, 'addEvent'])->middleware('auth');
+Route::get('/admin/add-event', [EventsController::class, 'addEvent'])->middleware('auth');
 Route::get('/events/{event:slug}', [EventsController::class, 'show']);
-Route::post('/add-event', [EventsController::class, 'store'])->middleware('auth')->name('events.store');
+Route::post('/admin/add-event', [EventsController::class, 'store'])->middleware('auth')->name('events.store');
 
 Route::get('/login-admin', [AdminController::class, 'login'])->middleware('guest')->name('login');
 Route::post('/login-admin', [AdminController::class, 'authenticate'])->name('admin.authenticate');
 Route::post('/logout-admin', [AdminController::class, 'logout'])->name('admin.logout');
 
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('admin.dashboard');
+Route::get('/admin/dashboard', function () {
+    return view('dashboard.index', [
+        'title' => 'Admin Dashboard'
+    ]);
+})->middleware('auth')->name('admin.dashboard') ;
 
-
+Route::resource('/admin/dashboard/news', DashboardNewsController::class)->middleware('auth');
+Route::resource('/admin/dashboard/events', DashboardEventsController::class)->middleware('auth');
+Route::resource('/admin/dashboard/songs', DashboardSongsController::class)->middleware('auth');
 
 
 

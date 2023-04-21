@@ -29,7 +29,7 @@ class NewsController extends Controller
 
     public function createNews()
     {
-        return view('admin.createNews', [
+        return view('dashboard.news.createNews', [
             'title' => 'News'
         ]);
     }

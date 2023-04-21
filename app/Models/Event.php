@@ -16,4 +16,9 @@ class Event extends Model
         'time',
         'date'
     ];
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
+

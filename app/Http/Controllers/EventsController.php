@@ -35,7 +35,7 @@ class EventsController extends Controller
 
     public function addEvent()
     {
-        return view('admin.addEvent', [
+        return view('dashboard.events.addEvent', [
             'title' => 'Events'
         ]);
     }

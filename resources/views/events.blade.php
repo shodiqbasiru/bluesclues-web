@@ -24,5 +24,5 @@
         @endforeach
     </div>
 </div>
-<a href="/add-event" class="btn btn-primary">Tambah event baru</a>
+<a href="/admin/add-event" class="btn btn-primary">Tambah event baru</a>
 @endsection

@@ -15,11 +15,14 @@ return new class extends Migration
     {
         Schema::create('songs', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
-            $table->string('link_spotify');
-            $table->string('link_youtube');
-            $table->string('tanggal_rilis');
+            $table->text('title');
+            $table->string('slug')->unique();
+            $table->text('spotify_link');
+            $table->text('youtube_link');
             $table->string('album');
+            $table->timestamp('release_date');
+            $table->text('lyrics');
+            $table->timestamps();
         });
     }
 
