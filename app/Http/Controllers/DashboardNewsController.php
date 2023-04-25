@@ -16,9 +16,11 @@ class DashboardNewsController extends Controller
     public function index()
     {
         //
+        $news = News::latest()->paginate(10);
+        
         return view('dashboard.news.index', [
             'title' => 'News',
-            'news' => News::latest()->get(),
+            'news' => $news,     
         ]);
     }
 
@@ -93,6 +95,10 @@ class DashboardNewsController extends Controller
     public function edit(News $news)
     {
         //
+        return view('dashboard.news.edit', [
+            'title' => 'News',
+            'news' => $news
+        ]);
     }
 
     /**
@@ -105,6 +111,29 @@ class DashboardNewsController extends Controller
     public function update(Request $request, News $news)
     {
         //
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required',
+        ]);
+
+        // update the news article
+        $news = News::find($news->id);
+        $news->title = $validatedData['title'];
+        $news->content = $validatedData['content'];
+        $news->excerpt = Str::limit(strip_tags($validatedData['content']), 100, '...');
+        $news->excerpt = str_replace('&nbsp;', '', $news->excerpt);
+
+        $truncatedTitle = substr($validatedData['title'], 0, 50);
+        $slug = Str::slug($truncatedTitle, '-') . '-' . uniqid();
+        while (News::where('slug', $slug)->exists()) {
+            $slug = Str::slug($truncatedTitle, '-') . '-' . uniqid();
+        }
+        $news->slug = $slug;
+        $news->save();
+
+        // redirect back to the form with a success message
+        return redirect('/admin/dashboard/news')->with('success', 'News article has been updated!');
+
     }
 
     /**
@@ -116,5 +145,8 @@ class DashboardNewsController extends Controller
     public function destroy(News $news)
     {
         //
+        News::destroy($news->id);
+        return redirect('/admin/dashboard/news')->with('success', 'News article has been deleted!');
+
     }
 }

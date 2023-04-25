@@ -13,12 +13,12 @@
         <div class="d-flex justify-content-center align-items-center"><span data-feather="edit" class="me-1"></span>
             Edit</div>
     </a>
-    <form action="/admin/dashboard/songs/{{ $song->id }}" method="post" class="d-inline">
+    <form action="/admin/dashboard/songs/{{ $song->slug }}" method="post" class="d-inline">
         @method('delete')
         @csrf
         <button type="submit" class="btn btn-outline-light me-2">
-            <div class="d-flex justify-content-center align-items-center"><span data-feather="trash"
-                    class="me-1"></span>
+            <div class="d-flex justify-content-center align-items-center" onclick="return confirm ('Are you sure to delete this entry?')"><span
+                    data-feather="trash" class="me-1"></span>
                 Delete</div>
         </button>
     </form>

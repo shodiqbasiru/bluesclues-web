@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.111.3">
-    <title>Blues Clues | Dashboard</title>
+    <title>Blues Clues | {{ $title }}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -169,6 +169,48 @@
             border-color: transparent;
             box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
         }
+
+        /* pagination */
+        .pagination a {
+            background-color: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 0.5rem 0.75rem;
+            margin-right: 0.25rem;
+            text-decoration: none;
+        }
+
+        .pagination .page-link:hover {
+            background-color: #eee;
+            color: black;
+            font-weight: bold;
+            border-color: #333;
+            border: 1px solid #fff;
+            padding: 0.5rem 0.75rem;
+            margin-right: 0.25rem;
+            text-decoration: none;
+
+
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #eee;
+
+            color: black;
+            font-weight: bold;
+            border-color: #333;
+            border: 1px solid #fff;
+            padding: 0.5rem 0.75rem;
+            margin-right: 0.25rem;
+            text-decoration: none;
+        }
+
+        .pagination .page-link:not(.disabled) {
+            padding: 0.5rem 0.75rem;
+            margin-right: 0.25rem;
+            text-decoration: none;
+        }
+        
     </style>
 
 

@@ -13,19 +13,25 @@
                         <div class="d-flex justify-content-center align-items-center"><span data-feather="edit" class="me-1"></span>
                             Edit</div>
                     </a>
-                    <form action="/admin/dashboard/news/{{ $news->id }}" method="post" class="d-inline">
+                    <form action="/admin/dashboard/news/{{ $news->slug }}" method="post" class="d-inline">
                         @method('delete')
                         @csrf
                         <button type="submit" class="btn btn-outline-light me-2">
-                            <div class="d-flex justify-content-center align-items-center"><span
+                            <div class="d-flex justify-content-center align-items-center" onclick="return confirm ('Are you sure to delete this entry?')"><span
                                     data-feather="trash" class="me-1"></span>
                                 Delete</div>
                         </button>
                     </form>
+
                 </div>
                 <p>
                     <small class="text-muted">
-                        {{ $news->created_at->diffForHumans() }}
+                        Created: {{ $news->created_at->diffForHumans() }}
+                    </small>
+                </p>
+                <p>
+                    <small class="text-muted">
+                        Last updated: {{ $news->updated_at->diffForHumans() }}
                     </small>
                 </p>
                 <img src="https://source.unsplash.com/1200x400?music " alt="image" class="img-fluid">

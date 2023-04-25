@@ -3,15 +3,15 @@
 @section('content')
 <div class="d-flex justify-content-center mt-5">
   
-    <a href="/admin/dashboard/event/{{ $event->slug }}/edit" class="btn btn-outline-light me-2">
+    <a href="/admin/dashboard/events/{{ $event->slug }}/edit" class="btn btn-outline-light me-2">
         <div class="d-flex justify-content-center align-items-center"><span data-feather="edit" class="me-1"></span>
             Edit</div>
     </a>
-    <form action="/admin/dashboard/event/{{ $event->id }}" method="post" class="d-inline">
+    <form action="/admin/dashboard/events/{{ $event->slug }}" method="post" class="d-inline">
         @method('delete')
         @csrf
         <button type="submit" class="btn btn-outline-light me-2">
-            <div class="d-flex justify-content-center align-items-center"><span
+            <div class="d-flex justify-content-center align-items-center" onclick="return confirm ('Are you sure to delete this entry?')"><span
                     data-feather="trash" class="me-1"></span>
                 Delete</div>
         </button>

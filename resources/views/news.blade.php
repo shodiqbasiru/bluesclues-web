@@ -24,5 +24,4 @@
         @endforeach
     </div>
 </div>
-<a href="/admin/create-news" class="btn btn-primary">Buat berita baru</a>
 @endsection

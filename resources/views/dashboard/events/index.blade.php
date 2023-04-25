@@ -46,16 +46,18 @@
 
                     <a href="/admin/dashboard/events/{{ $item->slug }}/edit"
                         class="btn btn-sm btn-outline-light me-2"><span data-feather="edit"></span></a>
-                    <form action="/admin/dashboard/events/{{ $item->id }}" method="post" class="d-inline">
+                    <form action="/admin/dashboard/events/{{ $item->slug }}" method="post" class="d-inline">
                         @method('delete')
                         @csrf
-                        <button type="submit" class="btn btn-sm btn-outline-light me-2"><span
+                        <button type="submit" class="btn btn-sm btn-outline-light me-2"
+                            onclick="return confirm ('Are you sure to delete this entry?')"><span
                                 data-feather="trash"></span></button>
                     </form>
                 </td>
             </tr>
             @endforeach
         <tbody>
+            {{ $events->links() }}
     </table>
 </div>
 @endsection
