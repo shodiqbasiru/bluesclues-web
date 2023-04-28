@@ -29,7 +29,14 @@
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Upload Image</label>
+
+            @if($news->image)
+            <img src="{{ asset('storage/' . $news->image) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                
+            @else
             <img class="img-preview img-fluid mb-3 col-sm-5">
+                
+            @endif
             <input class="form-control{{ $errors->has('image') ? ' is-invalid' : '' }}" type="file" id="image"
                 name="image" onchange="previewImage()">
             @if ($errors->has('image'))

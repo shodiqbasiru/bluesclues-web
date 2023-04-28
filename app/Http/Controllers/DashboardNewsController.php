@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardNewsController extends Controller
 {
@@ -121,6 +122,7 @@ class DashboardNewsController extends Controller
         //
         $validatedData = $request->validate([
             'title' => 'required|max:255',
+            'image' => 'image|file|max:7168',
             'content' => 'required',
         ]);
 
@@ -136,7 +138,12 @@ class DashboardNewsController extends Controller
         while (News::where('slug', $slug)->exists()) {
             $slug = Str::slug($truncatedTitle, '-') . '-' . uniqid();
         }
-        $news->slug = $slug;
+        if($request->file('image')){
+            if ($news->image != null) Storage::delete($news->image);
+            $validatedData['image'] = $request->file('image')->store('news-images');
+            $news->image = $validatedData['image'];
+        }
+        $news->slug = $slug; 
         $news->save();
 
         // redirect back to the form with a success message
@@ -153,6 +160,7 @@ class DashboardNewsController extends Controller
     public function destroy(News $news)
     {
         //
+        if ($news->image != null) Storage::delete($news->image);
         News::destroy($news->id);
         return redirect('/admin/dashboard/news')->with('success', 'News article has been deleted!');
 
