@@ -12,7 +12,7 @@
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    <form method="POST" action="{{ route('songs.store') }}">
+    <form method="POST" action="{{ route('songs.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group my-3">
             <label for="title">Song Title:</label>
@@ -50,6 +50,14 @@
             <input type="date" class="form-control{{ $errors->has('release_date') ? ' is-invalid' : '' }} mt-2" value="{{ old('release_date') }}" id="release_date" name="release_date" placeholder="Enter release date" >
             @if ($errors->has('release_date'))
             <span class="invalid-feedback">{{ $errors->first('release_date') }}</span>
+            @endif
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload song art</label>
+            <input class="form-control{{ $errors->has('image') ? ' is-invalid' : '' }}" type="file" id="image"
+                name="image">
+            @if ($errors->has('image'))
+            <span class="invalid-feedback">{{ $errors->first('image') }}</span>
             @endif
         </div>
         <div class="form-group my-4">

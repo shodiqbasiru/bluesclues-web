@@ -48,8 +48,11 @@ class DashboardNewsController extends Controller
         //
         $validatedData = $request->validate([
             'title' => 'required|max:255',
+            'image' => 'image|file|max:7168',
             'content' => 'required',
         ]);
+
+        
 
 
         // create a new news article
@@ -65,6 +68,11 @@ class DashboardNewsController extends Controller
             $slug = Str::slug($truncatedTitle, '-') . '-' . uniqid();
         }
         $news->slug = $slug;
+
+        if($request->file('image')){
+            $validatedData['image'] = $request->file('image')->store('news-images');
+            $news->image = $validatedData['image'];
+        }
         $news->save();
 
         // redirect back to the form with a success message

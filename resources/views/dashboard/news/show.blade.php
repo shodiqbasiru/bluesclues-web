@@ -34,8 +34,13 @@
                         Last updated: {{ $news->updated_at->diffForHumans() }}
                     </small>
                 </p>
+                @if ($news->image)
+                <img src="{{ asset('storage/' . $news->image) }}" alt="image" class="img-fluid">
+                @else
                 <img src="https://source.unsplash.com/1200x400?music " alt="image" class="img-fluid">
-
+                    
+                @endif
+                
                 <article class="mb-5 mt-5">
                     {!! $news->content !!}
                 </article>
