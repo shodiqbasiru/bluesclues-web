@@ -31,6 +31,7 @@ class VideosController extends Controller
                 'channelId' => $channelId,
                 'maxResults' => $maxResults,
                 'type' => 'video',
+                'order' => 'date',
             ]);
 
             $videos = [];
@@ -43,12 +44,12 @@ class VideosController extends Controller
                     'thumbnail' => $video->getSnippet()->getThumbnails()->getMedium()->getUrl(),
                 ];
             }
-            
+
 
             // Cache the results for 1 hour
             Cache::put($cacheKey, $videos, now()->addHour());
         }
-        
+
 
         return view('videos', [
             'title' => 'Videos',
