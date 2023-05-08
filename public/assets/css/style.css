@@ -1,10 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700;800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300&display=swap");
+:root {
+    --primary-color: #1159a6;
+    --secondary-color: #6ca2dd;
+    --font-color: #fff;
+    --hvr-video-color: rgba(30, 27, 33, 0.8);
+}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: #fff;
+    color: var(--font-color);
     font-family: "Inter", sans-serif;
 }
 
@@ -14,8 +20,8 @@ body {
 
 .btn-home {
     background-color: rgba(0, 0, 0, 0);
-    border: 1px solid #1159a6;
-    color: #1159a6;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
     font-size: 22px;
     font-weight: 600;
     width: 214px;
@@ -25,9 +31,9 @@ body {
 }
 
 .btn-home:hover {
-    background-color: #1159a6;
-    border: 1px solid #1159a6;
-    color: #fff;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    color: var(--font-color);
 }
 
 /* navigation */
@@ -47,7 +53,7 @@ body {
 .navbar-nav .nav-item .nav-link {
     position: relative;
     text-transform: uppercase;
-    color: #fff;
+    color: var(--font-color);
     font-weight: 800;
     font-size: 16px;
     line-height: 20px;
@@ -109,6 +115,7 @@ body {
 .coming-soon h2 {
     font-size: 48px;
     font-weight: 700;
+    margin-bottom: -14px;
 }
 
 .coming-soon h1 {
@@ -126,53 +133,111 @@ body {
 .h-music {
     position: relative;
     display: flex;
-    /* justify-content: center; */
-    padding: 86px 73px 116px 145px;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 139px 153px;
     /* background-color: black; */
     background-image: url("/assets/img/bg-music.png");
     width: 100%;
-    height: 772px;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.h-music .line {
-    position: absolute;
-    left: 73px;
-    top: 155px;
+.play-box {
+    width: 50%;
 }
 
-.h-music .text-music {
+.container-music {
+    width: 50%;
+}
+
+.container-music .icon-music a {
+    text-decoration: none;
+    color: var(--font-color);
+    display: inline-flex;
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 30px;
+    gap: 10px;
+}
+
+.container-music .icon-music a p {
+    margin: 0;
+    align-self: center;
+}
+
+.container-music .icon-music a img {
+    width: 30px;
+    height: 30px;
+}
+
+.musicbox h2 {
+    padding-bottom: 2.5rem;
+}
+
+.circle {
+    width: 390px;
+    height: 390px;
+    background-color: #222427;
+    border-radius: 50%;
+    margin: 2rem auto;
     display: flex;
-    flex-direction: column;
-    margin-left: 65px;
+    border: 3px solid #37b0d8;
+    border-top: 3px solid #0254ec;
 }
-
-.h-music .text-music h2 {
-    font-size: 128px;
-    font-weight: 800;
-    line-height: 155px;
-    letter-spacing: 0.18em;
-    color: rgba(0, 0, 0, 0);
-    -webkit-text-stroke: 6px #fefefe;
+.circle2 {
+    width: 320px;
+    height: 320px;
+    background-color: #252629;
+    border-radius: 50%;
+    border: 3px solid #282529;
+    border-top: 3px solid #66bfe9;
+    align-self: center;
+    display: flex;
+    margin: auto;
 }
-
-.h-music .text-music h3 {
-    margin-top: 49px;
-    font-size: 40px;
-    font-weight: 700;
-    line-height: 64px;
-    font-family: "Times New Roman", Times, serif;
+.circle2 .fluid-img {
+    width: 100%;
+    max-width: 390px;
+    height: auto;
+    border-radius: 50%;
+    align-self: center;
+    margin: auto;
 }
-
-.h-music .text-music p {
-    font-size: 24px;
-    font-weight: 500;
-    line-height: 38px;
+#song-name {
+    color: var(--font-color);
+    font-weight: 400;
+    text-align: center;
 }
-
-.h-music .text-music .btn-home {
-    margin-top: 90px;
+.circle.animate {
+    animation: anticlock 6s infinite linear;
+}
+.circle2.animate {
+    animation: clockwise 6s infinite linear;
+}
+.media-btn {
+    width: 100%;
+    max-width: 50px;
+    height: auto;
+    margin: auto;
+    cursor: pointer;
+    margin: 1rem;
+}
+@keyframes anticlock {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+@keyframes clockwise {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .nav-slider {
@@ -205,6 +270,34 @@ body {
     right: 0;
 }
 
+.musicbox ol {
+    list-style-type: none;
+    counter-reset: my-counter;
+}
+
+.musicbox ol li::before {
+    content: counter(my-counter, decimal-leading-zero) " ";
+    counter-increment: my-counter;
+    position: absolute;
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+    left: -2em;
+}
+
+.musicbox ol li {
+    position: relative;
+    padding-bottom: 1.4rem;
+    margin-bottom: 0.5em;
+    text-indent: 1.5em;
+}
+
+.musicbox ol li h3 {
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+}
+
 /* home mechandise */
 .h-merchan {
     position: relative;
@@ -231,7 +324,7 @@ body {
 }
 
 .h-merchan .merch-container h3 span {
-    color: #1159a6;
+    color: var(--primary-color);
 }
 
 .h-merchan .p-merch {
@@ -272,7 +365,7 @@ body {
 }
 
 .h-merchan .p-merch .card-merch .body .price {
-    color: #1159a6;
+    color: var(--primary-color);
     font-size: 20px;
 }
 
@@ -344,7 +437,6 @@ body {
     flex-direction: column;
     position: relative;
     background-image: url("/assets/img/bg-news.png");
-    width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
     z-index: 0;
@@ -366,41 +458,52 @@ body {
     z-index: 1;
 }
 
-.news {
+.h-news .news {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 70px;
+    gap: 32px;
 }
 
-.news .card-news {
-    width: 20rem;
+.h-news .news .card-news {
+    width: 282px;
     z-index: 2;
     text-align: justify;
+    height: 478px;
 }
 
-.news .card-news h3 {
+.h-news .news .card-news h3 {
     font-size: 20px;
     font-weight: 700;
     line-height: 29px;
 }
 
-.news .card-news p {
+.h-news .news .card-news .card-body p {
     font-family: "Open Sans", sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: 26px;
 }
 
-.news .card-news img {
+.h-news .news .card-news img {
     width: 100%;
     margin-bottom: 10px;
+    object-fit: cover;
+    object-position: center;
 }
 
 .h-news .btn-home {
     align-self: center;
     margin-top: 5.5rem;
     margin-bottom: 4.8rem;
+}
+
+.h-124 {
+    height: 124px;
+}
+
+.h-158 {
+    height: 158.83px;
 }
 
 /* News Page */
@@ -458,6 +561,8 @@ body {
 
 .page-news .news .card-news img {
     width: 100%;
+    object-fit: cover;
+    object-position: center;
     margin-bottom: 10px;
 }
 
@@ -465,6 +570,62 @@ body {
     text-transform: uppercase;
     align-self: center;
     margin-top: 5.5rem;
+}
+
+/* about page */
+.page-about {
+    margin-top: -100px;
+    background-color: rgba(18, 18, 18, 1);
+}
+
+.page-about .hero {
+    padding: 6.5rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 17px;
+}
+
+.page-about .hero img {
+    width: 195px;
+    height: 572px;
+    object-fit: cover;
+}
+
+.page-about .hero img.position {
+    margin-top: 4rem;
+}
+
+.page-about .content {
+    display: flex;
+    margin-top: 9.1rem;
+    flex-direction: column;
+}
+
+.page-about .content p {
+    width: 70%;
+    margin: 0.5rem auto;
+}
+
+.page-about .content p span {
+    color: var(--primary-color);
+}
+
+.page-about .content img {
+    width: 646px;
+    margin: 0 auto 4.6rem auto;
+}
+
+.page-about .content table {
+    text-transform: uppercase;
+    margin: 0 auto 4.7rem auto;
+    border: none;
+}
+
+.page-about .content table .roles,
+.page-about .content table .name {
+    width: 50px;
+    padding: 0 1rem;
 }
 
 /* footer */
@@ -489,7 +650,7 @@ footer .container-fluid p.cpy {
     font-size: 14px;
     text-transform: uppercase;
     font-weight: 800;
-    color: #fff;
+    color: var(--font-color);
 }
 
 footer .container-fluid p {
@@ -499,5 +660,5 @@ footer .container-fluid p {
     font-weight: 400;
     padding: 0;
     margin: 0;
-    color: #1159a6;
+    color: var(--primary-color);
 }

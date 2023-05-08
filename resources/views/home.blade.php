@@ -23,6 +23,47 @@
 @section('h-music')
 
 <div class="container-fluid h-music slider" id="h-music">
+    <div class="play-box">
+        <div class="songs">
+            <div id="circle-bg" class="circle">
+                <div id="circle-sm" class="circle2">
+                  <img id="cover" src="{{ url('/assets/img/Component 5.png') }}" class="fluid-img" />
+                </div>
+            </div>
+            <h2 id="song-name">Sure to Marry You</h2>
+            <div class="controls text-center">
+                <audio id="audio" src=""></audio>
+                <img
+                  id="backward"
+                  class="media-btn"
+                  src="{{ url('./assets/img/icons/prev-music.png') }}"
+                />
+                <img id="play-stop" class="media-btn" />
+                <img
+                  id="forward"
+                  class="media-btn"
+                  src="{{ url('./assets/img/icons/next-music.png') }}"
+                />
+              </div>
+        </div>
+    </div>
+    <div class="container-music">
+
+        <div id="musicbox" class="musicbox mt-5">
+            <h2>Music</h2>
+    
+        </div>
+        <div class="icon-music">
+            <a href="#">
+                <img src="{{ url('./assets/img/icons/spotify-w.svg') }}" alt="">
+                <p>Spotify</p>
+            </a>
+            <a href="#">
+                <img src="{{ url('./assets/img/icons/apple-w.svg') }}" alt="">
+                <p>Itunes</p>
+            </a>
+        </div>
+    </div>
     
 </div>
 
@@ -84,10 +125,10 @@
         </div>
         <div class="slide-control">
             <button id="prev">
-                <img src="{{ url('/assets/img/prev.png') }}" alt="">
+                <img src="{{ url('/assets/img/icons/prev.png') }}" alt="">
             </button>
             <button id="next">
-                <img src="{{ url('/assets/img/next.png') }}" alt="">
+                <img src="{{ url('/assets/img/icons/next.png') }}" alt="">
             </button>
         </div>
     </div>
@@ -103,25 +144,34 @@
     <h2>News</h2>
     <div class="news">
         <div class="card-news">
-            <img src="{{ url('/assets/img/img-news-1.png') }}" alt="">
+            <img src="{{ url('/assets/img/img-news-1.png') }}" alt="" class="h-124">
             <h3>“TAMIYAN” ALBUM RELEASE SOON!</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, recusandae placeat culpa atque magnam ullam eum omnis itaque molestias illum, velit repudiandae ad provident. Quos voluptatum iure hic nostrum repellendus!</p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam, magni.</p>
-            <a href="#">Read more</a>
+            <div class="card-body">
+
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, recusandae placeat culpa atque magnam ullam eum omnis itaque molestias illum, velit repudiandae ad provident. Quos voluptatum iure hic nostrum repellendus!</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam, magni.</p>
+            </div>
+            <a href="/news/detail-news">Read more</a>
         </div>
         <div class="card-news">
-            <img src="{{ url('/assets/img/img-news-2.png') }}" alt="">
+            <img src="{{ url('/assets/img/img-news-2.png') }}" alt="" class="h-158">
             <h3>“TAMIYAN” ALBUM RELEASE SOON!</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, recusandae placeat culpa atque magnam ullam eum omnis itaque molestias illum, velit repudiandae ad provident. Quos voluptatum iure hic nostrum repellendus!</p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam, magni.</p>
-            <a href="#">Read more</a>
+            <div class="card-body center">
+
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, recusandae placeat culpa atque magnam ullam eum omnis itaque molestias illum, velit repudiandae ad provident. Quos voluptatum iure hic nostrum repellendus!</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam, magni.</p>
+            </div>
+            <a href="/news/detail-news">Read more</a>
         </div>
         <div class="card-news">
-            <img src="{{ url('/assets/img/img-news-3.png') }}" alt="">
+            <img src="{{ url('/assets/img/img-news-3.png') }}" alt="" class="h-124">
             <h3>“TAMIYAN” ALBUM RELEASE SOON!</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, recusandae placeat culpa atque magnam ullam eum omnis itaque molestias illum, velit repudiandae ad provident. Quos voluptatum iure hic nostrum repellendus!</p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam, magni.</p>
-            <a href="#">Read more</a>
+            <div class="card-body">
+
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, recusandae placeat culpa atque magnam ullam eum omnis itaque molestias illum, velit repudiandae ad provident. Quos voluptatum iure hic nostrum repellendus!</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam, magni.</p>
+            </div>
+            <a href="/news/detail-news">Read more</a>
         </div>
     </div>
 

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid justify-content-between">
+    <div class="container justify-content-between">
         <div class="col-md-1">
             <div class="nav-logo">
                 <svg width="67" height="57" viewBox="0 0 358 289" fill="none" xmlns="http://www.w3.org/2000/svg">
