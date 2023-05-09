@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\DetailNewsController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\SongController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,7 @@ Route::get('/about', [AboutController::class, 'index']);
 // news
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/detail-news', [DetailNewsController::class, 'index']);
+
+// videos
+
+Route::get('/music', [SongController::class, 'index']);

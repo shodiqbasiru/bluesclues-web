@@ -611,7 +611,7 @@ body {
     color: var(--primary-color);
 }
 
-.page-about .content img {
+.page-about .content img.blues-logo {
     width: 646px;
     margin: 0 auto 4.6rem auto;
 }
@@ -626,6 +626,33 @@ body {
 .page-about .content table .name {
     width: 50px;
     padding: 0 1rem;
+}
+
+.page-about .content-song {
+    margin-top: 4.7rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-about .content-song .album,
+.page-about .content-song .single {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.page-about .content-song .album h4,
+.page-about .content-song .single h4 {
+    margin-bottom: 2.1rem;
+}
+
+.page-about .content-song .album img,
+.page-about .content-song .single img {
+    width: 194px;
+    height: 194px;
+    object-fit: cover;
+    margin-bottom: 76px;
 }
 
 /* footer */

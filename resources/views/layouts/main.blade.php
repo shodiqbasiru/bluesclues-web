@@ -27,6 +27,8 @@
     {{-- News Page --}}
         @yield('news')
 
+    {{-- Music Page --}}
+        @yield('song')
 
     @include('layouts.footer')
 
