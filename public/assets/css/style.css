@@ -1,7 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700;800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300&display=swap");
+:root {
+    --primary-color: #1159a6;
+    --secondary-color: #6ca2dd;
+    --font-color: #fff;
+    --hvr-video-color: rgba(30, 27, 33, 0.8);
+}
 
 * {
-    color: #fff;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: var(--font-color);
     font-family: "Inter", sans-serif;
 }
 
@@ -11,8 +20,8 @@ body {
 
 .btn-home {
     background-color: rgba(0, 0, 0, 0);
-    border: 1px solid #1159a6;
-    color: #1159a6;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
     font-size: 22px;
     font-weight: 600;
     width: 214px;
@@ -22,9 +31,9 @@ body {
 }
 
 .btn-home:hover {
-    background-color: #1159a6;
-    border: 1px solid #1159a6;
-    color: #fff;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    color: var(--font-color);
 }
 
 /* navigation */
@@ -44,7 +53,7 @@ body {
 .navbar-nav .nav-item .nav-link {
     position: relative;
     text-transform: uppercase;
-    color: #fff;
+    color: var(--font-color);
     font-weight: 800;
     font-size: 16px;
     line-height: 20px;
@@ -74,7 +83,7 @@ body {
 .bg-hero {
     margin-top: -100px;
     padding-top: 80px;
-    background-image: url("/assets/img/bg-hero.jpg");
+    background-image: url("/assets/img/bg-hero.png");
     width: 100%;
     height: 774px;
     background-size: cover;
@@ -93,153 +102,271 @@ body {
     transform: translate(-50%, -50%);
 }
 
+.coming-soon {
+    position: absolute;
+    text-align: center;
+    top: 95%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    width: 100%;
+}
+
+.coming-soon h2 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: -14px;
+}
+
+.coming-soon h1 {
+    font-size: 100px;
+    font-weight: 700;
+    line-height: 150px;
+    letter-spacing: 0.18em;
+    color: rgba(0, 0, 0, 0);
+    -webkit-text-stroke: 1px #fefefe;
+    font-family: "Poppins", sans-serif;
+}
+
 /*  home music */
 
 .h-music {
     position: relative;
     display: flex;
-    /* justify-content: center; */
-    padding: 86px 73px 116px 145px;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 139px 153px;
     /* background-color: black; */
     background-image: url("/assets/img/bg-music.png");
     width: 100%;
-    height: 772px;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.line {
-    position: absolute;
-    left: 73px;
-    top: 155px;
+.play-box {
+    width: 50%;
 }
 
-.h-music .text-music {
+.container-music {
+    width: 50%;
+}
+
+.container-music .icon-music a {
+    text-decoration: none;
+    color: var(--font-color);
+    display: inline-flex;
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 30px;
+    gap: 10px;
+}
+
+.container-music .icon-music a p {
+    margin: 0;
+    align-self: center;
+}
+
+.container-music .icon-music a img {
+    width: 30px;
+    height: 30px;
+}
+
+.musicbox h2 {
+    padding-bottom: 2.5rem;
+}
+
+.circle {
+    width: 390px;
+    height: 390px;
+    background-color: #222427;
+    border-radius: 50%;
+    margin: 2rem auto;
     display: flex;
-    flex-direction: column;
-    margin-left: 65px;
+    border: 3px solid #37b0d8;
+    border-top: 3px solid #0254ec;
+}
+.circle2 {
+    width: 320px;
+    height: 320px;
+    background-color: #252629;
+    border-radius: 50%;
+    border: 3px solid #282529;
+    border-top: 3px solid #66bfe9;
+    align-self: center;
+    display: flex;
+    margin: auto;
+}
+.circle2 .fluid-img {
+    width: 100%;
+    max-width: 390px;
+    height: auto;
+    border-radius: 50%;
+    align-self: center;
+    margin: auto;
+}
+#song-name {
+    color: var(--font-color);
+    font-weight: 400;
+    text-align: center;
+}
+.circle.animate {
+    animation: anticlock 6s infinite linear;
+}
+.circle2.animate {
+    animation: clockwise 6s infinite linear;
+}
+.media-btn {
+    width: 100%;
+    max-width: 50px;
+    height: auto;
+    margin: auto;
+    cursor: pointer;
+    margin: 1rem;
+}
+@keyframes anticlock {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+@keyframes clockwise {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
-.h-music .text-music h2 {
-    font-size: 128px;
-    font-weight: 800;
-    line-height: 155px;
-    letter-spacing: 0.18em;
-    color: rgba(0, 0, 0, 0);
-    -webkit-text-stroke: 6px #fefefe;
+.nav-slider {
+    position: absolute;
+    top: 0;
+    left: 1%;
+    right: 1%;
+    bottom: 0;
 }
 
-.h-music .text-music h3 {
-    margin-top: 49px;
-    font-size: 40px;
+.nav-slider button {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    display: inline-block;
+}
+
+.nav-slider button:hover {
+    opacity: 0.8;
+}
+
+.nav-slider button.prev {
+    left: 0;
+}
+
+.nav-slider button.next {
+    right: 0;
+}
+
+.musicbox ol {
+    list-style-type: none;
+    counter-reset: my-counter;
+}
+
+.musicbox ol li::before {
+    content: counter(my-counter, decimal-leading-zero) " ";
+    counter-increment: my-counter;
+    position: absolute;
+    font-size: 14px;
     font-weight: 700;
-    line-height: 64px;
-    font-family: "Times New Roman", Times, serif;
+    color: rgba(255, 255, 255, 0.5);
+    left: -2em;
 }
 
-.h-music .text-music p {
-    font-size: 24px;
-    font-weight: 500;
-    line-height: 38px;
+.musicbox ol li {
+    position: relative;
+    padding-bottom: 1.4rem;
+    margin-bottom: 0.5em;
+    text-indent: 1.5em;
 }
 
-.h-music .text-music .btn-home {
-    margin-top: 90px;
+.musicbox ol li h3 {
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
 }
 
 /* home mechandise */
 .h-merchan {
     position: relative;
     background-color: black;
-    background-image: url("/assets/img/bg-merchan.jpg");
+    background-image: url("/assets/img/bg-merchan.png");
     width: 100%;
-    height: 772px;
     background-size: cover;
     background-repeat: no-repeat;
-}
-
-.h-merchan .b-line-merch {
-    position: absolute;
-    background-color: #1159a6;
-    left: -250px;
-    right: -350px;
-    top: 76px;
-    transform: rotate(1.97deg);
-}
-
-.h-merchan .b-line-merch ul {
-    display: flex;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-}
-
-.h-merchan .b-line-merch ul li {
-    padding: 20px 1.5rem;
-    margin: 0 1.5rem;
-    font-size: 34px;
-    font-weight: 800;
-    text-transform: uppercase;
-}
-
-.h-merchan .b-line-disc {
-    position: absolute;
-    background-color: #0a0a0a;
-    left: -250px;
-    right: -350px;
-    top: 156px;
-    transform: rotate(-2.85deg);
-    border: 5px solid #1159a6;
-}
-
-.h-merchan .b-line-disc ul {
-    display: flex;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-}
-
-.h-merchan .b-line-disc ul li {
-    padding: 20px 1.5rem;
-    margin: 0 1.5rem;
-    font-size: 34px;
-    font-weight: 800;
-    text-transform: uppercase;
-}
-
-.h-merchan .merch-box {
-    position: absolute;
+    background-position: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    background-color: #0a0a0a;
-    width: 655px;
-    height: 285px;
-    top: 388px;
-    left: -50px;
+    padding: 9rem 5rem 10rem 7.3rem;
 }
 
-.h-merchan .merch-box h2 {
+.h-merchan .merch-container {
+    font-family: "Open Sans", sans-serif;
+}
+
+.h-merchan .merch-container h3 {
     text-transform: uppercase;
-    font-size: 48px;
-    font-weight: 800;
-    line-height: 58px;
-    align-self: center;
-    letter-spacing: 0.34em;
-    color: rgba(0, 0, 0, 0);
-    -webkit-text-stroke: 3px #1159a6;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 54px;
 }
 
-.h-merchan .merch-box .btn-home {
-    display: inline-block;
-    align-self: center;
-    margin-right: 2.5rem;
+.h-merchan .merch-container h3 span {
+    color: var(--primary-color);
 }
 
-.h-merchan .img-merch {
+.h-merchan .p-merch {
+    display: flex;
+    align-items: baseline;
+    gap: 22px;
+    justify-content: flex-end;
+}
+
+.h-merchan .p-merch .btn {
     position: absolute;
-    top: 291px;
-    right: 33px;
+    left: 117px;
+    top: 414px;
+}
+
+.h-merchan .p-merch .card-merch {
+    width: 15.3rem;
+    border-radius: 20px;
+    background-color: rgba(217, 217, 217, 10%);
+}
+
+.h-merchan .p-merch .card-merch .head img {
+    padding: 30px;
+    width: 100%;
+}
+
+.h-merchan .p-merch .card-merch .body {
+    background-color: #0a0a0a;
+    padding: 10px 20px;
+}
+
+.h-merchan .p-merch .card-merch .body p {
+    margin: 0;
+}
+
+.h-merchan .p-merch .card-merch .body .name {
+    font-size: 16px;
+}
+
+.h-merchan .p-merch .card-merch .body .price {
+    color: var(--primary-color);
+    font-size: 20px;
 }
 
 /* home section videos */
@@ -248,19 +375,54 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
-    background-image: url("/assets/img/bg-music.png");
-    width: 100%;
-    height: 772px;
+    background-image: url("/assets/img/bg-video.png");
     background-size: cover;
     background-repeat: no-repeat;
+    padding: 9rem 0;
 }
 
-.h-videos .frame-videos {
-    padding-top: 152px;
-    gap: 10px;
+.container-slider {
+    position: relative;
+    margin: 0 auto;
+    width: 60%;
+    height: 450px;
+}
+
+.slides {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    height: 100%;
+}
+
+.slide {
+    min-width: 100%;
+}
+
+.slide iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.slide-control {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#prev,
+#next {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+#prev:focus,
+#next:focus {
+    outline: none;
 }
 
 .h-videos .btn-home {
@@ -274,58 +436,256 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
-    background-image: url("/assets/img/bg-news.jpg");
-    width: 100%;
+    background-image: url("/assets/img/bg-news.png");
     background-size: cover;
     background-repeat: no-repeat;
     z-index: 0;
-    padding-bottom: 1rem;
+    padding: 10rem 0 4rem 0;
 }
 
 .h-news h2 {
     position: absolute;
-    top: 15%;
+    top: 5%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translatex(-50%);
     text-align: center;
-    font-size: 128px;
-    line-height: 155px;
-    font-weight: 800;
+    font-size: 48px;
+    line-height: 58px;
+    font-weight: 700;
     letter-spacing: 0.18em;
     color: rgba(0, 0, 0, 0);
-    -webkit-text-stroke: 6px #fefefe;
+    -webkit-text-stroke: 2px #fefefe;
     z-index: 1;
 }
 
-.blur-img {
-    background-color: rgba(0, 0, 0, 0.8);
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: -1;
-}
-
-.news {
-    padding-top: 10rem;
+.h-news .news {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 50px;
+    gap: 32px;
 }
 
-.news .card-news {
-    width: 15rem;
+.h-news .news .card-news {
+    width: 282px;
     z-index: 2;
+    text-align: justify;
+    height: 478px;
 }
 
-.news .card-news img {
-    margin-bottom: 33px;
+.h-news .news .card-news h3 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 29px;
+}
+
+.h-news .news .card-news .card-body p {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+}
+
+.h-news .news .card-news img {
+    width: 100%;
+    margin-bottom: 10px;
+    object-fit: cover;
+    object-position: center;
 }
 
 .h-news .btn-home {
     align-self: center;
     margin-top: 5.5rem;
     margin-bottom: 4.8rem;
+}
+
+.h-124 {
+    height: 124px;
+}
+
+.h-158 {
+    height: 158.83px;
+}
+
+/* News Page */
+.page-news {
+    margin-top: -100px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: rgba(18, 18, 18, 1);
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 0;
+    padding: 14rem 14rem 4rem 14rem;
+}
+
+.page-news h2 {
+    position: absolute;
+    top: 7%;
+    left: 50%;
+    transform: translatex(-50%);
+    text-align: center;
+    font-size: 48px;
+    line-height: 58px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: rgba(0, 0, 0, 0);
+    -webkit-text-stroke: 2px #fefefe;
+    z-index: 1;
+}
+
+.page-news .news {
+    gap: 32px;
+}
+
+.page-news .news .card-news {
+    width: 100%;
+    z-index: 2;
+    margin-bottom: 2rem;
+    text-align: justify;
+}
+
+.page-news .news .card-news h3 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 29px;
+}
+
+.page-news .news .card-news p {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+}
+
+.page-news .news .card-news img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    margin-bottom: 10px;
+}
+
+.page-news .btn-home {
+    text-transform: uppercase;
+    align-self: center;
+    margin-top: 5.5rem;
+}
+
+/* about page */
+.page-about {
+    margin-top: -100px;
+    background-color: rgba(18, 18, 18, 1);
+}
+
+.page-about .hero {
+    padding: 6.5rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 17px;
+}
+
+.page-about .hero img {
+    width: 195px;
+    height: 572px;
+    object-fit: cover;
+}
+
+.page-about .hero img.position {
+    margin-top: 4rem;
+}
+
+.page-about .content {
+    display: flex;
+    margin-top: 9.1rem;
+    flex-direction: column;
+}
+
+.page-about .content p {
+    width: 70%;
+    margin: 0.5rem auto;
+}
+
+.page-about .content p span {
+    color: var(--primary-color);
+}
+
+.page-about .content img.blues-logo {
+    width: 646px;
+    margin: 0 auto 4.6rem auto;
+}
+
+.page-about .content table {
+    text-transform: uppercase;
+    margin: 0 auto 4.7rem auto;
+    border: none;
+}
+
+.page-about .content table .roles,
+.page-about .content table .name {
+    width: 50px;
+    padding: 0 1rem;
+}
+
+.page-about .content-song {
+    margin-top: 4.7rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-about .content-song .album,
+.page-about .content-song .single {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.page-about .content-song .album h4,
+.page-about .content-song .single h4 {
+    margin-bottom: 2.1rem;
+}
+
+.page-about .content-song .album img,
+.page-about .content-song .single img {
+    width: 194px;
+    height: 194px;
+    object-fit: cover;
+    margin-bottom: 76px;
+}
+
+/* footer */
+
+footer {
+    background-color: #0a0a0a;
+}
+
+footer .container-fluid {
+    padding: 2.6rem;
+    flex-wrap: wrap;
+}
+
+footer .container-fluid .f-icon {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+
+footer .container-fluid p.cpy {
+    text-align: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--font-color);
+}
+
+footer .container-fluid p {
+    font-size: 12px;
+    line-height: 15px;
+    text-transform: uppercase;
+    font-weight: 400;
+    padding: 0;
+    margin: 0;
+    color: var(--primary-color);
 }

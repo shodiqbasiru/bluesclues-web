@@ -1,0 +1,1 @@
+ini halaman detail news

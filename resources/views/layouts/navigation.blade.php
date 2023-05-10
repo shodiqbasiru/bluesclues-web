@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid justify-content-between">
+    <div class="container justify-content-between">
         <div class="col-md-1">
             <div class="nav-logo">
                 <svg width="67" height="57" viewBox="0 0 358 289" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -16,19 +16,25 @@
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="/">Home</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/about') ? 'active' : '' }}" href="/about">About</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/news') ? 'active' : '' }}" href="/news">News</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/store') ? 'active' : '' }}" href="/store">Store</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/videos') ? 'active' : '' }}" href="/videos">videos</a>
+                    <a class="nav-link {{ (request()->segment(1) === null ? 'active' : '') }}" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link {{ request ()->segment(1) == 'about' ? 'active' : '' }}" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link {{ request ()->segment(1) == 'news' ? 'active' : '' }}" href="/news">News</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link {{ request ()->segment(1) == 'store' ? 'active' : '' }}" href="/store">Store</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link {{ request ()->segment(1) == 'event' ? 'active' : '' }}" href="/event">Event</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link {{ request ()->segment(1) == 'video' ? 'active' : '' }}" href="/video">Videos</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link {{ request ()->segment(1) == 'Music' ? 'active' : '' }}" href="/music">Music</a>
                     </li>
                 </ul>
                 </div>
