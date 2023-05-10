@@ -9,6 +9,7 @@ use App\Http\Controllers\VideosController;
 use App\Http\Controllers\DashboardNewsController;
 use App\Http\Controllers\DashboardEventsController;
 use App\Http\Controllers\DashboardSongsController;
+use App\Http\Controllers\DashboardMerchandiseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,8 +54,9 @@ Route::get('/admin/dashboard', function () {
 Route::resource('/admin/dashboard/news', DashboardNewsController::class)->middleware('auth');
 Route::resource('/admin/dashboard/events', DashboardEventsController::class)->middleware('auth');
 Route::resource('/admin/dashboard/songs', DashboardSongsController::class)->middleware('auth');
+Route::resource('/admin/dashboard/merchandise', DashboardMerchandiseController::class)->middleware('auth');
 
-
+ 
 
 
 Route::get('/songs', function () {
