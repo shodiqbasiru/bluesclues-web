@@ -28,10 +28,10 @@
                     <a class="nav-link {{ request ()->segment(1) == 'store' ? 'active' : '' }}" href="/store">Store</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link {{ request ()->segment(1) == 'event' ? 'active' : '' }}" href="/event">Event</a>
+                    <a class="nav-link {{ request ()->segment(1) == 'events' ? 'active' : '' }}" href="/events">Events</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link {{ request ()->segment(1) == 'video' ? 'active' : '' }}" href="/video">Videos</a>
+                    <a class="nav-link {{ request ()->segment(1) == 'videos' ? 'active' : '' }}" href="/videos">Videos</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link {{ request ()->segment(1) == 'Music' ? 'active' : '' }}" href="/music">Music</a>
@@ -39,8 +39,13 @@
                 </ul>
                 </div>
         </div> 
-        <div class="col-md-1"></div>
-            
-        
+        <div class="col-md-1 icons">
+            <a href="#">
+                <img src="{{ url('./assets/img/icons/person.svg') }}" alt="">
+            </a>
+            <a href="#">
+                <img src="{{ url('./assets/img/icons/cart.svg') }}" alt="">
+            </a>
+        </div>   
     </div>
 </nav>
