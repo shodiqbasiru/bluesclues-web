@@ -231,3 +231,31 @@ backward.addEventListener("click", backPlay);
 forward.addEventListener("click", nextPlay);
 
 createPlayList();
+
+// videos page
+// var videoContainer = document.getElementById("#video-container");
+// var videoPlayer = document.getElementById("#video-player");
+
+// // Add click event listener to each video thumbnail
+// var thumbnails = document.querySelectorAll(".video-thumbnail ");
+// thumbnails.forEach(function (thumbnail) {
+//     thumbnail.addEventListener("click", function () {
+//         // Get the video ID from the data-video-id attribute
+//         var videoId = this.getAttribute("data-video-id");
+
+//         // Set the src attribute of the video player with the video ID
+//         videoPlayer.setAttribute(
+//             "src",
+//             "https://www.youtube.com/embed/" + videoId
+//         );
+
+//         // Show the video player container
+//         videoContainer.style.display = "block";
+//     });
+// });
+
+// // Add click event listener to the video player container to hide it when clicked
+// videoContainer.addEventListener("click", function () {
+//     videoPlayer.setAttribute("src", "");
+//     videoContainer.style.display = "none";
+// });

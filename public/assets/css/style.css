@@ -1,9 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700;800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300&display=swap");
 :root {
     --primary-color: #1159a6;
     --secondary-color: #6ca2dd;
     --font-color: #fff;
     --hvr-video-color: rgba(30, 27, 33, 0.8);
+    --bckgrd-black: rgba(18, 18, 18, 1);
 }
 
 * {
@@ -16,6 +17,7 @@
 
 body {
     overflow-x: hidden;
+    background-color: var(--bckgrd-black);
 }
 
 .btn-home {
@@ -76,6 +78,22 @@ body {
 
 .navbar .navbar-nav {
     gap: 45px;
+}
+
+.navbar .icons {
+    display: flex;
+    gap: 34px;
+}
+
+.navbar .icons a {
+    text-decoration: none;
+}
+
+/* navigation store */
+.nav-item a {
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 2px solid #fff;
 }
 
 /* hero section */
@@ -509,20 +527,15 @@ body {
 /* News Page */
 .page-news {
     margin-top: -100px;
-    display: flex;
-    flex-direction: column;
     position: relative;
-    background-color: rgba(18, 18, 18, 1);
-    width: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color: var(--bckgrd-black);
     z-index: 0;
     padding: 14rem 14rem 4rem 14rem;
 }
 
 .page-news h2 {
     position: absolute;
-    top: 7%;
+    top: 3%;
     left: 50%;
     transform: translatex(-50%);
     text-align: center;
@@ -537,10 +550,13 @@ body {
 
 .page-news .news {
     gap: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .page-news .news .card-news {
-    width: 100%;
+    width: 400px;
     z-index: 2;
     margin-bottom: 2rem;
     text-align: justify;
@@ -572,28 +588,64 @@ body {
     margin-top: 5.5rem;
 }
 
+/* news page detail */
+.d-news {
+    margin-top: -100px;
+    padding: 16rem 13.5rem;
+    background-color: var(--bckgrd-black);
+}
+
+.d-news h2 {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin: 6.9rem 0;
+    transform: translatex(-50%);
+    text-align: center;
+    font-size: 48px;
+    line-height: 58px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: rgba(0, 0, 0, 0);
+    -webkit-text-stroke: 2px #fefefe;
+    z-index: 1;
+}
+
+.d-news img {
+    width: 80%;
+    height: 412px;
+    object-fit: cover;
+    display: block;
+    margin: 26px auto;
+}
+
+.d-news .news {
+    font-size: 20px;
+    line-height: 27px;
+    font-family: "Open Sans", sans-serif;
+    text-align: justify;
+}
+
+.d-news .btn {
+    display: block;
+    margin: 3.3rem auto;
+}
+
 /* about page */
 .page-about {
     margin-top: -100px;
-    background-color: rgba(18, 18, 18, 1);
+    background-color: var(--bckgrd-black);
+    padding: 0;
 }
 
 .page-about .hero {
-    padding: 6.5rem 0;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 17px;
 }
 
 .page-about .hero img {
-    width: 195px;
-    height: 572px;
+    width: 100%;
+    height: 768px;
     object-fit: cover;
-}
-
-.page-about .hero img.position {
-    margin-top: 4rem;
 }
 
 .page-about .content {
@@ -655,6 +707,163 @@ body {
     margin-bottom: 76px;
 }
 
+/* store page */
+#storeNav .nav-logo img {
+    height: 42px;
+    width: 193px;
+}
+
+/* videos page */
+
+.page-video {
+    margin: 0 7rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-video #video-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 3.7rem 0;
+}
+
+.page-video #video-header .header-img {
+    position: relative;
+    max-width: 559px;
+}
+.page-video #video-header .header-img img.video-thumbnail {
+    max-width: 559px;
+    height: 313px;
+    object-fit: cover;
+}
+
+.page-video #video-header img.btn-play {
+    position: absolute;
+    width: 58px;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.page-video #video-header .title {
+    margin-left: 4rem;
+    align-self: center;
+}
+
+.page-video #video-header .title .icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.page-video #video-header .title .icons p {
+    font-style: italic;
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 0 18px 0 0;
+    align-self: center;
+}
+
+.page-video #video-header .title h2 {
+    font-size: 37px;
+    letter-spacing: 0.96px;
+    line-height: 52px;
+    font-weight: 700;
+    font-family: "Playfair Display", serif;
+}
+
+.page-video .body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.video {
+    position: relative;
+}
+
+.video-thumbnail {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.video:hover .overlay {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.overlay h5 {
+    color: #fff;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.page-video .body img {
+    width: 312px;
+    height: 155px;
+    object-fit: cover;
+}
+
+.page-video #video-header .icons img {
+    width: 34px;
+    height: 34px;
+}
+
+.page-video .body img.video-thumbnail:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+.page-video .body img.video-thumbnail:hover {
+    opacity: 0.5;
+}
+
+.page-video #video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    z-index: 9999;
+}
+
+.page-video #video-container iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+}
+
+.page-video img {
+    cursor: pointer;
+}
+
+.page-video a.btn {
+    margin: 1rem auto;
+}
+
 /* footer */
 
 footer {
@@ -688,4 +897,10 @@ footer .container-fluid p {
     padding: 0;
     margin: 0;
     color: var(--primary-color);
+}
+
+/* footer store */
+
+footer .f-store {
+    margin: 3.9rem;
 }
