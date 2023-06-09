@@ -25,7 +25,8 @@ use App\Http\Controllers\DashboardMerchandiseController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/videos', [VideosController::class, 'index']);
+Route::get('/videos', [VideosController::class, 'showVideos'])->name('showVideos');
+Route::get('/videos-data', [VideosController::class, 'index'])->name('videos.index');
 
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{news:slug}', [NewsController::class, 'show']);

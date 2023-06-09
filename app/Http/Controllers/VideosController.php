@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Google_Client;
-use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Google_Service_YouTube;
+use Illuminate\Support\Facades\Http;
 
 class VideosController extends Controller
 {
@@ -33,7 +33,7 @@ class VideosController extends Controller
                 'channelId' => $channelId,
                 'maxResults' => $maxResults,
                 'type' => 'video',
-                'order' => 'date',
+                // 'order' => 'date',
             ]);
 
             $videos = [];
@@ -75,13 +75,22 @@ class VideosController extends Controller
 
 
             // Cache the results for 1 hour
-            Cache::put($cacheKey, $videos, now()->addHour());
-
+            // Cache::put($cacheKey, $videos, now()->addHour());
         }
 
+        return response()->json($videos);
+    }
+
+    public function showVideos()
+    {
+        $appUrl = env('APP_URL');
+        $response =  HTTP::get($appUrl.'videos-data');// Call the index() method to retrieve the JSON response
+        $videosData = $response->json(); // Convert the JSON response to an array
+
+        // Pass the videos data to the view
         return view('videos', [
             'title' => 'Videos',
-            'videos' => $videos
+            'videos' => $videosData,  
         ]);
     }
 }
