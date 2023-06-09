@@ -18,7 +18,7 @@
     <form method="POST" action="{{ route('merchandise.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group my-4">
-            <label for="title">Name</label>
+            <label for="name">Name</label>
             <input type="text" name="name" id="name"
                 class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }} mt-2" value="{{ old('name') }}">
             @if ($errors->has('name'))

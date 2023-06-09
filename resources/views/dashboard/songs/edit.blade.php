@@ -12,7 +12,7 @@
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    <form method="POST" action="{{ route('songs.update', $song->slug) }}">
+    <form method="POST" action="{{ route('songs.update', $song->slug) }}" enctype="multipart/form-data">
         @method('put')
         @csrf
         <div class="form-group my-3">
@@ -53,6 +53,23 @@
             <span class="invalid-feedback">{{ $errors->first('release_date') }}</span>
             @endif
         </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload song art</label>
+            @if($song->image)
+            <img src="{{ asset('storage/' . $song->image) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                
+            @else
+            <img class="img-preview img-fluid mb-3 col-sm-5">
+                
+            @endif
+            <input class="form-control{{ $errors->has('image') ? ' is-invalid' : '' }}" type="file" id="image"
+                name="image" onchange="previewImage()">
+            @if ($errors->has('image'))
+            <span class="invalid-feedback">{{ $errors->first('image') }}</span>
+            @endif
+        </div>
+        
         <div class="form-group my-4">
 
             <label class="mb-2" for="content">Lyrics:</label>
@@ -66,7 +83,19 @@
         <button type="submit" class="btn btn-outline-light mt-4">Save</button>
     </form>
 </div>          
+
+<script>
+    function previewImage(){
+        const image = document.querySelector('#image');
+        const imgPreview = document.querySelector('.img-preview');
+    
+        imgPreview.style.display = 'block';
+        const oFReader = new FileReader();
+        oFReader.readAsDataURL(image.files[0]);
+        oFReader.onload = function(oFREvent){
+            imgPreview.src = oFREvent.target.result;
+        }
+    }
+    </script>
 @endsection
-
-
 

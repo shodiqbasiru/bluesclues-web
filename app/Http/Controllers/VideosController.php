@@ -15,7 +15,7 @@ class VideosController extends Controller
 
 
         $channelId = 'UCIfb4X1VM8uYo5g9y6b585A';
-        $maxResults = 50;
+        $maxResults = 100;
 
         $cacheKey = 'youtube_search_' . $channelId;
         if (Cache::has($cacheKey)) {
@@ -37,9 +37,10 @@ class VideosController extends Controller
             $videos = [];
 
             foreach ($response->getItems() as $video) {
+                $title = preg_replace('/\s*#\S+\s*/', '', $video->getSnippet()->getTitle());
                 $videos[] = [
                     'id' => $video->getId()->getVideoId(),
-                    'title' => $video->getSnippet()->getTitle(),
+                    'title' => $title,
                     'description' => $video->getSnippet()->getDescription(),
                     'thumbnail' => $video->getSnippet()->getThumbnails()->getMedium()->getUrl(),
                 ];
@@ -47,9 +48,11 @@ class VideosController extends Controller
 
 
             // Cache the results for 1 hour
-            Cache::put($cacheKey, $videos, now()->addHour());
+            // Cache::put($cacheKey, $videos, now()->addHour());
+            
         }
-
+        // dd($videos);
+        // dd(env('YOUTUBE_API_KEY'));
 
         return view('videos', [
             'title' => 'Videos',

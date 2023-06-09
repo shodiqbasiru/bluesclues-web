@@ -21,14 +21,11 @@ use App\Http\Controllers\DashboardMerchandiseController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+
 
 Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/videos', [VideosController::class, 'index']);
-Route::get('/video/{id}', [VideosController::class, 'show'])->name('video');
 
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{news:slug}', [NewsController::class, 'show']);
