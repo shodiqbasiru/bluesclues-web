@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Google_Client;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Google_Service_YouTube;
 
 class VideosController extends Controller
@@ -37,22 +39,45 @@ class VideosController extends Controller
             $videos = [];
 
             foreach ($response->getItems() as $video) {
+                $videoId = $video->getId()->getVideoId();
+
+                // Retrieve video details including duration
+                $videoResponse = $youtube->videos->listVideos('contentDetails', [
+                    'id' => $videoId
+                ]);
+
+                //get duration of the video with ISO 8601 format
+                $duration = $videoResponse->getItems()[0]->getContentDetails()->getDuration();
+
+                //convert duration from ISO 8601 format to seconds
+                $interval = new CarbonInterval($duration);
+                $durationInSeconds = $interval->seconds + ($interval->minutes * 60) + ($interval->hours * 3600);
+
+                // Check if duration is less than 3 minutes (180 seconds)
+                if ($durationInSeconds < 120) {
+                    continue; // Skip this video and move to the next one
+                }
+
+                //format duration to HH:MM:SS
+                $durationFormatted = gmdate('H:i:s', $durationInSeconds);
+
+
                 $title = preg_replace('/\s*#\S+\s*/', '', $video->getSnippet()->getTitle());
+
                 $videos[] = [
-                    'id' => $video->getId()->getVideoId(),
+                    'id' => $videoId,
                     'title' => $title,
                     'description' => $video->getSnippet()->getDescription(),
                     'thumbnail' => $video->getSnippet()->getThumbnails()->getMedium()->getUrl(),
+                    'duration' => $durationFormatted,
                 ];
             }
 
 
             // Cache the results for 1 hour
-            // Cache::put($cacheKey, $videos, now()->addHour());
-            
+            Cache::put($cacheKey, $videos, now()->addHour());
+
         }
-        // dd($videos);
-        // dd(env('YOUTUBE_API_KEY'));
 
         return view('videos', [
             'title' => 'Videos',

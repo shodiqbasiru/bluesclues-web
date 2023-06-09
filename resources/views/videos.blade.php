@@ -30,6 +30,7 @@
             <img src="{{ $video['thumbnail'] }}" alt="{{ $video['title'] }}" class="video-thumbnail"
                 data-video-id="{{ $video['id'] }}" id="thumbnail_{{ $video['id'] }}">
             <h5>{{ $video['title'] }}</h5>
+            {{-- <p>{{ $video['duration'] }}</p> --}}
 
         </div>
     </div>
