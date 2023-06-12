@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\News;
 use App\Models\Song;
+use App\Models\Admin;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
         User::factory(1)->create();
         News::factory(20)->create();
         Song::factory(1)->create();
+        Admin::factory(1)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

@@ -30,29 +30,25 @@ Route::get('/videos-data', [VideosController::class, 'index'])->name('videos.ind
 
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{news:slug}', [NewsController::class, 'show']);
-Route::get('/admin/create-news', [NewsController::class, 'createNews'])->middleware('auth');
 Route::get('/shownews', [NewsController::class, 'select']);
-Route::post('/admin/create-news', [NewsController::class, 'store'])->middleware('auth')->name('news.store');
 
 Route::get('/events', [EventsController::class, 'index'])->name('events.index');
-Route::get('/admin/add-event', [EventsController::class, 'addEvent'])->middleware('auth');
 Route::get('/events/{event:slug}', [EventsController::class, 'show']);
-Route::post('/admin/add-event', [EventsController::class, 'store'])->middleware('auth')->name('events.store');
 
-Route::get('/login-admin', [AdminController::class, 'login'])->middleware('guest')->name('login');
-Route::post('/login-admin', [AdminController::class, 'authenticate'])->name('admin.authenticate');
-Route::post('/logout-admin', [AdminController::class, 'logout'])->name('admin.logout');
+Route::get('/admin/login', [AdminController::class, 'login'])->middleware('guest')->name('login');
+Route::post('/admin/login', [AdminController::class, 'authenticate'])->name('admin.authenticate');
+Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
 Route::get('/admin/dashboard', function () {
     return view('dashboard.index', [
         'title' => 'Admin Dashboard'
     ]);
-})->middleware('auth')->name('admin.dashboard') ;
+})->middleware('admin')->name('admin.dashboard') ;
 
-Route::resource('/admin/dashboard/news', DashboardNewsController::class)->middleware('auth');
-Route::resource('/admin/dashboard/events', DashboardEventsController::class)->middleware('auth');
-Route::resource('/admin/dashboard/songs', DashboardSongsController::class)->middleware('auth');
-Route::resource('/admin/dashboard/merchandise', DashboardMerchandiseController::class)->middleware('auth');
+Route::resource('/admin/dashboard/news', DashboardNewsController::class)->middleware('admin');
+Route::resource('/admin/dashboard/events', DashboardEventsController::class)->middleware('admin');
+Route::resource('/admin/dashboard/songs', DashboardSongsController::class)->middleware('admin');
+Route::resource('/admin/dashboard/merchandise', DashboardMerchandiseController::class)->middleware('admin');
 
  
 
