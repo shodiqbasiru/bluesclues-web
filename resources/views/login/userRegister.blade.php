@@ -122,7 +122,7 @@
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
         }
-        
+
 
         .form-signin input[type="email"] {
             margin-bottom: -1px;
@@ -196,9 +196,8 @@
             @csrf
 
             <div class="form-floating">
-                <input type="text" name="name"
-                    class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name"
-                    placeholder="Name" value="{{ old('name') }}" required>
+                <input type="text" name="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+                    id="name" placeholder="Name" value="{{ old('name') }}" required>
                 <label for="name">Name</label>
                 @if ($errors->has('name'))
                 <span class="invalid-feedback">{{ $errors->first('name') }}</span>
@@ -233,13 +232,27 @@
             </div>
 
             <div class="form-floating">
-                <input type="password" name="password_confirmation" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" id="password_confirmation"
-                    placeholder="Password confirmation" required>
+                <input type="password" name="password_confirmation"
+                    class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}"
+                    id="password_confirmation" placeholder="Password confirmation" required>
                 <label for="password_confirmation">Confirm Password</label>
-                
+
             </div>
 
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+            <div class="form-floating{{ $errors->has('g-recaptcha-response') ? ' is-invalid' : '' }}"">
+                {!! NoCaptcha::renderJs() !!}
+                {!! NoCaptcha::display() !!}
+                {{-- @if ($errors->has('g-recaptcha-response'))
+                <span class=" invalid-feedback">{{ $errors->first('g-recaptcha-response') }}</span>
+                @endif --}}
+                @if ($errors->has('g-recaptcha-response'))
+                <span class="text-danger">
+                    {{ $errors->first('g-recaptcha-response') }}
+                </span>
+                @endif
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Sign Up</button>
             <p class="mt-5 mb-3 text-body-secondary">&copy; 2023</p>
         </form>
     </main>

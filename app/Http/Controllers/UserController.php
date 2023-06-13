@@ -11,45 +11,56 @@ use Illuminate\Auth\Events\Registered;
 class UserController extends Controller
 {
     // Register
-    public function register(){
+    public function register()
+    {
         return view('login/userRegister', [
             'title' => 'Register'
         ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         // Validate
-        $validatedData = $request->validate([
-            'name' => 'required|min:5|max:255',
-            'email' => 'required|email:dns|unique:users',
-            'username' => 'required|min:5|max:255|unique:users',
-            'password' => 'required|min:8|max:255|confirmed'
-        ]);
+        $validatedData = $request->validate(
+            [
+                'name' => 'required|min:5|max:255',
+                'email' => 'required|email:dns|unique:users',
+                'username' => 'required|min:5|max:255|unique:users',
+                'password' => 'required|min:8|max:255|confirmed',
+                'g-recaptcha-response' => 'required|captcha'
+            ],
+            [
+                'g-recaptcha-response.required' => 'Please complete the reCAPTCHA verification.',
+                'g-recaptcha-response.captcha' => 'The reCAPTCHA verification failed. Please try again.'
+            ]
+        );
 
         // Create User
         $validatedData['password'] = Hash::make($validatedData['password']);
         $user = User::create($validatedData);
 
         event(new Registered($user));
-    
-        return redirect('/login')->with('success', 'Registration successful!, Please Login');
+
+        return redirect('/login')->with('success', 'Registration successful!, please verify your email address by clicking the link sent to your email.');
     }
 
-    public function login(){
+    public function login()
+    {
         return view('login/userLogin', [
             'title' => 'Login'
         ]);
     }
 
-    public function authenticate(Request $request){
+    public function authenticate(Request $request)
+    {
         $credentials = $request->validate([
             'email' => 'required|email:dns',
             'password' => 'required'
         ]);
 
-        if(Auth::attempt($credentials)){
+        if (Auth::attempt($credentials)) {
 
-            
+
             $request->session()->regenerate();
 
             return redirect()->intended('/');
@@ -58,7 +69,8 @@ class UserController extends Controller
         return back()->with('loginError', 'Login Failed');
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
 
         request()->session()->invalidate();
