@@ -9,7 +9,7 @@ class AdminController extends Controller
 {
     //
     public function login(){
-        return view('login', [
+        return view('login/adminLogin', [
             'title' => 'Admin Login'
         ]);
     }

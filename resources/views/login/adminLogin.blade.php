@@ -158,14 +158,14 @@
 
 
     <main class="form-signin w-100 m-auto">
+        <h1 class="h3 mb-3 fw-normal">Login as an admin</h1>
         @if (session('loginError'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{ session('loginError') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
-        <h1 class="h3 mb-3 fw-normal">Please login</h1>
-        <form aaction="{{ route('admin.authenticate') }}" method="post">
+        <form action="{{ route('admin.authenticate') }}" method="post">
             @csrf
             <div class="form-floating">
                 <input type="email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
