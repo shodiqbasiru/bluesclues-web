@@ -1,18 +1,29 @@
 <nav class="navbar navbar-expand-lg" id="storeNav">
-    <div class="container justify-content-between">
-        <div class="nav-item">
-            <a href="#">Home</a>
-        </div>
-        <div class="nav-logo">
-            <img src="{{ url('./assets/img/icons/logo_2.png') }}" alt="">
-        </div>
-        <div class="icons">
-            <a href="#">
+    <div class="nav-item">
+        <a href="/store">Home</a>
+    </div>
+    <div class="nav-logo">
+        <img src="{{ url('./assets/img/icons/logo_2.png') }}" alt="">
+    </div>
+    <div class="icons">
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="{{ url('./assets/img/icons/person.svg') }}" alt="">
-            </a>
-            <a href="#">
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="{{ url('./assets/img/icons/cart.svg') }}" alt="">
-            </a>
-        </div>   
+            </button>
+            <ul class="dropdown-menu cart-items">
+
+            </ul>
+        </div>
+
     </div>
 </nav>

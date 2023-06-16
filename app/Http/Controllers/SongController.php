@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class SongController extends Controller
+class MusicController extends Controller
 {
     public function index()
     {
-        return view('song', ["title" => "Halaman Musik"]);
+        return view('music', [
+            "title" => "Halaman Musik",
+        ]);
     }
 }

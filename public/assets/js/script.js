@@ -1,3 +1,39 @@
+var swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    spaceBetween: 50,
+    rewind: true,
+    coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 100,
+        modifier: 1.5,
+        slideShadows: true,
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+});
+
+var num = 50;
+
+$(window).bind("scroll", function () {
+    if ($(window).scrollTop() > num) {
+        $("#navbar").addClass("fixNav");
+    } else {
+        $("#navbar").removeClass("fixNav");
+    }
+});
+
+// looping video home
+
 // Get the modal element
 var modal = document.getElementsByClassName("modal");
 
@@ -39,198 +75,74 @@ for (var i = 0; i < thumbnail.length; i++) {
     };
 }
 
-//  video slider
-const slideContainer = document.querySelector(".container-slider");
-const slide = document.querySelector(".slides");
-const nextBtn = document.getElementById("next");
-const prevBtn = document.getElementById("prev");
-const interval = 3000;
+function loadYouTubeVideo() {
+    var videoDiv = document.getElementsByClassName("video-placeholder");
 
-let slides = document.querySelectorAll(".slide");
-let index = 1;
-let slideId;
+    for (var i = 0; i < videoDiv.length; i++) {
+        var videoId = videoDiv[i].getAttribute("data-video-id");
+        var iframe = document.createElement("iframe");
 
-const firstClone = slides[0].cloneNode(true);
-const lastClone = slides[slides.length - 1].cloneNode(true);
-
-firstClone.id = "first-clone";
-lastClone.id = "last-clone";
-
-slide.append(firstClone);
-slide.prepend(lastClone);
-
-const slideWidth = slides[index].clientWidth;
-
-slide.style.transform = `translateX(${-slideWidth * index}px)`;
-
-console.log(slides);
-
-const startSlide = () => {
-    slideId = setInterval(() => {
-        moveToNextSlide();
-    }, interval);
-};
-
-const getSlides = () => document.querySelectorAll(".slide");
-
-slide.addEventListener("transitionend", () => {
-    slides = getSlides();
-    if (slides[index].id === firstClone.id) {
-        slide.style.transition = "none";
-        index = 1;
-        slide.style.transform = `translateX(${-slideWidth * index}px)`;
+        // Set atribut iframe untuk memuat video YouTube
+        iframe.setAttribute("src", "https://www.youtube.com/embed/" + videoId);
+        iframe.setAttribute("allowfullscreen", "");
+        iframe.setAttribute("allow", "autoplay; encrypted-media");
+        videoDiv[i].appendChild(iframe);
     }
+}
 
-    if (slides[index].id === lastClone.id) {
-        slide.style.transition = "none";
-        index = slides.length - 2;
-        slide.style.transform = `translateX(${-slideWidth * index}px)`;
+// Fungsi untuk memeriksa apakah elemen berada dalam viewport
+function isElementInViewport(element) {
+    var rect = element.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <=
+            (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <=
+            (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
+
+// Fungsi untuk memuat video saat elemen masuk dalam viewport
+function lazyLoadVideos() {
+    var videoDiv = document.getElementsByClassName("video-placeholder");
+
+    for (var i = 0; i < videoDiv.length; i++) {
+        if (isElementInViewport(videoDiv[i])) {
+            loadYouTubeVideo();
+            break;
+        }
     }
+}
+
+// Tambahkan event listener untuk memanggil lazyLoadVideos saat halaman digulir
+window.addEventListener("scroll", lazyLoadVideos);
+
+// newsPage
+
+var page = 1;
+$("#load-more").on("click", function () {
+    page++;
+    $.ajax({
+        url: "?page=" + page,
+        type: "get",
+        datatype: "html",
+        beforeSend: function () {
+            $("#load-more").text("Loading...");
+        },
+    })
+        .done(function (data) {
+            if (data.length == 0) {
+                $("#load-more").remove();
+                return;
+            }
+            $("#news").append(data);
+            $("#load-more").text("Load More");
+        })
+        .fail(function (jqXHR, ajaxOptions, thrownError) {
+            alert("Server not responding...");
+        });
 });
-
-const moveToNextSlide = () => {
-    slides = getSlides();
-    if (index >= slides.length - 1) return;
-    index++;
-    slide.style.transition = ".7s ease-out";
-    slide.style.transform = `translateX(${-slideWidth * index}px)`;
-};
-
-const moveToPreviousSlide = () => {
-    if (index <= 0) return;
-    index--;
-    slide.style.transition = ".7s ease-out";
-    slide.style.transform = `translateX(${-slideWidth * index}px)`;
-};
-
-slideContainer.addEventListener("mouseenter", () => {
-    clearInterval(slideId);
-});
-
-slideContainer.addEventListener("mouseleave", startSlide);
-nextBtn.addEventListener("click", moveToNextSlide);
-prevBtn.addEventListener("click", moveToPreviousSlide);
-
-startSlide();
-
-// Music section
-// media controllers
-const playPause = document.querySelector("#play-stop");
-const backward = document.querySelector("#backward");
-const forward = document.querySelector("#forward");
-
-// record player animation
-const circleBig = document.querySelector("#circle-bg");
-const circleSm = document.querySelector("#circle-sm");
-
-// playing song
-const songName = document.querySelector("#song-name");
-const audio = document.querySelector("#audio");
-const coverArt = document.querySelector("#cover");
-const musicbox = document.querySelector("#musicbox");
-
-// control button images
-let playImg = "./assets/img/icons/play-music.png";
-let pauseImg = "./assets/img/icons/pause-music.png";
-
-// default controls
-playPause.src = playImg;
-let isPlaying = true;
-
-const songList = [
-    {
-        name: "Sure To Marry You",
-        source: "./assets/music/Sure to Marry You.mp3",
-        cover: "./assets/img/Component 5.png",
-    },
-    {
-        name: "Tamiang Meulit Kana Bitis",
-        source: "./assets/music/Tamiang Meulit Kana Bitis.mp3",
-        cover: "./assets/img/Component 5.png",
-    },
-    {
-        name: "Mangsa Ka Mangsa",
-        source: "./assets/music/Mangsa Ka Mangsa.mp3",
-        cover: "./assets/img/Component 5.png",
-    },
-];
-// helper function
-function createEle(ele) {
-    return document.createElement(ele);
-}
-function append(parent, child) {
-    return parent.append(child);
-}
-// creating track list
-const ol = createEle("ol");
-function createPlayList() {
-    songList.forEach((song) => {
-        let h3 = createEle("h3");
-        let li = createEle("li");
-
-        li.classList.add("track-item");
-        h3.innerText = song.name;
-        append(li, h3);
-        append(ol, li);
-    });
-    append(musicbox, ol);
-}
-
-let songIndex = 0;
-// preloaded song
-loadMusic(songList[songIndex]);
-
-function loadMusic() {
-    coverArt.src = songList[songIndex].cover;
-    songName.innerText = songList[songIndex].name;
-    audio.src = songList[songIndex].source;
-}
-
-function playSong() {
-    playPause.src = pauseImg;
-    circleBig.classList.add("animate");
-    circleSm.classList.add("animate");
-
-    audio.play();
-}
-
-function pauseSong() {
-    playPause.src = playImg;
-    circleBig.classList.remove("animate");
-    circleSm.classList.remove("animate");
-
-    audio.pause();
-}
-
-function nextPlay() {
-    songIndex++;
-    if (songIndex > songList.length - 1) {
-        songIndex = 0;
-    }
-    loadMusic(songList[songIndex]);
-    playSong();
-}
-
-function backPlay() {
-    songIndex--;
-    if (songIndex < 0) {
-        songIndex = songList.length - 1;
-    }
-    loadMusic(songList[songIndex]);
-    playSong();
-}
-function playHandler() {
-    isPlaying = !isPlaying;
-    //console.log("Change: ",isPlaying)
-    isPlaying ? pauseSong() : playSong();
-}
-
-// player event
-playPause.addEventListener("click", playHandler);
-backward.addEventListener("click", backPlay);
-forward.addEventListener("click", nextPlay);
-
-createPlayList();
 
 // videos page
 // var videoContainer = document.getElementById("#video-container");

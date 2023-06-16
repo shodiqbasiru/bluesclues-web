@@ -5,7 +5,7 @@
 
   <div id="video-header">
     <div class="header-img">
-      <img src="{{ $videos[0]['thumbnail'] }}" alt="{{ $videos[0]['title'] }}" class="video-thumbnail"data-video-id="{{ $videos[0]['id'] }}" id="thumbnail_{{ $videos[0]['id'] }}">
+      <img src="{{ $videos[0]['thumbnail'] }}" alt="{{ $videos[0]['title'] }}" class="video-thumbnail" data-video-id="{{ $videos[0]['id'] }}" id="thumbnail_{{ $videos[0]['id'] }}">
       <img src="{{ url('./assets/img/icons/s-play.png') }}" alt="icon-play" class="btn-play">
     </div>
 

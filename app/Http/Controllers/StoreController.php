@@ -12,4 +12,11 @@ class StoreController extends Controller
             "title" => "Halaman Store"
         ]);
     }
+
+    public function detail()
+    {
+        return view('merchandise.detailStore', [
+            "title" => "Detail Store",
+        ]);
+    }
 }

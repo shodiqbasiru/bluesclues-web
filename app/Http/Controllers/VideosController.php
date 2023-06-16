@@ -15,7 +15,7 @@ class VideosController extends Controller
 
 
         $channelId = 'UCIfb4X1VM8uYo5g9y6b585A';
-        $maxResults = 50;
+        $maxResults = 30;
 
         $cacheKey = 'youtube_search_' . $channelId;
         if (Cache::has($cacheKey)) {
@@ -45,10 +45,8 @@ class VideosController extends Controller
                     'thumbnail' => $video->getSnippet()->getThumbnails()->getMedium()->getUrl(),
                 ];
             }
-
-
             // Cache the results for 1 hour
-            Cache::put($cacheKey, $videos, now()->addHour());
+            // Cache::put($cacheKey, $videos, now()->addHour());
         }
 
 

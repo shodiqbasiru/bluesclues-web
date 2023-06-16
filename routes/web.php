@@ -10,6 +10,7 @@ use App\Http\Controllers\VideosController;
 use App\Http\Controllers\DashboardNewsController;
 use App\Http\Controllers\DashboardEventsController;
 use App\Http\Controllers\DashboardSongsController;
+use App\Http\Controllers\MusicsController;
 use App\Http\Controllers\StoreController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -40,16 +41,22 @@ Route::get('/video/{id}', [VideosController::class, 'show'])->name('video');
 
 // store page
 Route::get('/store', [StoreController::class, 'index']);
+Route::get('/store/detail', [StoreController::class, 'detail']);
+
+// Music Page
+Route::get('/music', [MusicsController::class, 'index']);
 
 // news page
 Route::get('/news', [NewsController::class, 'index']);
+// Route::get('/news/more', [NewsController::class, 'loadMore'])->name('news');
 Route::get('/news/{news:slug}', [NewsController::class, 'show']);
 Route::get('/admin/create-news', [NewsController::class, 'createNews'])->middleware('auth');
 Route::get('/shownews', [NewsController::class, 'select']);
 Route::post('/admin/create-news', [NewsController::class, 'store'])->middleware('auth')->name('news.store');
 
 // event page   
-Route::get('/events', [EventsController::class, 'index'])->name('events.index');
+Route::get('/events', [EventsController::class, 'index'])->name('events');
+Route::get('/events/filter/{filter}', [EventsController::class, 'filter'])->name('events.filter');
 Route::get('/admin/add-event', [EventsController::class, 'addEvent'])->middleware('auth');
 Route::get('/events/{event:slug}', [EventsController::class, 'show']);
 Route::post('/admin/add-event', [EventsController::class, 'store'])->middleware('auth')->name('events.store');
@@ -69,12 +76,3 @@ Route::get('/admin/dashboard', function () {
 Route::resource('/admin/dashboard/news', DashboardNewsController::class)->middleware('auth');
 Route::resource('/admin/dashboard/events', DashboardEventsController::class)->middleware('auth');
 Route::resource('/admin/dashboard/songs', DashboardSongsController::class)->middleware('auth');
-
-
-
-
-Route::get('/songs', function () {
-    return view('songs', [
-        'title' => 'Songs'
-    ]);
-});
