@@ -242,9 +242,7 @@
             <div class="form-floating{{ $errors->has('g-recaptcha-response') ? ' is-invalid' : '' }}"">
                 {!! NoCaptcha::renderJs() !!}
                 {!! NoCaptcha::display() !!}
-                {{-- @if ($errors->has('g-recaptcha-response'))
-                <span class=" invalid-feedback">{{ $errors->first('g-recaptcha-response') }}</span>
-                @endif --}}
+
                 @if ($errors->has('g-recaptcha-response'))
                 <span class="text-danger">
                     {{ $errors->first('g-recaptcha-response') }}

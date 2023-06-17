@@ -33,6 +33,9 @@
                         <a class="nav-link {{ Request::is('/store') ? 'active' : '' }}" href="/store">Store</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ Request::is('/events') ? 'active' : '' }}" href="/events">Events</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ Request::is('/videos') ? 'active' : '' }}" href="/videos">videos</a>
                     </li>
                     @if(auth()->check())

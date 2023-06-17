@@ -133,4 +133,5 @@
 
     <a href="#" class="btn btn-home">All news</a>
 </div>
+
 @endsection

@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\ShowRequestsController;
 use App\Http\Controllers\VideosController;
 use App\Http\Controllers\DashboardNewsController;
 use App\Http\Controllers\DashboardEventsController;
@@ -28,18 +29,23 @@ use App\Http\Controllers\DashboardMerchandiseController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/videos', [VideosController::class, 'showVideos'])->name('showVideos')->middleware('verified');
+Route::get('/videos', [VideosController::class, 'showVideos'])->name('showVideos');
 Route::get('/videos-data', [VideosController::class, 'index'])->name('videos.index');
 
 
-Route::group(['middleware' => ['verified']], function () {
-    Route::get('/news', [NewsController::class, 'index']);
-    Route::get('/news/{news:slug}', [NewsController::class, 'show']);
-    Route::get('/shownews', [NewsController::class, 'select']);
-});
 
-Route::get('/events', [EventsController::class, 'index'])->name('events.index');
-Route::get('/events/{event:slug}', [EventsController::class, 'show']);
+Route::get('/news', [NewsController::class, 'index']);
+Route::get('/news/{news:slug}', [NewsController::class, 'show']);
+Route::get('/shownews', [NewsController::class, 'select']);
+
+Route::get('/events', [EventsController::class, 'index'])->name('events');
+Route::get('/events/filter/{filter}', [EventsController::class, 'filter'])->name('events.filter');
+
+
+Route::post('/events', [ShowRequestsController::class, 'store'])->name('showRequests.store');
+
+
+
 
 // Register Routes
 Route::group(['middleware' => ['guest', 'prevent.user.login']], function () {
@@ -98,10 +104,29 @@ Route::get('/admin/dashboard', function () {
     ]);
 })->middleware('admin')->name('admin.dashboard');
 
-Route::resource('/admin/dashboard/news', DashboardNewsController::class)->middleware('admin');
-Route::resource('/admin/dashboard/events', DashboardEventsController::class)->middleware('admin');
-Route::resource('/admin/dashboard/songs', DashboardSongsController::class)->middleware('admin');
-Route::resource('/admin/dashboard/merchandise', DashboardMerchandiseController::class)->middleware('admin');
+Route::resource('/admin/dashboard/news', DashboardNewsController::class)
+    ->middleware('admin');
+
+Route::resource('/admin/dashboard/events', DashboardEventsController::class)
+    ->middleware('admin');
+
+Route::resource('/admin/dashboard/songs', DashboardSongsController::class)
+    ->middleware('admin');
+
+Route::resource('/admin/dashboard/merchandise', DashboardMerchandiseController::class)
+    ->middleware('admin');
+
+Route::get('/admin/dashboard/show-requests/{status?}', [ShowRequestsController::class, 'index'])
+    ->middleware('admin')
+    ->name('show-requests.index');
+
+//show requests approval or denial
+Route::post('/show-requests/{showRequest}/approve', [ShowRequestsController::class, 'approve'])
+    ->middleware('admin')
+    ->name('show-request.approve');
+Route::post('/show-requests/{showRequest}/reject', [ShowRequestsController::class, 'reject'])
+    ->middleware('admin')
+    ->name('show-request.reject');
 
 
 

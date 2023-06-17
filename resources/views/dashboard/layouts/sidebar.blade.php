@@ -32,6 +32,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ Request::is('admin/dashboard/show-requests*') ? 'active' : 'text-light' }}" href="/admin/dashboard/show-requests?status=awaiting-approval">
+                    <span data-feather="message-square" class="align-text-bottom"></span>
+                    Show Requests
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ Request::is('admin/dashboard/songs*') ? 'active' : 'text-light' }}" href="/admin/dashboard/songs">
                     <span data-feather="music" class="align-text-bottom"></span>
                     Songs

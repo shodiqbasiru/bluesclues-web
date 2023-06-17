@@ -33,10 +33,10 @@ class VideosController extends Controller
                 'channelId' => $channelId,
                 'maxResults' => $maxResults,
                 'type' => 'video',
-                // 'order' => 'date',
+                'order' => 'date',
             ]);
 
-            $videos = [];
+            $videos = collect([]);
 
             foreach ($response->getItems() as $video) {
                 $videoId = $video->getId()->getVideoId();
@@ -75,17 +75,15 @@ class VideosController extends Controller
 
 
             // Cache the results for 1 hour
-            // Cache::put($cacheKey, $videos, now()->addHour());
+            Cache::put($cacheKey, $videos, now()->addHour());
         }
 
-        return response()->json($videos);
+        return $videos;
     }
 
     public function showVideos()
     {
-        $appUrl = env('APP_URL');
-        $response =  HTTP::get($appUrl.'videos-data');// Call the index() method to retrieve the JSON response
-        $videosData = $response->json(); // Convert the JSON response to an array
+        $videosData = $this->index();
 
         // Pass the videos data to the view
         return view('videos', [
