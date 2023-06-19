@@ -3,7 +3,10 @@
         <a href="/store">Home</a>
     </div>
     <div class="nav-logo">
-        <img src="{{ url('./assets/img/icons/logo_2.png') }}" alt="">
+        <a href="/">
+
+            <img src="{{ url('./assets/img/icons/logo_2.png') }}" alt="">
+        </a>
     </div>
     <div class="icons">
         <div class="dropdown">

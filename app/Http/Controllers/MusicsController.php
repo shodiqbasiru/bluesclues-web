@@ -15,4 +15,14 @@ class MusicsController extends Controller
             'music' => $songs
         ]);
     }
+
+    public function show(Song $song)
+    {
+        $songs = Song::all();
+        return view('music-detail', [
+            "title" => "Detail News",
+            "song" => $song,
+            "songs" => $songs
+        ]);
+    }
 }

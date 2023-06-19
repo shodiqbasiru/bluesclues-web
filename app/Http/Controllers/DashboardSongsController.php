@@ -6,6 +6,7 @@ use App\Models\Song;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardSongsController extends Controller
 {
@@ -128,6 +129,7 @@ class DashboardSongsController extends Controller
         //
         $validatedData = $request->validate([
             'title' => 'required|max:255',
+            'image' => 'image|max:7168',
             'spotify_link' => 'required',
             'youtube_link' => 'required',
             'release_date' => 'required|date|after_or_equal:' . now()->subYears(30)->format('Y-m-d') . '|before_or_equal:' . now()->addYears(10)->format('Y-m-d'),
@@ -137,7 +139,7 @@ class DashboardSongsController extends Controller
         ]);
 
 
-        // add a new song
+        // edit song
         $song = Song::find($song->id);
         $song->title = $validatedData['title'];
         $song->spotify_link = $validatedData['spotify_link'];
@@ -150,6 +152,11 @@ class DashboardSongsController extends Controller
         $slug = Str::slug($truncatedTitle, '-') . '-' . uniqid();
         while (song::where('slug', $slug)->exists()) {
             $slug = Str::slug($truncatedTitle, '-') . '-' . uniqid();
+        }
+        if($request->file('image')){
+            if ($song->image != null) Storage::delete($song->image);
+            $validatedData['image'] = $request->file('image')->store('songs-images');
+            $song->image = $validatedData['image'];
         }
         $song->slug = $slug;
         $song->save();
@@ -167,6 +174,7 @@ class DashboardSongsController extends Controller
     public function destroy(Song $song)
     {
         //
+        if ($song->image != null) Storage::delete($song->image);
         Song::destroy($song->id);
         return redirect('/admin/dashboard/songs')->with('success', 'Song has been deleted!');
     }

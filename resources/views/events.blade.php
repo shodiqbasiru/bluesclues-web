@@ -20,7 +20,7 @@
             return \Carbon\Carbon::parse($eventItem->formatted_date)->format('F Y');
         }) as $month => $eventsByMonth)
                         <div class="card-header">
-                            <h2 class="text-center">{{ $month }}</h2>
+                            <h2 class="text-center m-0">{{ $month }}</h2>
                         </div>
                         @foreach ($eventsByMonth as $eventItem)
                             <div class="card-body event-item"
@@ -36,16 +36,15 @@
                                 </p>
                                 <div class="card-logo">
                                     <p>Share :</p>
-                                    <a href="#"><img src="{{ url('./assets/img/icons/facebook-b.svg') }}"
+                                    <a href="#"><img src="{{ url('./assets/img/icons/icon-facebook.png') }}"
                                             alt=""></a>
-                                    <a href="#"><img src="{{ url('./assets/img/icons/instagram-b.svg') }}"
+                                    <a href="#"><img src="{{ url('./assets/img/icons/icon-instagram.png') }}"
                                             alt=""></a>
-                                    <a href="#"><img src="{{ url('./assets/img/icons/youtube-b.svg') }}"
+                                    <a href="#"><img src="{{ url('./assets/img/icons/icon-twitter.png') }}"
                                             alt=""></a>
-                                    <a href="#"><img src="{{ url('./assets/img/icons/Spotify-b.svg') }}"
+                                    <a href="#"><img src="{{ url('./assets/img/icons/icon-whatsapp.png') }}"
                                             alt=""></a>
-                                    <a href="#"><img src="{{ url('./assets/img/icons/apple-b.svg') }}"
-                                            alt=""></a>
+
                                 </div>
                             </div>
                         @endforeach

@@ -30,44 +30,44 @@
 @endsection
 
 @section('h-videos')
-    <div class="container-fluid h-videos" id="h-videos">
+    <div class="h-videos" id="h-videos">
 
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="box">
-                        <swiper-slide lazy="true">
-                            <iframe src="https://www.youtube.com/embed/8oRiz8bbq-I"></iframe>
-                        </swiper-slide>
+                @foreach ($videos->take(5) as $video)
+                    <div class="swiper-slide">
+                        <div class="video">
+                            <img src="{{ $video['thumbnail'] }}" alt="{{ $video['title'] }}" class="video-thumbnail">
+                            <div class="overlay" data-video-id="{{ $video['id'] }}" data-title="{{ $video['title'] }}"
+                                id="thumbnail_{{ $video['id'] }}">
+                                <h5 class="mt-5">{{ $video['title'] }}</h5>
+                                <h5>Watch</h5>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="box">
-                        <swiper-slide lazy="true">
-                            <iframe src="https://www.youtube.com/embed/85fqpyvsCdg"></iframe>
-                        </swiper-slide>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="box">
-                        <swiper-slide lazy="true">
-                            <iframe src="https://www.youtube.com/embed/85fqpyvsCdg"></iframe>
-                        </swiper-slide>
-                    </div>
-                </div>
-            </div>
-            <div class="slider-control">
-                <div class="swiper-button-prev slider-arrow">
-                    <ion-icon name="arrow-back-outline"></ion-icon>
-                </div>
-                <div class="swiper-button-next slider-arrow">
-                    <ion-icon name="arrow-forward-outline"></ion-icon>
-                </div>
-                <div class="swiper-pagination"></div>
+                @endforeach
             </div>
         </div>
 
-        <a href="#" class="btn btn-home mb-4">All videos</a>
+        <div class="slider-control">
+            <div class="swiper-button-prev slider-arrow">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+            </div>
+            <div class="video-title"></div>
+            <div class="swiper-button-next slider-arrow">
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+            </div>
+        </div>
+
+
+        <a href="/videos" class="btn btn-home">All videos</a>
+        <div id="video-container" style="display:none">
+            <div class="video-wrapper">
+                <button id="close-button" class="close-btn">&#x2716;</button>
+                <iframe id="video-player" width="560" height="315" src="" frameborder="0"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -126,7 +126,8 @@
                         <img src="https://source.unsplash.com/400x400?music " alt="image" class="img-fluid">
                     @endif
 
-                    <h3><a href="/news/{{ $newsitem->slug }}" class="text-decoration-none"> {{ $newsitem->title }}</a></h3>
+                    <h3><a href="/news/{{ $newsitem->slug }}" class="text-decoration-none"> {{ $newsitem->title }}</a>
+                    </h3>
                     <p>
                         <small class="text-muted">
                             {{ $newsitem->created_at->diffForHumans() }}

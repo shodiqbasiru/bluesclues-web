@@ -32,7 +32,7 @@
 
                 @if ($song->image)
                 <div class="d-flex justify-content-center mt-5">
-                    <img src="{{ asset('storage/' . $song->image) }}" alt="image" class="img-fluid">
+                    <img src="{{ asset('storage/' . $song->image) }}" alt="image" class="img-fluid w-75">
                 </div>
                 @endif
                 <div class="mx-auto mt-5 text-center">

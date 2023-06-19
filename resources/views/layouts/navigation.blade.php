@@ -50,13 +50,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-1 icons">
-            <a href="#">
-                <img src="{{ url('./assets/img/icons/person.svg') }}" alt="">
-            </a>
-            <a href="#">
-                <img src="{{ url('./assets/img/icons/cart.svg') }}" alt="">
-            </a>
+        <div class="col-lg-1 none">
+
         </div>
     </div>
 </nav>

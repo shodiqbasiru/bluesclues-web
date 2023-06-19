@@ -1,13 +1,16 @@
 @extends('layouts.main')
 
 @section('content-page')
-    <div class="page-music">
+    <div class="page-music mb-5">
         @foreach ($music as $item)
             <div class="song">
-                <img src="" alt="">
-                <div class="overlay">
-
-                </div>
+                <a href="/music/{{ $item->slug }}" class="song-detail">
+                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="">
+                    <div class="overlay">
+                        <h5>{{ $item->title }}</h5>
+                        <h5>Info</h5>
+                    </div>
+                </a>
             </div>
         @endforeach
 
