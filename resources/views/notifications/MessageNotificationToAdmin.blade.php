@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $subject }}</title>
+    <title>New Contact Message</title>
     <style>
         /* Styles for the card */
         .card {
@@ -41,35 +41,24 @@
 </head>
 
 <body>
+    
     <div class="card">
-        <h2>{{ $subject }}</h2>
-        <p>Hello {{ $companyName }},</p>
-        <p>{{ $body }}</p>
-        <p>Here are the details of the show request:</p>
+        <h2>Subject: {{ $message_subject }}</h2>
+        <p>Details:</p>
         <table>
             <tr>
-                <th>Event Name:</th>
-                <td>{{ $eventname }}</td>
+                <th>Name:</th>
+                <td>{{ $name }}</td>
             </tr>
             <tr>
-                <th>Location</th>
-                <td>{{ $location }}</td>
+                <th>Email</th>
+                <td>{{ $email }}</td>
             </tr>
-            <tr>
-                <th>Date of show:</th>
-                <td>{{ \Carbon\Carbon::parse($date)->format('j F Y') }}</td>
-            </tr>
+
         </table>
 
-        @if (!empty($notes) && $notes !== "")
-            <p class="text-muted">Note: {{ $notes }}</p>
-        @endif
-
-        <p>{{ $bottom_text }}</p>
-
-
-        <p> Best regards,</p>
-        <p> Blues Clues</p>
+        <p>Message:</p>
+        <p>{{ $message_content }}</p>
     </div>
 </body>
 

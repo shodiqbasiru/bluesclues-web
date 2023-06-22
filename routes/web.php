@@ -14,6 +14,7 @@ use App\Http\Controllers\DashboardNewsController;
 use App\Http\Controllers\DashboardEventsController;
 use App\Http\Controllers\DashboardSongsController;
 use App\Http\Controllers\DashboardMerchandiseController;
+use App\Http\Controllers\MessagesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,23 +28,25 @@ use App\Http\Controllers\DashboardMerchandiseController;
 
 
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index']); // Home page
 
-Route::get('/videos', [VideosController::class, 'showVideos'])->name('showVideos');
+Route::get('/videos', [VideosController::class, 'showVideos'])->name('showVideos'); // Show all videos
 Route::get('/videos-data', [VideosController::class, 'index'])->name('videos.index');
 
 
 
-Route::get('/news', [NewsController::class, 'index']);
-Route::get('/news/{news:slug}', [NewsController::class, 'show']);
-Route::get('/shownews', [NewsController::class, 'select']);
+Route::get('/news', [NewsController::class, 'index']); // Show all news
+Route::get('/news/{news:slug}', [NewsController::class, 'show']); // Show single news
 
-Route::get('/events', [EventsController::class, 'index'])->name('events');
-Route::get('/events/filter/{filter}', [EventsController::class, 'filter'])->name('events.filter');
+Route::get('/events', [EventsController::class, 'index'])->name('events'); // Show all events
+Route::get('/events/filter/{filter}', [EventsController::class, 'filter'])->name('events.filter'); // Filter events
 
 
-Route::post('/events', [ShowRequestsController::class, 'store'])->name('showRequests.store');
 
+Route::post('/events', [ShowRequestsController::class, 'store'])->name('showRequests.store'); // Store show request
+
+Route::get('/contact-us', [MessagesController::class, 'form']); // Show contact us page
+Route::post('/contact-us', [MessagesController::class, 'store'])->name('message.store'); // Store message
 
 
 
@@ -62,12 +65,12 @@ Route::get('/email/verify', function () {
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
-    return view('auth.email-verified');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+    return view('auth.email-verified'); // Redirect to a page or show a message that says your email has been verified
+})->middleware(['auth', 'signed'])->name('verification.verify'); //
 
 
 Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
+    $request->user()->sendEmailVerificationNotification(); // Send verification email
 
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
@@ -96,8 +99,6 @@ Route::group(['middleware' => ['guest', 'prevent.user.login', 'prevent.admin.log
 
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
-
-
 Route::get('/admin/dashboard', function () {
     return view('dashboard.index', [
         'title' => 'Admin Dashboard'
@@ -116,9 +117,22 @@ Route::resource('/admin/dashboard/songs', DashboardSongsController::class)
 Route::resource('/admin/dashboard/merchandise', DashboardMerchandiseController::class)
     ->middleware('admin');
 
+Route::get('/admin/dashboard/messages', [MessagesController::class, 'index'])
+    ->middleware('admin');
+
+Route::get('admin/dashboard/messages/{message}', [MessagesController::class, 'show']) // Show single message
+    ->middleware('admin');
+
+Route::delete('admin/dashboard/messages/{message}', [MessagesController::class, 'destroy']) // Delete message
+    ->middleware('admin');
+
+
 Route::get('/admin/dashboard/show-requests/{status?}', [ShowRequestsController::class, 'index'])
     ->middleware('admin')
     ->name('show-requests.index');
+
+
+
 
 //show requests approval or denial
 Route::post('/show-requests/{showRequest}/approve', [ShowRequestsController::class, 'approve'])

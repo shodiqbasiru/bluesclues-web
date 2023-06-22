@@ -62,6 +62,8 @@
                 <th scope="col">Company Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Date</th>
+                <th scope="col">Event Name</th>
+                <th scope="col">Location</th>
                 <th scope="col">WhatsApp</th>
                 @if ($status !== 'approved' && $status !== 'rejected')
                 <th scope="col">Decision</th>
@@ -74,9 +76,11 @@
             @foreach ($showRequests as $item)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td style="max-width: 550px;">{{ $item->company_name }}</td>
-                <td>{{ $item->email }}</td>
+                <td style="max-width: 100px;">{{ $item->company_name }}</td>
+                <td style="max-width: 100px;">{{ $item->email }}</td>
                 <td>{{ \Illuminate\Support\Carbon::parse($item->date)->format('d F Y') }}</td>
+                <td style="max-width: 100px;">{{ $item->eventname }}</td>
+                <td style="max-width: 100px;">{{ $item->location }}</td>
                 <td>{{ $item->whatsapp }}</td>
                 @if ($status !== 'approved' && $status !== 'rejected')
                 <td>

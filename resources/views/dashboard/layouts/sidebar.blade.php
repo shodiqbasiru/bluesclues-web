@@ -33,8 +33,14 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('admin/dashboard/show-requests*') ? 'active' : 'text-light' }}" href="/admin/dashboard/show-requests?status=awaiting-approval">
-                    <span data-feather="message-square" class="align-text-bottom"></span>
+                    <span data-feather="mic" class="align-text-bottom"></span>
                     Show Requests
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('admin/dashboard/messages*') ? 'active' : 'text-light' }}" href="/admin/dashboard/messages">
+                    <span data-feather="message-square" class="align-text-bottom"></span>
+                    Messages
                 </a>
             </li>
             <li class="nav-item">

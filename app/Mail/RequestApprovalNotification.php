@@ -16,6 +16,8 @@ class RequestApprovalNotification extends Mailable
     public $companyName;
     public $email;
     public $date;
+    public $eventname;
+    public $location;
     public $whatsapp;
     public $status;
     public $notes;
@@ -34,6 +36,8 @@ class RequestApprovalNotification extends Mailable
         $this->companyName = $approvalData['company_name'];
         $this->email = $approvalData['email'];
         $this->date = $approvalData['date'];
+        $this->eventname = $approvalData['eventname'];
+        $this->location = $approvalData['location'];
         $this->whatsapp = $approvalData['whatsapp'];
         $this->status = $approvalData['status'];
         $this->notes = $approvalData['notes'];
@@ -42,11 +46,7 @@ class RequestApprovalNotification extends Mailable
         $this->bottom_text = $approvalData['bottom_text'];
     }
 
-    /**
-     * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
-     */
+
     public function build()
     {
         return $this->subject($this->subject)

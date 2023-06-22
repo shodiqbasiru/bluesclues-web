@@ -49,90 +49,91 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-5">
-            <button class="btn btn-event" data-bs-toggle="modal" data-bs-target="#exampleModal">Request a Show</button>
-        </div>
+        <form action="{{ route('showRequests.store') }}" method="post">
+            @csrf
 
-        <div class="modal fade mt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Request Show</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('showRequests.store') }}" method="post">
-                            @csrf
+            <div class="form-group my-3">
+                <label for="company_name">Name / Company Name:</label>
+                <input type="text"
+                    class="form-control{{ $errors->has('company_name') ? ' is-invalid' : '' }} mt-2"
+                    value="{{ old('company_name') }}" id="company_name" name="company_name"
+                    placeholder="Enter name or company name">
+                @if ($errors->has('company_name'))
+                <span class="invalid-feedback">{{ $errors->first('company_name') }}</span>
+                @endif
+            </div>
 
-                            <div class="form-group my-3">
-                                <label for="company_name">Name / Company Name:</label>
-                                <input type="text"
-                                    class="form-control{{ $errors->has('company_name') ? ' is-invalid' : '' }} mt-2"
-                                    value="{{ old('company_name') }}" id="company_name" name="company_name"
-                                    placeholder="Enter event name">
-                                @if ($errors->has('company_name'))
-                                <span class="invalid-feedback">{{ $errors->first('company_name') }}</span>
-                                @endif
-                            </div>
-
-                            <div class="form-group my-3">
-                                <label for="email">Email:</label>
-                                <input type="email" name="email"
-                                    class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                                    value="{{ old('email') }}" id="email" placeholder="name@example.com" autofocus
-                                    required>
-                                @if ($errors->has('email'))
-                                <span class="invalid-feedback">{{ $errors->first('email') }}</span>
-                                @endif
-                            </div>
-                            <div class="form-group my-3">
-                                <label for="date">Date of Show:</label>
-                                <input type="date"
-                                    class="form-control{{ $errors->has('date') ? ' is-invalid' : '' }} mt-2"
-                                    value="{{ old('date') }}" id="date" name="date" placeholder="Enter date">
-                                @if ($errors->has('date'))
-                                <span class="invalid-feedback">{{ $errors->first('date') }}</span>
-                                @endif
-                            </div>
+            <div class="form-group my-3">
+                <label for="email">Email:</label>
+                <input type="email" name="email"
+                    class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                    value="{{ old('email') }}" id="email" placeholder="name@example.com" autofocus
+                    required>
+                @if ($errors->has('email'))
+                <span class="invalid-feedback">{{ $errors->first('email') }}</span>
+                @endif
+            </div>
+            <div class="form-group my-3">
+                <label for="date">Date of Show:</label>
+                <input type="date"
+                    class="form-control{{ $errors->has('date') ? ' is-invalid' : '' }} mt-2"
+                    value="{{ old('date') }}" id="date" name="date" placeholder="Enter date">
+                @if ($errors->has('date'))
+                <span class="invalid-feedback">{{ $errors->first('date') }}</span>
+                @endif
+            </div>
 
 
-                            <div class="form-group my-3">
-                                <label for="whatsapp">Whatsapp:</label>
-                                <input type="text"
-                                    class="form-control{{ $errors->has('whatsapp') ? ' is-invalid' : '' }} mt-2"
-                                    value="{{ old('whatsapp') }}" id="whatsapp" name="whatsapp"
-                                    placeholder="Enter event name">
-                                @if ($errors->has('whatsapp'))
-                                <span class="invalid-feedback">{{ $errors->first('whatsapp') }}</span>
-                                @endif
-                            </div>
+            <div class="form-group my-3">
+                <label for="whatsapp">Whatsapp:</label>
+                <input type="text"
+                    class="form-control{{ $errors->has('whatsapp') ? ' is-invalid' : '' }} mt-2"
+                    value="{{ old('whatsapp') }}" id="whatsapp" name="whatsapp"
+                    placeholder="Enter whatsapp number">
+                @if ($errors->has('whatsapp'))
+                <span class="invalid-feedback">{{ $errors->first('whatsapp') }}</span>
+                @endif
+            </div>
+            <div class="form-group my-3">
+                <label for="eventname">Event Name:</label>
+                <input type="text"
+                    class="form-control{{ $errors->has('eventname') ? ' is-invalid' : '' }} mt-2"
+                    value="{{ old('eventname') }}" id="eventname" name="eventname"
+                    placeholder="Enter event name">
+                @if ($errors->has('eventname'))
+                <span class="invalid-feedback">{{ $errors->first('eventname') }}</span>
+                @endif
+            </div>
+            <div class="form-group my-3">
+                <label for="location">Location:</label>
+                <input type="text"
+                    class="form-control{{ $errors->has('location') ? ' is-invalid' : '' }} mt-2"
+                    value="{{ old('location') }}" id="location" name="location"
+                    placeholder="Enter event location">
+                @if ($errors->has('location'))
+                <span class="invalid-feedback">{{ $errors->first('location') }}</span>
+                @endif
+            </div>
 
-                            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center">
 
-                                <div class="form-floating{{ $errors->has('g-recaptcha-response') ? ' is-invalid' : '' }}"">
-                                {!! NoCaptcha::renderJs() !!}
-                                {!! NoCaptcha::display(['data-theme' => 'light', 'data-size' => 'normal', 'data-use-default-style' => 'true']) !!}
+                <div class="form-floating{{ $errors->has('g-recaptcha-response') ? ' is-invalid' : '' }}"">
+                {!! NoCaptcha::renderJs() !!}
+                {!! NoCaptcha::display(['data-theme' => 'light', 'data-size' => 'normal', 'data-use-default-style' => 'true']) !!}
 
 
-                                @if ($errors->has('g-recaptcha-response'))
-                                <span class=" text-danger">
-                                    {{ $errors->first('g-recaptcha-response') }}
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <button class="btn btn-lg btn-primary mt-3" type="submit">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
+                @if ($errors->has('g-recaptcha-response'))
+                <span class=" text-danger">
+                    {{ $errors->first('g-recaptcha-response') }}
+                    </span>
+                    @endif
                 </div>
             </div>
-        </div>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-lg btn-primary mt-3" type="submit">Submit</button>
+            </div>
+        </form>
+        
     </div>
 </div>
 @endsection

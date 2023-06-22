@@ -17,6 +17,8 @@ class RequestNotificationToAdmin extends Mailable
     public $email;
     public $date;
     public $whatsapp;
+    public $eventname;
+    public $location;
 
     /**
      * Create a new message instance.
@@ -30,6 +32,8 @@ class RequestNotificationToAdmin extends Mailable
         $this->email = $showRequestData['email'];
         $this->date = $showRequestData['date'];
         $this->whatsapp = $showRequestData['whatsapp'];
+        $this->eventname = $showRequestData['eventname'];
+        $this->location = $showRequestData['location'];
     }
 
     /**

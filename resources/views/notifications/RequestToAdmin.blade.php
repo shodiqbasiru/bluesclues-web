@@ -52,12 +52,25 @@
                 <td>{{ \Carbon\Carbon::parse($date)->format('j F Y') }}</td>
             </tr>
             <tr>
+                <th>Event Name:</th>
+                <td>{{ $eventname }}</td>
+            </tr>
+            <tr>
+                <th>Location:</th>
+                <td>{{ $location }}</td>
+            </tr>
+            <tr>
                 <th>WhatsApp:</th>
                 <td>{{ $whatsapp }}</td>
             </tr>
         </table>
 
+        
+
         <p>Please take appropriate action.</p>
+
+        <p>For further details and to take action on this request, click <a href="{{ config('app.url') }}admin/dashboard/show-requests/approved?status=awaiting-approval">here</a>.</p>
+
     </div>
 </body>
 </html>

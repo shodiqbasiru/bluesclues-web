@@ -16,13 +16,16 @@ class ShowRequestsController extends Controller
             [
                 'company_name' => 'required|max:255',
                 'email' => 'required|email:dns',
-                'date' => 'required|date|after_or_equal:' . now()->subYears(10)->format('Y-m-d') . '|before_or_equal:' . now()->addYears(20)->format('Y-m-d'),
+                'date' => 'required|date|after:' . now()->format('Y-m-d'),
                 'whatsapp' => 'required|min:2|max:20',
+                'eventname' => 'nullable|max:255',
+                'location' => 'required|max:255',
                 'g-recaptcha-response' => 'required|captcha'
             ],
             [
                 'g-recaptcha-response.required' => 'Please complete the reCAPTCHA verification.',
-                'g-recaptcha-response.captcha' => 'The reCAPTCHA verification failed. Please try again.'
+                'g-recaptcha-response.captcha' => 'The reCAPTCHA verification failed. Please try again.',
+                'date.after' => 'The date must be a valid date and should be a future date.',
             ]
         );
 
@@ -35,7 +38,7 @@ class ShowRequestsController extends Controller
         $emailController = new EmailController();
         $emailController->sendShowRequestEmail($showRequestData);
 
-        return redirect('/events')->with('success', 'Song added successfully!');
+        return redirect('/events')->with('success', 'Request sent!');
     }
 
     public function index(Request $request)
@@ -79,6 +82,8 @@ class ShowRequestsController extends Controller
                 'company_name' => $showRequest->company_name,
                 'email' => $showRequest->email,
                 'date' => $showRequest->date,
+                'eventname' => $showRequest->eventname,
+                'location' => $showRequest->location,
                 'whatsapp' => $showRequest->whatsapp,
                 'status' => $showRequest->status,
                 'notes' => $showRequest->notes,
@@ -112,6 +117,8 @@ class ShowRequestsController extends Controller
                 'company_name' => $showRequest->company_name,
                 'email' => $showRequest->email,
                 'date' => $showRequest->date,
+                'eventname' => $showRequest->eventname,
+                'location' => $showRequest->location,
                 'whatsapp' => $showRequest->whatsapp,
                 'status' => $showRequest->status,
                 'notes' => $showRequest->notes,
