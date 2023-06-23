@@ -41,12 +41,14 @@ Route::get('/news/{news:slug}', [NewsController::class, 'show']); // Show single
 Route::get('/events', [EventsController::class, 'index'])->name('events'); // Show all events
 Route::get('/events/filter/{filter}', [EventsController::class, 'filter'])->name('events.filter'); // Filter events
 
-
-
+//show requests routes
 Route::post('/events', [ShowRequestsController::class, 'store'])->name('showRequests.store'); // Store show request
 
-Route::get('/contact-us', [MessagesController::class, 'form']); // Show contact us page
-Route::post('/contact-us', [MessagesController::class, 'store'])->name('message.store'); // Store message
+// contact-us routes
+Route::group(['middleware' => ['verified']], function () {
+    Route::get('/contact-us', [MessagesController::class, 'form']); // Show contact us page
+    Route::post('/contact-us', [MessagesController::class, 'store'])->name('message.store');
+}); // Store message
 
 
 
@@ -59,13 +61,13 @@ Route::group(['middleware' => ['guest', 'prevent.user.login']], function () {
 
 // Email Verification
 Route::get('/email/verify', function () {
-    return view('auth.verify-email');
+    return view('auth.verify.verify-email');
 })->middleware('auth')->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
-    return view('auth.email-verified'); // Redirect to a page or show a message that says your email has been verified
+    return view('auth.verify.email-verified'); // Redirect to a page or show a message that says your email has been verified
 })->middleware(['auth', 'signed'])->name('verification.verify'); //
 
 

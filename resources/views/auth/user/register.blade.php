@@ -233,7 +233,7 @@
 
             <div class="form-floating">
                 <input type="password" name="password_confirmation"
-                    class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}"
+                    class="form-control {{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}"
                     id="password_confirmation" placeholder="Password confirmation" required>
                 <label for="password_confirmation">Confirm Password</label>
 
