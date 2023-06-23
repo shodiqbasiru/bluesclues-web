@@ -30,14 +30,15 @@ use App\Http\Controllers\MessagesController;
 
 Route::get('/', [HomeController::class, 'index']); // Home page
 
+// video page
 Route::get('/videos', [VideosController::class, 'showVideos'])->name('showVideos'); // Show all videos
 Route::get('/videos-data', [VideosController::class, 'index'])->name('videos.index');
 
-
-
+// news page
 Route::get('/news', [NewsController::class, 'index']); // Show all news
 Route::get('/news/{news:slug}', [NewsController::class, 'show']); // Show single news
 
+// event page
 Route::get('/events', [EventsController::class, 'index'])->name('events'); // Show all events
 Route::get('/events/filter/{filter}', [EventsController::class, 'filter'])->name('events.filter'); // Filter events
 
