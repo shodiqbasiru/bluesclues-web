@@ -2,7 +2,7 @@
 
 @section('content-page')
     <div class="container page-event">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="event-filter text-center" id="eventFilter">
                     <a class="filter-btn{{ $filter === 'all' ? ' active' : '' }}"
@@ -51,46 +51,8 @@
                     @endforeach
                 </div>
             </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-5">
-                <button class="btn btn-event" data-bs-toggle="modal" data-bs-target="#exampleModal">Request a Show</button>
-            </div>
-
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Request Show</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="post" action="">
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Name/Company name</label>
-                                    <input type="text" name="name" class="form-control" id="name">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="date" class="form-label">Date Of Show</label>
-                                    <input type="date" class="form-control" id="date" name="date">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="whatsapp" class="form-label">Whatsapp</label>
-                                    <input type="text" class="form-control" id="date" name="whatsapp">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-md-8">
+                <a href="/events/request-show" class="btn btn-event">Request a Show</a>
             </div>
         </div>
     </div>

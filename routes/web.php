@@ -36,6 +36,14 @@ Route::get('/about', [AboutController::class, 'index']);
 Route::get('/videos', [VideosController::class, 'showVideos'])->name('showVideos');
 Route::get('/videos-data', [VideosController::class, 'index'])->name('videos.index');
 
+// news page
+Route::get('/news', [NewsController::class, 'index']);
+Route::get('/news/{news:slug}', [NewsController::class, 'show']);
+
+// event page   
+Route::get('/events', [EventsController::class, 'index'])->name('events');
+Route::get('/events/filter/{filter}', [EventsController::class, 'filter'])->name('events.filter');
+
 // store page
 Route::get('/store', [StoreController::class, 'index']);
 Route::get('/store/detail', [StoreController::class, 'detail']);
@@ -44,20 +52,31 @@ Route::get('/store/detail', [StoreController::class, 'detail']);
 Route::get('/music', [MusicsController::class, 'index']);
 Route::get('/music/{song:slug}', [MusicsController::class, 'show']);
 
-// news page
-Route::get('/news', [NewsController::class, 'index']);
-Route::get('/news/{news:slug}', [NewsController::class, 'show']);
-Route::get('/admin/create-news', [NewsController::class, 'createNews'])->middleware('auth');
-Route::get('/shownews', [NewsController::class, 'select']);
-Route::post('/admin/create-news', [NewsController::class, 'store'])->middleware('auth')->name('news.store');
+Route::get('/events/request-show', function () {
+    return view('event.request-show', [
+        'title' => 'Request Show'
+    ]);
+});
 
-// event page   
-Route::get('/events', [EventsController::class, 'index'])->name('events');
-Route::get('/events/filter/{filter}', [EventsController::class, 'filter'])->name('events.filter');
-Route::get('/admin/add-event', [EventsController::class, 'addEvent'])->middleware('auth');
-Route::get('/events/{event:slug}', [EventsController::class, 'show']);
-Route::post('/admin/add-event', [EventsController::class, 'store'])->middleware('auth')->name('events.store');
+// auth user
+Route::get('/login-user', function () {
+    return view('auth.user.login', [
+        'title' => 'Login User'
+    ]);
+});
 
+Route::get('/register-user', function () {
+    return view('auth.user.register', [
+        'title' => 'Register User'
+    ]);
+});
+
+// contact page
+Route::get('/contact-us', function () {
+    return view('contact-us', [
+        'title' => 'Contact Us'
+    ]);
+});
 
 // dashboard admin
 Route::get('/login-admin', [AdminController::class, 'login'])->middleware('guest')->name('login');
@@ -74,12 +93,3 @@ Route::resource('/admin/dashboard/news', DashboardNewsController::class)->middle
 Route::resource('/admin/dashboard/events', DashboardEventsController::class)->middleware('auth');
 Route::resource('/admin/dashboard/songs', DashboardSongsController::class)->middleware('auth');
 Route::resource('/admin/dashboard/merchandise', DashboardMerchandiseController::class)->middleware('auth');
-
-
-
-
-Route::get('/songs', function () {
-    return view('songs', [
-        'title' => 'Songs'
-    ]);
-});

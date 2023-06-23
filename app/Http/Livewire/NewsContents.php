@@ -8,6 +8,7 @@ use Livewire\Component;
 class NewsContents extends Component
 {
     public $count = 4;
+
     public function render()
     {
         $news = News::latest()->take($this->count)->get();

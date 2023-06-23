@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content-page')
-    <div class="page-music mb-5">
+    <div class="page-music">
         @foreach ($music as $item)
             <div class="song">
                 <a href="/music/{{ $item->slug }}" class="song-detail">

@@ -1,23 +1,23 @@
 <nav class="navbar navbar-expand-lg" id="navbar">
     <div class="container-fluid content-navbar">
-        <div class="col-lg-1">
-            <div class="nav-logo">
-                <img src="{{ url('./assets/img/icons/logo-blues.png') }}" class="img-logo" alt="">
-            </div>
+
+        <div class="nav-logo">
+            <img src="{{ url('./assets/img/icons/logo_2.png') }}" class="img-logo" alt="">
         </div>
-        <div class="col-lg-8 ">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg"
-                aria-controls="navbarOffcanvasLg" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="navbarOffcanvasLg"
-                aria-labelledby="navbarOffcanvasLgLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Blues Clues</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body mx-auto">
-                    <ul class="navbar-nav">
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg"
+            aria-controls="navbarOffcanvasLg" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="navbarOffcanvasLg"
+            aria-labelledby="navbarOffcanvasLgLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Blues Clues</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav">
+                    <div class="d-flex">
                         <li class="nav-item">
                             <a class="nav-link {{ request()->segment(1) === null ? 'active' : '' }}"
                                 href="/">Home</a>
@@ -34,6 +34,8 @@
                             <a class="nav-link {{ request()->segment(1) == 'store' ? 'active' : '' }}"
                                 href="/store">Store</a>
                         </li>
+                    </div>
+                    <div class="d-flex">
                         <li class="nav-item">
                             <a class="nav-link {{ request()->segment(1) == 'events' ? 'active' : '' }}"
                                 href="/events">Events</a>
@@ -46,12 +48,15 @@
                             <a class="nav-link {{ request()->segment(1) == 'music' ? 'active' : '' }}"
                                 href="/music">Music</a>
                         </li>
-                    </ul>
-                </div>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->segment(1) == 'contact' ? 'active' : '' }}"
+                                href="/contact-us">Contact</a>
+                        </li>
+                    </div>
+                </ul>
             </div>
-        </div>
-        <div class="col-lg-1 none">
 
         </div>
+
     </div>
 </nav>

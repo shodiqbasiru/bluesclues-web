@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,500&display=swap");
 
 :root {
     --primary-color: #1159a6;
@@ -6,6 +6,7 @@
     --font-color: #fff;
     --hvr-video-color: rgba(30, 27, 33, 0.8);
     --bckgrd-black: rgba(18, 18, 18, 1);
+    --error-color: red;
 }
 
 * {
@@ -13,7 +14,7 @@
     padding: 0;
     box-sizing: border-box;
     color: var(--font-color);
-    font-family: "Courier Prime", monospace;
+    font-family: "Inter", sans-serif;
 }
 
 .loading {
@@ -61,18 +62,23 @@ body {
     border: 1px solid var(--secondary-color);
     color: var(--secondary-color);
     font-size: 22px;
-    font-weight: 600;
-    width: 214px;
-    height: 47px;
+    font-weight: 700;
+    padding: 10px 40px;
+    border-radius: 0;
     text-transform: uppercase;
-    border-radius: 10px;
     font-family: "Courier New", Courier, monospace;
+    transition: 0.3s all ease-in-out;
 }
 
 .btn-home:hover {
+    transition: 0.3s all ease-in-out;
     background-color: var(--secondary-color);
     border: 1px solid var(--secondary-color);
     color: var(--font-color);
+}
+
+.invalid-feedback {
+    color: var(--error-color);
 }
 
 /* navigation */
@@ -94,15 +100,18 @@ body {
 }
 
 .navbar .content-navbar {
-    justify-content: space-between;
-    padding: 0;
+    padding: 1rem 0;
     margin: 0 6.8rem;
+    position: relative;
 }
 
 .navbar .nav-logo {
-    width: 67px;
-    height: 57px;
-    margin: 0.5rem 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 43px;
 }
 
 .navbar .nav-logo .img-logo {
@@ -123,6 +132,7 @@ body {
     line-height: 20px;
     letter-spacing: 2px;
     padding: 5px 2px;
+    font-family: "Courier New", Courier, monospace;
 }
 
 .navbar-nav .nav-item .nav-link:hover {
@@ -145,6 +155,12 @@ body {
 }
 
 .navbar .navbar-nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar .navbar-nav .d-flex {
     gap: 45px;
 }
 
@@ -193,6 +209,7 @@ body {
     font-size: 48px;
     font-weight: 700;
     margin-bottom: -14px;
+    font-family: "Courier New", Courier, monospace;
 }
 
 .coming-soon h1 {
@@ -205,6 +222,20 @@ body {
 }
 
 /*  home music */
+
+.h-music .card-title {
+    font-family: "Courier New", Courier, monospace;
+    margin-bottom: 2.5rem;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 23px;
+}
+
+.h-music .card-text {
+    font-family: "Courier Prime", monospace;
+    margin-bottom: 1.37rem;
+    font-size: 20px;
+}
 
 .h-music {
     position: relative;
@@ -242,28 +273,12 @@ body {
     color: var(--font-color);
 }
 
-.h-music .card .card-body .card-title {
-    margin-bottom: 2.5rem;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 23px;
-}
-
-.h-music .card .card-body .card-text {
-    margin-bottom: 1.37rem;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 22px;
-}
-
 .h-music .card .card-body .btn {
     width: 100%;
     height: 38px;
     padding: 10px 0;
-    border-radius: 0;
     margin-bottom: 0.75rem;
     font-size: 16px;
-    font-weight: 700;
     line-height: 18px;
     text-transform: capitalize;
 }
@@ -271,74 +286,6 @@ body {
 .h-music .card img {
     width: 287px;
     height: 287px;
-}
-
-/* home mechandise */
-.h-merchan {
-    position: relative;
-    background-color: black;
-    background-image: url("/assets/img/bg-merchan.png");
-    width: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-}
-
-.h-merchan .merch-container {
-    font-family: "Open Sans", sans-serif;
-}
-
-.h-merchan .merch-container h3 {
-    text-transform: uppercase;
-    font-size: 40px;
-    font-weight: 600;
-    line-height: 54px;
-}
-
-.h-merchan .merch-container h3 span {
-    color: var(--primary-color);
-}
-
-.h-merchan .p-merch {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-}
-
-.h-merchan .p-merch .m-card {
-    display: flex;
-    gap: 22px;
-}
-
-.h-merchan .p-merch .m-card .card-merch {
-    width: 15.3rem;
-    border-radius: 20px;
-    background-color: rgba(217, 217, 217, 10%);
-}
-
-.h-merchan .p-merch .m-card .card-merch .head img {
-    padding: 30px;
-    width: 100%;
-}
-
-.h-merchan .p-merch .m-card .card-merch .body {
-    background-color: #0a0a0a;
-    padding: 10px 20px;
-}
-
-.h-merchan .p-merch .m-card .card-merch .body p {
-    margin: 0;
-}
-
-.h-merchan .p-merch .m-card .card-merch .body .name {
-    font-size: 16px;
-}
-
-.h-merchan .p-merch .m-card .card-merch .body .price {
-    color: var(--primary-color);
-    font-size: 20px;
 }
 
 /* home section videos */
@@ -477,6 +424,73 @@ body {
     font-weight: 700;
     line-height: 23px;
     text-transform: uppercase;
+    font-family: "Courier New", Courier, monospace;
+}
+
+/* home mechandise */
+.h-merchan {
+    position: relative;
+    background-color: black;
+    background-image: url("/assets/img/bg-merchan.png");
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.h-merchan .merch-container h3 {
+    font-family: "Courier New", Courier, monospace;
+    text-transform: uppercase;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 54px;
+}
+
+.h-merchan .merch-container h3 span {
+    font-family: "Courier New", Courier, monospace;
+    color: var(--primary-color);
+}
+
+.h-merchan .p-merch {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.h-merchan .p-merch .m-card {
+    display: flex;
+    gap: 22px;
+}
+
+.h-merchan .p-merch .m-card .card-merch {
+    width: 15.3rem;
+    border-radius: 20px;
+    background-color: rgba(217, 217, 217, 10%);
+}
+
+.h-merchan .p-merch .m-card .card-merch .head img {
+    padding: 30px;
+    width: 100%;
+}
+
+.h-merchan .p-merch .m-card .card-merch .body {
+    background-color: #0a0a0a;
+    padding: 10px 20px;
+}
+
+.h-merchan .p-merch .m-card .card-merch .body p {
+    margin: 0;
+}
+
+.h-merchan .p-merch .m-card .card-merch .body .name {
+    font-size: 16px;
+}
+
+.h-merchan .p-merch .m-card .card-merch .body .price {
+    color: var(--primary-color);
+    font-size: 20px;
 }
 
 /* home news section */
@@ -500,7 +514,8 @@ body {
     font-size: 48px;
     line-height: 58px;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    font-family: "Courier New", Courier, monospace;
+    letter-spacing: 8.64px;
     color: rgba(0, 0, 0, 0);
     -webkit-text-stroke: 2px #fefefe;
     z-index: 1;
@@ -523,10 +538,11 @@ body {
     font-size: 20px;
     font-weight: 700;
     line-height: 29px;
+    text-transform: uppercase;
 }
 
 .h-news .news .card-news .card-body p {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Inter", sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: 26px;
@@ -564,14 +580,14 @@ body {
 
 .d-news h2,
 .page-news h2 {
-    margin: 1rem;
+    margin: 4rem 0;
     text-align: center;
     font-size: 48px;
-    line-height: 58px;
     font-weight: 700;
-    letter-spacing: 0.18em;
-    color: rgba(0, 0, 0, 0);
-    -webkit-text-stroke: 2px #fefefe;
+    font-family: "Courier New", Courier, monospace;
+    letter-spacing: 6.44px;
+    text-transform: uppercase;
+    color: #adadad;
     z-index: 1;
 }
 
@@ -598,10 +614,11 @@ body {
     font-size: 20px;
     font-weight: 700;
     line-height: 29px;
+    text-transform: uppercase;
 }
 
 .page-news .content .news .card-news p {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Inter", sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: 26px;
@@ -619,27 +636,63 @@ body {
     align-self: center;
     margin: 1rem 0;
 }
+.page-news .content .btn-home span {
+    text-transform: uppercase;
+    align-self: center;
+    margin: 1rem 0;
+    color: var(--primary-color);
+    font-family: "Courier New", Courier, monospace;
+}
 
 /* news page detail */
 
-.d-news img {
+.d-news {
+    display: flex;
+    flex-direction: column;
+}
+
+.d-news h1 {
+    text-transform: uppercase;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.d-news .share-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.d-news .share-icons p {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+}
+
+.d-news .share-icons a img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+}
+
+.d-news .content img {
     width: 80%;
     height: 412px;
     object-fit: cover;
     display: block;
     margin: 26px auto;
-    font-family: "Open Sans", sans-serif;
 }
 
-.d-news .news {
+.d-news .content .news {
     font-size: 16px;
     line-height: 27px;
     text-align: justify;
 }
 
 .d-news .btn {
-    display: block;
     margin: 3.3rem auto;
+    display: block;
+    align-self: center;
 }
 
 /* about page */
@@ -735,6 +788,7 @@ body {
     text-decoration: none;
     color: #606060;
     font-size: 28px;
+    font-family: "Courier New", Courier, monospace;
     text-transform: uppercase;
     font-weight: 700;
     line-height: 31.72px;
@@ -779,6 +833,7 @@ body {
     font-size: 26px;
     line-height: 37.2px;
     letter-spacing: 4.7px;
+    color: var(--font-color);
     text-transform: uppercase;
 }
 
@@ -822,7 +877,7 @@ body {
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 3.2px;
-    line-height: 22px;
+    line-height: 32px;
     color: var(--secondary-color);
 }
 
@@ -831,7 +886,44 @@ body {
     width: 100%;
     color: var(--font-color);
     border-radius: 0;
+    padding: 0.8rem 0;
+    font-size: 14;
+    font-weight: 700;
     text-transform: uppercase;
+}
+
+/* request show & contact */
+#contact .form-control {
+    margin-bottom: 26px;
+}
+
+.form form {
+    max-width: 60%;
+    margin: 2rem auto;
+}
+
+.form form .form-label {
+    color: var(--secondary-color);
+    margin-bottom: 14px;
+    font-size: 16px;
+}
+
+.form form .form-control {
+    padding: 14px 23px;
+    margin-bottom: 29px;
+    border-radius: 0;
+    background-color: transparent;
+    color: var(--font-color);
+}
+
+/* .form form .form-control:focus {
+    background-color: var(--bckgrd-black);
+} */
+
+.form .btn-home {
+    background-color: var(--primary-color);
+    color: var(--font-color);
+    border: none;
 }
 
 /* modal request show */
@@ -1423,11 +1515,19 @@ body {
 }
 
 /* page Music */
+.page-music {
+    margin: 10rem 7rem;
+    justify-content: center;
+}
+
+.other-songs {
+    margin: 3rem 7rem;
+}
+
 .other-songs,
 .page-music {
-    margin: 3rem 7rem;
     display: flex;
-    gap: 10px;
+    gap: 16px;
     flex-wrap: wrap;
 }
 
@@ -1436,12 +1536,15 @@ body {
     position: relative;
     width: 296px;
     height: auto;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 .other-songs .song img,
 .page-music .song img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
 }
 
 .other-songs .song img .overlay,
@@ -1491,13 +1594,17 @@ body {
     padding: 1rem;
     text-align: center;
 }
+
 .d-music .content .thumbnail {
-    width: 30%;
+    width: 50%;
     padding: 1rem;
 }
 .d-music .content .thumbnail img {
-    width: 100%;
-    height: 616px;
+    width: 543px;
+    height: 543px;
+    margin: 0 auto;
+    display: block;
+    object-fit: cover;
 }
 .btn-musik {
     display: block;
@@ -1505,6 +1612,149 @@ body {
 }
 .other-songs {
     justify-content: center;
+}
+
+/* Authentication admin & user */
+#admin {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#user {
+    margin: 3.6rem auto;
+}
+
+#user a.forgetpass {
+    margin: 10px 0;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    text-align: center;
+    color: var(--secondary-color);
+}
+
+#user p.or {
+    /* position: absolute;
+    left: 50%;
+    bottom: 35px; */
+    padding: 0 1rem;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    text-transform: capitalize;
+    color: #8e8e93;
+    margin: 0;
+}
+
+#user .hr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#user .hr hr {
+    width: 189.5px;
+    margin: 0;
+}
+
+#user .btn-register {
+    border-radius: 8px;
+    background-color: #ffd500;
+    color: #4f4f4f;
+    max-width: 196px;
+    margin-top: 20px;
+}
+
+#admin .errorForm {
+    border-left: 5px solid var(--error-color);
+}
+
+#user .errorForm {
+    border-left: 5px solid var(--error-color);
+}
+
+.auth {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.auth h1 {
+    /* font-family: "Poppins", sans-serif; */
+    color: #fff;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 24px;
+    margin-bottom: 41px;
+}
+
+.auth form {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.auth .form-group {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.auth form .myinput {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    background-color: transparent;
+    color: var(--font-color);
+    border-radius: 0;
+    border: 1px solid #fff;
+    padding: 15px 20px;
+    border-left: 5px solid var(--primary-color);
+    outline: none;
+    font-size: 18px;
+}
+
+.auth form .mylabel {
+    /* Properti lainnya */
+    position: absolute;
+    z-index: 1;
+    top: 17px;
+    left: 24px;
+    padding: 0 5px;
+    font-size: 18px;
+    text-transform: capitalize;
+    transition: top 0.3s ease-out;
+    color: var(--secondary-color);
+}
+
+.auth form .myinput:valid,
+.auth form .myinput:focus {
+    position: static;
+}
+
+.auth form .myinput:valid ~ .mylabel,
+.auth form .myinput:focus ~ .mylabel {
+    top: -10px;
+    left: 10px;
+    background-image: url("/assets/img/bg-black.png");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    font-size: 14px;
+}
+
+.auth form .btn {
+    display: block;
+    width: 60%;
+    background-color: var(--secondary-color);
+    color: var(--font-color);
+    margin: 0 auto;
+    font-size: 16px;
+    padding: 14px 0;
+    border-radius: 8px;
 }
 
 /* footer */
@@ -1700,7 +1950,7 @@ footer .f-store form label {
 
     .navbar .content-navbar .offcanvas {
         transition: all 0.5s ease-in-out;
-        background-color: rgb(10, 10, 10, 0.1);
+        background-color: rgb(10, 10, 10, 0.5);
         backdrop-filter: blur(10px);
         height: 100vh;
     }
@@ -1724,7 +1974,7 @@ footer .f-store form label {
 
     .navbar-brand,
     .navbar-nav .nav-item .nav-link {
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .navbar .nav-logo {
@@ -1861,6 +2111,10 @@ footer .f-store form label {
 
     .navbar .content-navbar {
         margin: 0;
+    }
+
+    .navbar .content-navbar .offcanvas {
+        width: 100%;
     }
 
     /* home */
