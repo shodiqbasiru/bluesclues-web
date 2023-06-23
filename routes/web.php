@@ -3,16 +3,19 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\StoreController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\ShowRequestsController;
+use App\Http\Controllers\MusicsController;
 use App\Http\Controllers\VideosController;
 use App\Http\Controllers\DashboardNewsController;
-use App\Http\Controllers\DashboardEventsController;
 use App\Http\Controllers\DashboardSongsController;
+use App\Http\Controllers\DashboardEventsController;
 use App\Http\Controllers\DashboardMerchandiseController;
 use App\Http\Controllers\MessagesController;
 /*
@@ -28,10 +31,14 @@ use App\Http\Controllers\MessagesController;
 
 
 
-Route::get('/', [HomeController::class, 'index']); // Home page
+// home
+Route::get('/', [HomeController::class, 'index']);
+
+// about
+Route::get('/about', [AboutController::class, 'index']);
 
 // video page
-Route::get('/videos', [VideosController::class, 'showVideos'])->name('showVideos'); // Show all videos
+Route::get('/videos', [VideosController::class, 'showVideos'])->name('showVideos');
 Route::get('/videos-data', [VideosController::class, 'index'])->name('videos.index');
 
 // news page
@@ -99,6 +106,12 @@ Route::group(['middleware' => ['guest', 'prevent.user.login', 'prevent.admin.log
     Route::get('/admin/login', [AdminController::class, 'login'])->name('login.admin');
     Route::post('/admin/login', [AdminController::class, 'authenticate'])->name('admin.authenticate');
 });
+// contact page
+Route::get('/contact-us', function () {
+    return view('contact-us', [
+        'title' => 'Contact Us'
+    ]);
+});
 
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
@@ -144,12 +157,3 @@ Route::post('/show-requests/{showRequest}/approve', [ShowRequestsController::cla
 Route::post('/show-requests/{showRequest}/reject', [ShowRequestsController::class, 'reject'])
     ->middleware('admin')
     ->name('show-request.reject');
-
-
-
-
-Route::get('/songs', function () {
-    return view('songs', [
-        'title' => 'Songs'
-    ]);
-});

@@ -14,7 +14,8 @@ class AdminController extends Controller
         ]);
     }
 
-    public function authenticate(Request $request){
+    public function authenticate(Request $request)
+    {
         $credentials = $request->validate([
             'email' => 'required|email:dns',
             'password' => 'required'
@@ -26,7 +27,7 @@ class AdminController extends Controller
             return redirect()->intended('/admin/dashboard');
         }
 
-        return back()->with('loginError', 'Login Failed');
+        return back()->with('loginError', 'Invalid email or password.');
     }
 
     public function logout(){

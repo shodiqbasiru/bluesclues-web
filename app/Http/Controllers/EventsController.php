@@ -29,17 +29,13 @@ class EventsController extends Controller
         foreach ($events as $event) {
             $event->formatted_date = date('F d, Y', strtotime($event->date));
         }
-        
 
-        return view('events', [
+        return view('event.events', [
             'title' => 'Events',
             'events' => $events,
             'filter' => $filter
         ]);
     }
-
-
-
 
     public function filter($filter)
     {
@@ -57,21 +53,10 @@ class EventsController extends Controller
             $events = $events->where('date', '<', date('Y-m-d'));
         }
 
-        return view('events', [
+        return view('event.events', [
             'title' => 'Events',
             'events' => $events,
             'filter' => $filter
-        ]);
-    }
-
-
-
-    public function show(Event $event)
-    {
-        $event->formatted_date = date('F d, Y', strtotime($event->date));
-        return view('showEvent', [
-            'title' => 'Events',
-            'event' => $event
         ]);
     }
 }

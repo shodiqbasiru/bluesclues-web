@@ -72,8 +72,6 @@ class VideosController extends Controller
                     'duration' => $durationFormatted,
                 ];
             }
-
-
             // Cache the results for 1 hour
             Cache::put($cacheKey, $videos, now()->addHour());
         }
@@ -84,11 +82,9 @@ class VideosController extends Controller
     public function showVideos()
     {
         $videosData = $this->index();
-
-        // Pass the videos data to the view
         return view('videos', [
             'title' => 'Videos',
-            'videos' => $videosData,  
+            'videos' => $videosData,
         ]);
     }
 }
