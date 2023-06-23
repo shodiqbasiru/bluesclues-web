@@ -20,6 +20,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ Request::is('admin/dashboard/orders*') ? 'active' : 'text-light' }}" href="/admin/dashboard/orders">
+                    <span data-feather="shopping-bag" class="align-text-bottom"></span>
+                    Orders
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ Request::is('admin/dashboard/events*') ? 'active' : 'text-light' }}" href="/admin/dashboard/events">
                     <span data-feather="calendar" class="align-text-bottom"></span>
                     Events

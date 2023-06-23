@@ -21,4 +21,3 @@ class Event extends Model
         return 'slug';
     }
 }
-
