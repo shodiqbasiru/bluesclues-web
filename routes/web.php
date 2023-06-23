@@ -42,29 +42,58 @@ Route::get('/videos', [VideosController::class, 'showVideos'])->name('showVideos
 Route::get('/videos-data', [VideosController::class, 'index'])->name('videos.index');
 
 // news page
-Route::get('/news', [NewsController::class, 'index']); // Show all news
-Route::get('/news/{news:slug}', [NewsController::class, 'show']); // Show single news
+Route::get('/news', [NewsController::class, 'index']);
+Route::get('/news/{news:slug}', [NewsController::class, 'show']);
 
 // event page
-Route::get('/events', [EventsController::class, 'index'])->name('events'); // Show all events
-Route::get('/events/filter/{filter}', [EventsController::class, 'filter'])->name('events.filter'); // Filter events
+Route::get('/events', [EventsController::class, 'index'])->name('events');
+Route::get('/events/filter/{filter}', [EventsController::class, 'filter'])->name('events.filter');
 
 //show requests routes
-Route::post('/events', [ShowRequestsController::class, 'store'])->name('showRequests.store'); // Store show request
+Route::post('/events/request-show', [ShowRequestsController::class, 'store'])->name('showRequests.store');
+Route::get('/events/request-show', function () {
+    return view('event.request-show', [
+        'title' => 'Request Show'
+    ]);
+});
 
-// contact-us routes
+// store page
+Route::get('/store', [StoreController::class, 'index']);
+Route::get('/store/detail', [StoreController::class, 'detail']);
+
+// Music Page
+Route::get('/music', [MusicsController::class, 'index']);
+Route::get('/music/{song:slug}', [MusicsController::class, 'show']);
+
+// contact-us
 Route::group(['middleware' => ['verified']], function () {
     Route::get('/contact-us', [MessagesController::class, 'form']); // Show contact us page
     Route::post('/contact-us', [MessagesController::class, 'store'])->name('message.store');
-}); // Store message
-
-
-
-// Register Routes
-Route::group(['middleware' => ['guest', 'prevent.user.login']], function () {
-    Route::get('/register', [UserController::class, 'register'])->name('user.register');
-    Route::post('/register', [UserController::class, 'store'])->name('user.store');
 });
+
+
+// User Login
+Route::group(['middleware' => ['guest', 'prevent.admin.login']], function () {
+    Route::get('/login-user', [UserController::class, 'login'])->name('login');
+    Route::post('/login-user', [UserController::class, 'authenticate'])->name('user.authenticate');
+});
+
+// Register User
+Route::group(['middleware' => ['guest', 'prevent.user.login']], function () {
+    Route::get('/register-user', [UserController::class, 'register'])->name('user.register');
+    Route::post('/register-user', [UserController::class, 'store'])->name('user.store');
+});
+
+
+Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
+
+// Admin Auth
+Route::group(['middleware' => ['guest', 'prevent.user.login', 'prevent.admin.login']], function () {
+    Route::get('/admin/login', [AdminController::class, 'login'])->name('login.admin');
+    Route::post('/admin/login', [AdminController::class, 'authenticate'])->name('admin.authenticate');
+});
+
+Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
 
 // Email Verification
@@ -91,29 +120,6 @@ Route::post('/email/verification-notification', function (Request $request) {
 // Route::get('/profile', function () {
 // })->middleware(['auth', 'verified']);
 
-
-// User Routes
-Route::group(['middleware' => ['guest', 'prevent.admin.login']], function () {
-    Route::get('/login', [UserController::class, 'login'])->name('login');
-    Route::post('/login', [UserController::class, 'authenticate'])->name('user.authenticate');
-});
-
-
-Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
-
-// Admin Routes
-Route::group(['middleware' => ['guest', 'prevent.user.login', 'prevent.admin.login']], function () {
-    Route::get('/admin/login', [AdminController::class, 'login'])->name('login.admin');
-    Route::post('/admin/login', [AdminController::class, 'authenticate'])->name('admin.authenticate');
-});
-// contact page
-Route::get('/contact-us', function () {
-    return view('contact-us', [
-        'title' => 'Contact Us'
-    ]);
-});
-
-Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
 Route::get('/admin/dashboard', function () {
     return view('dashboard.index', [
