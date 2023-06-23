@@ -58,15 +58,17 @@ Route::get('/events/request-show', function () {
 });
 
 // store page
-Route::get('/store', [StoreController::class, 'index']);
-Route::get('/store/detail', [StoreController::class, 'detail']);
+Route::group(['middleware' => ['verified']], function () {
+    Route::get('/store', [StoreController::class, 'index']);
+    Route::get('/store/detail', [StoreController::class, 'detail']);
+});
 
 // Music Page
 Route::get('/music', [MusicsController::class, 'index']);
 Route::get('/music/{song:slug}', [MusicsController::class, 'show']);
 
 // contact-us
-Route::group(['middleware' => ['verified']], function () {
+Route::group(['middleware' => []], function () {
     Route::get('/contact-us', [MessagesController::class, 'form']); // Show contact us page
     Route::post('/contact-us', [MessagesController::class, 'store'])->name('message.store');
 });

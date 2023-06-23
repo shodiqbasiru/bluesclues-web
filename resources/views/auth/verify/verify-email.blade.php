@@ -2,7 +2,7 @@
 
 @extends('layouts.main')
 
-@section('content')
+@section('content-page')
 
 
 <div class="container mt-5">

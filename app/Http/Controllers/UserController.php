@@ -41,7 +41,7 @@ class UserController extends Controller
 
         event(new Registered($user));
 
-        return redirect('/login')->with('success', 'Registration successful!, please verify your email address by clicking the link sent to your email.');
+        return redirect('/login-user')->with('success', 'Registration successful!, please verify your email address by clicking the link sent to your email.');
     }
 
     public function login()

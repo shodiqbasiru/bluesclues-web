@@ -12,7 +12,7 @@ class MessagesController extends Controller
     public function form()
     {
         //
-        return view('contactUs', [
+        return view('contact-us', [
             'title' => 'Contact Us',
         ]);
     }
