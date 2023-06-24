@@ -51,13 +51,8 @@
                                 <td>{{ \Illuminate\Support\Carbon::parse($song->release_date)->format('d F Y') }}</td>
                             </tr>
                             <tr>
-                                <th>Spotify Link</th>
-                                <td><a href="{{  $song->spotify_link }}" target="_blank">{{ $song->spotify_link }}</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Youtube Link</th>
-                                <td><a href="{{  $song->youtube_link }}" target="_blank">{{ $song->youtube_link }}</a>
+                                <th>Link</th>
+                                <td><a href="{{  $song->link }}" target="_blank">{{ $song->link }}</a>
                                 </td>
                             </tr>
 

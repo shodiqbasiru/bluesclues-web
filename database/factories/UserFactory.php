@@ -19,11 +19,12 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'Blues Clues Admin',
-            'email' => 'bluescluesadmin@gmail.com',
+            'name' => 'Blues Clues User',
+            'username' => 'ussser',
+            'email' => 'bluescluesuser@gmail.com',
             'email_verified_at' => now(),
             // 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'password' => Hash::make('Admin123'), // password
+            'password' => Hash::make('User123'), // password
             'remember_token' => Str::random(10),
         ];
     }

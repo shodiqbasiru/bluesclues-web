@@ -18,8 +18,7 @@ return new class extends Migration
             $table->text('title');
             $table->string('slug')->unique();
             $table->string('image')->nullable();
-            $table->text('spotify_link');
-            $table->text('youtube_link');
+            $table->text('link');
             $table->string('album');
             $table->timestamp('release_date');
             $table->text('lyrics');

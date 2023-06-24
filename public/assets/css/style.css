@@ -97,6 +97,8 @@ body {
 .navbar {
     background-color: rgba(10, 10, 10, 10%);
     z-index: 999999;
+    margin: 0;
+    padding: 0;
 }
 
 .navbar .content-navbar {

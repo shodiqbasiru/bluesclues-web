@@ -29,21 +29,13 @@
             @endif
         </div>
         <div class="form-group my-3">
-            <label for="spotify_link">Spotify Link:</label>
-            <input type="text" class="form-control{{ $errors->has('spotify_link') ? ' is-invalid' : '' }} mt-2" value="{{ old('spotify_link') }}" id="spotify_link" name="spotify_link" placeholder="Enter spotify link of the song" >
-            @if ($errors->has('spotify_link'))
-            <span class="invalid-feedback">{{ $errors->first('spotify_link') }}</span>
+            <label for="link">Link:</label>
+            <input type="text" class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }} mt-2" value="{{ old('link') }}" id="link" name="link" placeholder="Enter link of the song" >
+            @if ($errors->has('link'))
+            <span class="invalid-feedback">{{ $errors->first('link') }}</span>
             @endif
         </div>
 
-        <div class="form-group my-3">
-            <label for="youtube_link">Youtube Link:</label>
-            <input type="text" class="form-control{{ $errors->has('youtube_link') ? ' is-invalid' : '' }} mt-2" value="{{ old('youtube_link') }}" id="youtube_link" name="youtube_link" placeholder="Enter youtube link of the song" >
-            @if ($errors->has('youtube_link'))
-            <span class="invalid-feedback">{{ $errors->first('youtube_links') }}</span>
-            @endif
-        </div>
-        
         
         <div class="form-group my-3">
             <label for="release_date">Release date:</label>

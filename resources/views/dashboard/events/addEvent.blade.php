@@ -31,7 +31,7 @@
         </div>
         <div class="form-group my-3">
             <label for="time">Time:</label>
-            <input type="time" class="form-control" id="time" name="time" min="00:00" max="23:00" value="{{ old('time') }}"
+            <input type="time" class="form-control" id="time" name="time" min="00:00" max="23:59" value="{{ old('time') }}"
                 required>
             @if ($errors->has('time'))
             <span class="invalid-feedback">{{ $errors->first('time') }}</span>

@@ -2,6 +2,12 @@
 
 @section('content-page')
     <div class="container page-event">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show my-2" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="event-filter text-center" id="eventFilter">
@@ -52,6 +58,7 @@
                 </div>
             </div>
             <div class="col-md-8">
+
                 <a href="/events/request-show" class="btn btn-event">Request a Show</a>
             </div>
         </div>

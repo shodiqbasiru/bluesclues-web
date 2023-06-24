@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "anhskohbo/no-captcha": "^3.5",
         "google/apiclient": "^2.13",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",

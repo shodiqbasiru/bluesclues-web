@@ -33,3 +33,5 @@
         </form>
     </div>
 @endsection
+
+</html>

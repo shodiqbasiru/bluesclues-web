@@ -50,8 +50,7 @@ class DashboardSongsController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'image' => 'image|file|max:7168',
-            'spotify_link' => 'required',
-            'youtube_link' => 'required',
+            'link' => 'required',
             'release_date' => 'required|date|after_or_equal:' . now()->subYears(30)->format('Y-m-d') . '|before_or_equal:' . now()->addYears(10)->format('Y-m-d'),
             'album' => 'required',
             'content' => 'required',
@@ -62,8 +61,7 @@ class DashboardSongsController extends Controller
         // add a new song
         $song = new Song;
         $song->title = $validatedData['title'];
-        $song->spotify_link = $validatedData['spotify_link'];
-        $song->youtube_link = $validatedData['youtube_link'];
+        $song->link = $validatedData['link'];
         $song->release_date = $validatedData['release_date'];
         $song->album = $validatedData['album'];
         $song->lyrics = $validatedData['content'];
@@ -130,8 +128,7 @@ class DashboardSongsController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'image' => 'image|max:7168',
-            'spotify_link' => 'required',
-            'youtube_link' => 'required',
+            'link' => 'required',
             'release_date' => 'required|date|after_or_equal:' . now()->subYears(30)->format('Y-m-d') . '|before_or_equal:' . now()->addYears(10)->format('Y-m-d'),
             'album' => 'required',
             'content' => 'required',
@@ -142,8 +139,7 @@ class DashboardSongsController extends Controller
         // edit song
         $song = Song::find($song->id);
         $song->title = $validatedData['title'];
-        $song->spotify_link = $validatedData['spotify_link'];
-        $song->youtube_link = $validatedData['youtube_link'];
+        $song->link = $validatedData['link'];
         $song->release_date = $validatedData['release_date'];
         $song->album = $validatedData['album'];
         $song->lyrics = $validatedData['content'];
