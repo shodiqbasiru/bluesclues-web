@@ -16,12 +16,16 @@ class DashboardNewsController extends Controller
      */
     public function index()
     {
-        //
+        // item number pagination
+        $perPage = 10;
+        $currentPage = request()->query('page', 1);
+        $startIndex = ($currentPage - 1) * $perPage + 1;
         $news = News::latest()->paginate(10);
         
         return view('dashboard.news.index', [
             'title' => 'News',
-            'news' => $news,     
+            'news' => $news,    
+            'startIndex' => $startIndex, 
         ]);
     }
 

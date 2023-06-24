@@ -26,7 +26,7 @@
         <tbody>
             @foreach ($events as $item)
             <tr>
-                <td>{{ $loop->iteration }}</td>
+                <td>{{ $startIndex + $loop->index }}</td>
                 <td>{{ $item->eventname }}</td>
                 <td style="max-width: 550px;">{{ $item->location }}</td>
                 <td>{{ $item->time }}</td>

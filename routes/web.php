@@ -58,7 +58,7 @@ Route::get('/events/request-show', function () {
 });
 
 // store page
-Route::group(['middleware' => ['verified']], function () {
+Route::group(['middleware' => []], function () {
     Route::get('/store', [StoreController::class, 'index']);
     Route::get('/store/detail', [StoreController::class, 'detail']);
 });

@@ -24,7 +24,7 @@
         <tbody>
             @foreach ($songs as $item)
             <tr>
-                <td>{{ $loop->iteration }}</td>
+                <td>{{ $startIndex + $loop->index }}</td>
                 <td>{{ $item->title }}</td>
                 <td>{{ \Illuminate\Support\Carbon::parse($item->release_date)->format('d F Y') }}</td>
                 <td>{{ $item->album }}</td>

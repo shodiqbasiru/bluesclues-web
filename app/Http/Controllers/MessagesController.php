@@ -49,19 +49,25 @@ class MessagesController extends Controller
 
     public function index()
     {
+        // item number pagination
+        $perPage = 10;
+        $currentPage = request()->query('page', 1);
+        $startIndex = ($currentPage - 1) * $perPage + 1;
 
         $message = Message::latest()->paginate(10);
         return view('dashboard.messages.index', [
             'title' => 'Show Requests',
             'message' => $message,
+            'startIndex' => $startIndex,
         ]);
     }
     public function show(Message $message)
     {
-        //
+
         return view('dashboard.messages.show', [
             'title' => 'Message Details',
-            'message' => $message
+            'message' => $message,
+
         ]);
     }
 

@@ -6,6 +6,7 @@ use App\Models\Merchandise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Models\MerchCategory;
 
 class DashboardMerchandiseController extends Controller
 {
@@ -16,11 +17,17 @@ class DashboardMerchandiseController extends Controller
      */
     public function index()
     {
-        //
-        $merchandise = Merchandise::latest()->paginate(10);
+        
+        // item number pagination
+        $perPage = 10;
+        $currentPage = request()->query('page', 1);
+        $startIndex = ($currentPage - 1) * $perPage + 1;
+
+        $merchandise = Merchandise::with(['merchCategory'])->latest()->paginate(10);
         return view('dashboard.merchandises.index', [
             'title' => 'Merchs',
             'merchandise' => $merchandise,
+            'startIndex' => $startIndex,
         ]);
     }
 
@@ -32,8 +39,11 @@ class DashboardMerchandiseController extends Controller
     public function create()
     {
         //
+        $categories = MerchCategory::all();
+
         return view('dashboard.merchandises.addMerch', [
-            'title' => 'Merchs'
+            'title' => 'Merchs',
+            'categories' => $categories,
         ]);
     }
 
@@ -45,13 +55,14 @@ class DashboardMerchandiseController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         //validate data
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'price' => ['required', 'numeric', 'min:0', 'max:9999999999'],
             'image' => 'image|file|max:7168',
             'content' => 'required',
+            'category_id' => 'required|exists:merch_categories,id',
         ]);
 
 
@@ -62,6 +73,7 @@ class DashboardMerchandiseController extends Controller
         $merchandise->name = $validatedData['name'];
         $merchandise->price = $validatedData['price'];
         $merchandise->description = $validatedData['content'];
+        $merchandise->category_id = $validatedData['category_id'];
 
         $truncatedName = substr($validatedData['name'], 0, 50);
         $slug = Str::slug($truncatedName, '-') . '-' . uniqid();
@@ -104,9 +116,12 @@ class DashboardMerchandiseController extends Controller
     public function edit(Merchandise $merchandise)
     {
         //
+        $categories = MerchCategory::all();
+        
         return view('dashboard.merchandises.edit', [
             'title' => 'Merchs',
-            'merchandise' => $merchandise
+            'merchandise' => $merchandise,
+            'categories' => $categories,
         ]);
     }
 
@@ -126,6 +141,7 @@ class DashboardMerchandiseController extends Controller
             'price' => ['required', 'numeric', 'min:0', 'max:9999999999'],
             'image' => 'image|file|max:7168',
             'content' => 'required',
+            'category_id' => 'required|exists:merch_categories,id',
         ]);
 
 
@@ -134,6 +150,7 @@ class DashboardMerchandiseController extends Controller
         $merchandise->name = $validatedData['name'];
         $merchandise->price = $validatedData['price'];
         $merchandise->description = $validatedData['content'];
+        $merchandise->category_id = $validatedData['category_id'];
 
         $truncatedName = substr($validatedData['name'], 0, 50);
         $slug = Str::slug($truncatedName, '-') . '-' . uniqid();
@@ -165,6 +182,5 @@ class DashboardMerchandiseController extends Controller
         if ($merchandise->image != null) Storage::delete($merchandise->image);
         Merchandise::destroy($merchandise->id);
         return redirect('/admin/dashboard/merchandise')->with('success', 'The merchandise has been deleted!');
-
     }
 }

@@ -18,6 +18,11 @@ class MessageFactory extends Factory
     {
         return [
             //
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
+            'subject' => $this->faker->sentence,
+            'whatsapp' => $this->faker->phoneNumber,
+            'message_content' => $this->faker->paragraph,
         ];
     }
 }

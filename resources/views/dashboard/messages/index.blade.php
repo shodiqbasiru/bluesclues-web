@@ -27,9 +27,9 @@
         <tbody>
             @foreach ($message as $item)
             <tr>
-                <td>{{ $loop->iteration }}</td>
+                <td>{{ $startIndex + $loop->index }}</td>
                 <td style="max-width: 100px;">{{ $item->name }}</td>
-                <td style="max-width: 100px;">{{ $item->email }}</td>
+                <td>{{ $item->email }}</td>
                 <td style="max-width: 100px;">{{ $item->subject }}</td>
                 <td>{{ $item->whatsapp }}</td>
                 <td>{{ \Illuminate\Support\Carbon::parse($item->date)->format('d F Y') }}</td>
