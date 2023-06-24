@@ -44,6 +44,12 @@ Route::get('/news/{news:slug}', [NewsController::class, 'show']);
 Route::get('/events', [EventsController::class, 'index'])->name('events');
 Route::get('/events/filter/{filter}', [EventsController::class, 'filter'])->name('events.filter');
 
+Route::get('/events/request-show', function () {
+    return view('event.request-show', [
+        'title' => 'Request Show'
+    ]);
+});
+
 // store page
 Route::get('/store', [StoreController::class, 'index']);
 Route::get('/store/detail', [StoreController::class, 'detail']);
@@ -52,29 +58,24 @@ Route::get('/store/detail', [StoreController::class, 'detail']);
 Route::get('/music', [MusicsController::class, 'index']);
 Route::get('/music/{song:slug}', [MusicsController::class, 'show']);
 
-Route::get('/events/request-show', function () {
-    return view('event.request-show', [
-        'title' => 'Request Show'
+// contact-us
+Route::get('/contact-us', function () {
+    return view('contact-us', [
+        'title' => 'Contact Us'
     ]);
 });
 
-// auth user
+// User Login 
 Route::get('/login-user', function () {
     return view('auth.user.login', [
         'title' => 'Login User'
     ]);
 });
 
+// Register User
 Route::get('/register-user', function () {
     return view('auth.user.register', [
         'title' => 'Register User'
-    ]);
-});
-
-// contact page
-Route::get('/contact-us', function () {
-    return view('contact-us', [
-        'title' => 'Contact Us'
     ]);
 });
 
@@ -82,7 +83,6 @@ Route::get('/contact-us', function () {
 Route::get('/login-admin', [AdminController::class, 'login'])->middleware('guest')->name('login');
 Route::post('/login-admin', [AdminController::class, 'authenticate'])->name('admin.authenticate');
 Route::post('/logout-admin', [AdminController::class, 'logout'])->name('admin.logout');
-
 Route::get('/admin/dashboard', function () {
     return view('dashboard.index', [
         'title' => 'Admin Dashboard'
