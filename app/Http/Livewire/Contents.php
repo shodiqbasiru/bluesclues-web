@@ -8,7 +8,7 @@ use App\Http\Controllers\VideosController;
 
 class Contents extends Component
 {
-    public $count = 9;
+    public $count = 13;
     public $videos = [];
     public $totalVideos;
 

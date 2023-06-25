@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <x-head.tinymce-config />
+    {{-- <link rel="shortcut icon" href="{{ url('/assets/img/logo-blues.png') }}"> --}}
+    {{-- <link rel="icon" type="image/x-icon" href="{{ url('/assets/img/logo-blues.png') }}"> --}}
+
     <title>{{ $title }}</title>
 
     {{-- Bootstrap --}}

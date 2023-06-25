@@ -15,8 +15,6 @@
             <div class="news">
                 {!! $news->content !!}
             </div>
-
-
         </div>
 
         <div class="share-icons">

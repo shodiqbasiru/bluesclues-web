@@ -18,10 +18,10 @@ class DashboardNewsController extends Controller
     {
         //
         $news = News::latest()->paginate(10);
-        
+
         return view('dashboard.news.index', [
             'title' => 'News',
-            'news' => $news,     
+            'news' => $news,
         ]);
     }
 
@@ -53,14 +53,14 @@ class DashboardNewsController extends Controller
             'content' => 'required',
         ]);
 
-        
+
 
 
         // create a new news article
         $news = new News;
         $news->title = $validatedData['title'];
         $news->content = $validatedData['content'];
-        $news->excerpt = Str::limit(strip_tags($validatedData['content']), 100, '...');
+        $news->excerpt = Str::limit(strip_tags($validatedData['content']), 200, '...');
         $news->excerpt = str_replace('&nbsp;', '', $news->excerpt);
 
         $truncatedTitle = substr($validatedData['title'], 0, 50);
@@ -70,7 +70,7 @@ class DashboardNewsController extends Controller
         }
         $news->slug = $slug;
 
-        if($request->file('image')){
+        if ($request->file('image')) {
             $validatedData['image'] = $request->file('image')->store('news-images');
             $news->image = $validatedData['image'];
         }
@@ -138,17 +138,16 @@ class DashboardNewsController extends Controller
         while (News::where('slug', $slug)->exists()) {
             $slug = Str::slug($truncatedTitle, '-') . '-' . uniqid();
         }
-        if($request->file('image')){
+        if ($request->file('image')) {
             if ($news->image != null) Storage::delete($news->image);
             $validatedData['image'] = $request->file('image')->store('news-images');
             $news->image = $validatedData['image'];
         }
-        $news->slug = $slug; 
+        $news->slug = $slug;
         $news->save();
 
         // redirect back to the form with a success message
         return redirect('/admin/dashboard/news')->with('success', 'News article has been updated!');
-
     }
 
     /**
@@ -163,6 +162,5 @@ class DashboardNewsController extends Controller
         if ($news->image != null) Storage::delete($news->image);
         News::destroy($news->id);
         return redirect('/admin/dashboard/news')->with('success', 'News article has been deleted!');
-
     }
 }

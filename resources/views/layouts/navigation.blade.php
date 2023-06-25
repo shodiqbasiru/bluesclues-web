@@ -12,14 +12,14 @@
         <div class="offcanvas offcanvas-end" tabindex="-1" id="navbarOffcanvasLg"
             aria-labelledby="navbarOffcanvasLgLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Blues Clues</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav">
                     <div class="d-flex">
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->segment(1) === null ? 'active' : '' }}" href="/">Home</a>
+                            <a class="nav-link {{ request()->segment(1) === null ? 'active' : '' }}"
+                                href="/">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ request()->segment(1) == 'about' ? 'active' : '' }}"
@@ -33,13 +33,13 @@
                             <a class="nav-link {{ request()->segment(1) == 'store' ? 'active' : '' }}"
                                 href="/store">Store</a>
                         </li>
-                        @if(auth()->check())
-                        <li class="nav-item">
-                            <form action="{{ route('user.logout') }}" method="post">
-                                @csrf
-                                <button type="submit" class="nav-link">Logout</button>
-                            </form>
-                        </li>
+                        @if (auth()->check())
+                            <li class="nav-item">
+                                <form action="{{ route('user.logout') }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="nav-link">Logout</button>
+                                </form>
+                            </li>
                         @endif
                     </div>
                     <div class="d-flex">
@@ -55,9 +55,8 @@
                             <a class="nav-link {{ request()->segment(1) == 'music' ? 'active' : '' }}"
                                 href="/music">Music</a>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->segment(1) == 'contact' ? 'active' : '' }}"
+                            <a class="nav-link {{ request()->segment(1) == 'contact-us' ? 'active' : '' }}"
                                 href="/contact-us">Contact</a>
                         </li>
 

@@ -1,7 +1,6 @@
 <div class="content">
     <div class="news" id="news">
 
-
         @foreach ($news as $newsitem)
             <div class="card-news">
 
