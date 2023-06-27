@@ -22,9 +22,9 @@ class NewsController extends Controller
         $news = News::where('slug', $slug)->firstOrFail();
         $shareLinks = \Share::page(route('news.share', $news->slug), $news->title)
             ->facebook()
+            ->telegram()
             ->twitter()
             ->whatsapp()
-            ->telegram()
             ->getRawLinks();
 
         return view('news-detail', [

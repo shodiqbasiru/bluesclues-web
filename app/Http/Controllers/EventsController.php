@@ -30,7 +30,7 @@ class EventsController extends Controller
             $event->formatted_date = date('F d, Y', strtotime($event->date));
             // Get share links based on slug
             $share = \Share::page(route('event.share', $event->slug), $event->eventname);
-            $event->shareLinks = $share->facebook()->twitter()->whatsapp()->telegram()->getRawLinks();
+            $event->shareLinks = $share->facebook()->telegram()->twitter()->whatsapp()->getRawLinks();
         }
 
 
@@ -64,22 +64,22 @@ class EventsController extends Controller
         ]);
     }
 
-    public function show(Event $event)
+    public function show($slug)
     {
-        // $event = Event::where('slug', $slug)->firstOrFail();
-        // $shareLinks = \Share::page(
-        //     route('event.share', $event->slug),
-        //     $event->title
-        // )->facebook()
-        //     ->twitter()
-        //     ->whatsapp()
-        //     ->telegram()
-        //     ->getRawLinks();
+        $event = Event::where('slug', $slug)->firstOrFail();
+        $shareLinks = \Share::page(
+            route('event.share', $event->slug),
+            $event->eventname
+        )->facebook()
+            ->telegram()
+            ->twitter()
+            ->whatsapp()
+            ->getRawLinks();
 
         return view('event.event-detail', [
             "title" => "Detail Event",
             "event" => $event,
-            // "shareLinks" => $shareLinks
+            "shareLinks" => $shareLinks
         ]);
     }
 }

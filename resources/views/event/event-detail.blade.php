@@ -2,11 +2,12 @@
 
 @section('content-page')
     <div class="detail-event" id="detailEvent">
+        <div class="bg-left"></div>
+        <div class="bg-right"></div>
+        <div class="bg-opacity"></div>
         <div class="wrapper">
             <div class="content">
                 <h1>{{ $event->eventname }}</h1>
-                <p>{{ $event->location }}</p>
-                <p>{{ date('d F Y', strtotime($event->date)) }}</p>
                 <div class="timer-container">
                     <div class="timer-box">
                         <div class="timer-value" id="days"></div>
@@ -25,8 +26,40 @@
                         <div class="timer-label">seconds</div>
                     </div>
                 </div>
+                <div class="detail-content">
+                    <div class="list-detail">
+                        <img src="{{ url('/assets/img/icons/icon-calendar.png') }}" alt="">
+                        <p>{{ date('F d, Y', strtotime($event->date)) }}</p>
+                    </div>
+                    <div class="list-detail">
+                        <img src="{{ url('/assets/img/icons/icon-clock.png') }}" alt="">
+                        <p>{{ date('g:i A', strtotime($event->time)) }}</p>
+                    </div>
+                    <div class="list-detail">
+                        <img src="{{ url('/assets/img/icons/icon-location.png') }}" alt="">
+                        <p>{{ $event->location }}</p>
+                    </div>
+                    {{-- <div class="list-detail">
+                        <img src="{{ url('/assets/img/icons/icon-location-d.png') }}" alt="">
+                        <p>{{ $event->location }}</p>
+                    </div> --}}
+                </div>
+                <div class="share">
+                    <p>Share this event</p>
+                    <div class="icons">
+
+                        @foreach ($shareLinks as $platform => $link)
+                            <a href="{{ $link }}" target="_blank" target="_blank"
+                                onclick="openSmallWindow(event, '{{ $link }}')"><img
+                                    src="{{ url('./assets/img/icons/icon-' . $platform . '.png') }}" alt=""></a>
+                        @endforeach
+
+
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 
