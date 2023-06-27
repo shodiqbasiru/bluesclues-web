@@ -5,8 +5,8 @@
         <div class="wrapper">
             <div class="content">
                 <h1>{{ $event->eventname }}</h1>
-                <h3>{{ $event->location }}</h3>
-                {{-- <h3 id="timer" class="timer-container">{{ $event->date }}</h3> --}}
+                <p>{{ $event->location }}</p>
+                <p>{{ date('d F Y', strtotime($event->date)) }}</p>
                 <div class="timer-container">
                     <div class="timer-box">
                         <div class="timer-value" id="days"></div>

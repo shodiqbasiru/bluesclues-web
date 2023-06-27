@@ -1180,6 +1180,10 @@ body {
     text-align: center;
 }
 
+.detail-event .wrapper .content p {
+    margin: 0;
+}
+
 .detail-event .wrapper .content .timer-container {
     display: flex;
     justify-content: center;
