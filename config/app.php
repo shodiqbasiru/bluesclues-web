@@ -108,7 +108,7 @@ return [
     |
     */
 
-    'faker_locale' => env('FAKER_LOCALE','en_US'),
+    'faker_locale' => env('FAKER_LOCALE', 'en_US'),
 
     /*
     |--------------------------------------------------------------------------
@@ -186,7 +186,7 @@ return [
          * Package Service Providers...
          */
 
-        
+
 
         /*
          * Application Service Providers...
@@ -197,9 +197,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        Jorenvh\Share\Providers\ShareServiceProvider::class,
 
-        
-        
+
+
 
     ],
 
@@ -217,6 +218,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
+        'Share' => Jorenvh\Share\ShareFacade::class,
     ])->toArray(),
 
 ];

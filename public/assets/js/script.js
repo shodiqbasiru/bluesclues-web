@@ -1,3 +1,24 @@
+// fungsi membukajendela browser
+function openSmallWindow(event, url) {
+    event.preventDefault();
+    var width = 550; // lebar jendela
+    var height = 625; // tinggi jendela
+    var left = (window.innerWidth - width) / 2;
+    var top = (window.innerHeight - height) / 2;
+    window.open(
+        url,
+        "",
+        "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=" +
+            width +
+            ", height=" +
+            height +
+            ", top=" +
+            top +
+            ", left=" +
+            left
+    );
+}
+
 var swiper = new Swiper(".mySwiper", {
     effect: "coverflow",
     grabCursor: true,

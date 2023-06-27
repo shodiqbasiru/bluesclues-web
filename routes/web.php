@@ -43,10 +43,11 @@ Route::get('/videos-data', [VideosController::class, 'index'])->name('videos.ind
 
 // news page
 Route::get('/news', [NewsController::class, 'index']);
-Route::get('/news/{news:slug}', [NewsController::class, 'show']);
+Route::get('/news/{news:slug}', [NewsController::class, 'show'])->name('news.share');
 
 // event page
 Route::get('/events', [EventsController::class, 'index'])->name('events');
+Route::get('/events/{event:slug}', [EventsController::class, 'show'])->name('event.share');
 Route::get('/events/filter/{filter}', [EventsController::class, 'filter'])->name('events.filter');
 
 //show requests routes

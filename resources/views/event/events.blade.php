@@ -42,14 +42,13 @@
                             <div class="card-logo">
                                 <p>Share :</p>
                                 <div class="icons">
-                                    <a href="#"><img src="{{ url('./assets/img/icons/icon-facebook.png') }}"
-                                            alt=""></a>
-                                    <a href="#"><img src="{{ url('./assets/img/icons/icon-instagram.png') }}"
-                                            alt=""></a>
-                                    <a href="#"><img src="{{ url('./assets/img/icons/icon-twitter.png') }}"
-                                            alt=""></a>
-                                    <a href="#"><img src="{{ url('./assets/img/icons/icon-whatsapp.png') }}"
-                                            alt=""></a>
+                                    @foreach ($eventItem->shareLinks as $platform => $link)
+                                        <a href="{{ $link }}" target="_blank"
+                                            onclick="openSmallWindow(event, '{{ $link }}')"><img
+                                                src="{{ url('./assets/img/icons/icon-' . $platform . '.png') }}"
+                                                alt=""></a>
+                                    @endforeach
+
                                 </div>
 
                             </div>

@@ -153,20 +153,20 @@ body {
 }
 
 .navbar-nav .nav-item .nav-link:hover::after {
-    width: 98%; /* Mengubah lebar dari 1% menjadi 98% */
+    width: 98%;
     border-color: #6ca2dd;
-    animation: border-animation 0.2s linear; /* Menambahkan animasi */
+    animation: border-animation 0.18s linear;
 }
 
 @keyframes border-animation {
     0% {
-        width: 0; /* Mengubah lebar menjadi 0 */
+        transform: scaleX(0);
     }
-    50% {
-        width: 50%; /* Mengubah lebar menjadi 100% */
-    }
+    /* 50% {
+        transform: scaleX(0);
+    } */
     100% {
-        width: 100%; /* Mengubah lebar menjadi 0 */
+        transform: scaleX(1);
     }
 }
 
@@ -1169,6 +1169,48 @@ body {
     text-transform: uppercase;
 }
 
+/* detail event */
+.detail-event .wrapper {
+    display: grid;
+    height: 75vh;
+    place-items: center;
+}
+
+.detail-event .wrapper .content {
+    text-align: center;
+}
+
+.detail-event .wrapper .content .timer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.detail-event .wrapper .content .timer-box {
+    width: 100px;
+    height: 100px;
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail-event .wrapper .content .timer-value {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.detail-event .wrapper .content .timer-label {
+    font-size: 16px;
+    text-transform: capitalize;
+}
+
+/* responsive page event */
 /* `lg` applies to medium devices (tablets, less than 992px) */
 @media (max-width: 991.98px) {
     .page-event {

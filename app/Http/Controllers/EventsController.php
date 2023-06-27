@@ -28,12 +28,16 @@ class EventsController extends Controller
         // Format the date for each event
         foreach ($events as $event) {
             $event->formatted_date = date('F d, Y', strtotime($event->date));
+            // Get share links based on slug
+            $share = \Share::page(route('event.share', $event->slug), $event->eventname);
+            $event->shareLinks = $share->facebook()->twitter()->whatsapp()->telegram()->getRawLinks();
         }
+
 
         return view('event.events', [
             'title' => 'Events',
             'events' => $events,
-            'filter' => $filter
+            'filter' => $filter,
         ]);
     }
 
@@ -57,6 +61,25 @@ class EventsController extends Controller
             'title' => 'Events',
             'events' => $events,
             'filter' => $filter
+        ]);
+    }
+
+    public function show(Event $event)
+    {
+        // $event = Event::where('slug', $slug)->firstOrFail();
+        // $shareLinks = \Share::page(
+        //     route('event.share', $event->slug),
+        //     $event->title
+        // )->facebook()
+        //     ->twitter()
+        //     ->whatsapp()
+        //     ->telegram()
+        //     ->getRawLinks();
+
+        return view('event.event-detail', [
+            "title" => "Detail Event",
+            "event" => $event,
+            // "shareLinks" => $shareLinks
         ]);
     }
 }
