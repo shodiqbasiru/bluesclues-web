@@ -15,10 +15,12 @@
         @endforeach
     </div>
     @if (count($videos) < $totalVideos)
-        <button class="btn btn-home text-center" wire:click="loadMore">Load More</button>
+        <div wire:loading.remove class="text-center">
+            <button class="btn btn-home" wire:click="loadMore">Load More</button>
+        </div>
     @endif
-    <span class="loading" wire:loading>
+    <div class="loading " wire:loading>
         <div class="loading-spinner"></div>
-    </span>
+    </div>
 
 </div>
