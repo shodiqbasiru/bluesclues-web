@@ -32,7 +32,7 @@
 @section('h-videos')
     <div class="h-videos" id="h-videos">
 
-        <div class="swiper mySwiper">
+        <div class="swiper sliderHome">
             <div class="swiper-wrapper">
                 @foreach ($videos->take(5) as $video)
                     <div class="swiper-slide">

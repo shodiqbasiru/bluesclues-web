@@ -18,6 +18,8 @@ use App\Http\Controllers\DashboardSongsController;
 use App\Http\Controllers\DashboardEventsController;
 use App\Http\Controllers\DashboardMerchandiseController;
 use App\Http\Controllers\MessagesController;
+use App\Http\Livewire\Merchandise\Store;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,6 +61,9 @@ Route::get('/events/request-show', function () {
 });
 
 // store page
+
+Route::get('/store', [Store::class])->name('merchandise.home');
+
 Route::group(['middleware' => []], function () {
     Route::get('/store', [StoreController::class, 'index']);
     Route::get('/store/detail', [StoreController::class, 'detail']);

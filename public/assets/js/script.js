@@ -19,7 +19,8 @@ function openSmallWindow(event, url) {
     );
 }
 
-var swiper = new Swiper(".mySwiper", {
+// slider home
+var swiper = new Swiper(".sliderHome", {
     effect: "coverflow",
     grabCursor: true,
     centeredSlides: true,
@@ -51,6 +52,27 @@ var swiper = new Swiper(".mySwiper", {
     autoplay: {
         delay: 3000, // Waktu tunda antara slide (dalam milidetik)
         disableOnInteraction: false, // Jangan hentikan autoplay saat pengguna berinteraksi dengan slider
+    },
+});
+
+// slider store
+var swiper = new Swiper(".sliderStore", {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+    centeredSlides: true,
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        dynamicBullets: true,
+        clickable: true,
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
     },
 });
 
