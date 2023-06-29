@@ -57,11 +57,17 @@ class ShowRequestsController extends Controller
             $showRequests->where('status', 2);
         }
 
+        // item number pagination
+        $perPage = 10;
+        $currentPage = request()->query('page', 1);
+        $startIndex = ($currentPage - 1) * $perPage + 1;
+
         $showRequests = $showRequests->paginate(10);
         return view('dashboard.show-requests.index', [
             'title' => 'Show Requests',
             'showRequests' => $showRequests,
-            'status' => $status
+            'status' => $status,
+            'startIndex' => $startIndex,
         ]);
     }
 

@@ -1959,28 +1959,55 @@ body {
 }
 
 .page-store .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
     margin-bottom: 0;
     padding-bottom: 1rem;
 }
 
-.page-store .content {
+.page-store .content .header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-store .content .header .input-group {
+    width: 30%;
+}
+
+.page-store .content .header h2 {
+    width: 50%;
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #adadad;
+    font-family: "Courier New", Courier, monospace;
+    text-transform: uppercase;
+}
+
+.page-store .content .body {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    margin-top: 3rem;
 }
 
-.page-store .content a {
+.page-store .content .body a {
     text-decoration: none;
 }
 
-.page-store .content .card {
+.page-store .content .body .card {
     position: relative;
     background-color: transparent;
     width: calc(18rem + 5px);
     border: none;
 }
 
-.page-store .content .card .btn {
+.page-store .content .body .card .btn {
     position: absolute;
     left: 50%;
     top: 70%;
@@ -1993,23 +2020,23 @@ body {
     color: var(--font-color);
 }
 
-.page-store .content .card:hover .btn {
+.page-store .content .body .card:hover .btn {
     display: block;
     opacity: 1;
     z-index: 999;
     transition: 5s all ease-in;
 }
 
-.page-store .content .card:hover img {
+.page-store .content .body .card:hover img {
     transition: 0.2s all ease-in;
     transform: scale(1.4);
 }
 
-.page-store .content .card .card-body {
+.page-store .content .body .card .card-body {
     margin-top: 3rem;
 }
 
-.page-store .content .card .card-body .card-title {
+.page-store .content .body .card .card-body .card-title {
     font-size: 12px;
     font-weight: 500;
     text-align: center;
@@ -2019,11 +2046,11 @@ body {
     letter-spacing: 0.6px;
 }
 
-.page-store .content .card .card-body .card-price {
+.page-store .content .body .card .card-body .card-price {
     font-size: 11px;
     font-weight: 500;
     text-align: center;
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: var(--secondary-color);
     line-height: 21px;
     letter-spacing: 1px;

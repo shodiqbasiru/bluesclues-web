@@ -75,9 +75,9 @@
         <tbody>
             @foreach ($showRequests as $item)
             <tr>
-                <td>{{ $loop->iteration }}</td>
+                <td>{{ $startIndex + $loop->index }}</td>
                 <td style="max-width: 100px;">{{ $item->company_name }}</td>
-                <td style="max-width: 100px;">{{ $item->email }}</td>
+                <td>{{ $item->email }}</td>
                 <td>{{ \Illuminate\Support\Carbon::parse($item->date)->format('d F Y') }}</td>
                 <td style="max-width: 100px;">{{ $item->eventname }}</td>
                 <td style="max-width: 100px;">{{ $item->location }}</td>

@@ -34,7 +34,7 @@
         <tbody>
             @foreach ($news as $item)
             <tr>
-                <td>{{ $loop->iteration }}</td>
+                <td>{{ $startIndex + $loop->index }}</td>
                 <td style="max-width: 550px;">{{ $item->title }}</td>
                 <td>{{ $item->created_at->format('d F Y') }}</td>
                 <td>

@@ -1,5 +1,6 @@
 <div class="container-fluid page-store">
 
+    {{-- Slider Header --}}
     <div class="slider">
         <div class="swiper sliderStore">
             <div class="swiper-wrapper">
@@ -27,22 +28,40 @@
         </div>
     </div>
 
-    @php
-        $cardCount = 12; // Jumlah kartu yang ingin ditampilkan
-    @endphp
-
+    {{-- @php
+        $cardCount = 12; 
+    @endphp --}}
     <div class="content">
-        @for ($i = 0; $i < $cardCount; $i++)
-            <a href="/store/detail">
-                <div class="card">
-                    <img src="{{ url('./assets/img/bc-1.png') }}" class="card-img-top" alt="...">
-                    <button class="btn">Detail</button>
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-price">rp.10.000</p>
+        <div class="header">
+            <h2>All Products</h2>
+            <div class="input-group">
+                <input wire:model="search" type="text" class="form-control" placeholder="Search . . ."
+                    aria-label="Search" aria-describedby="basic-addon1">
+                <span class="input-group-text" id="basic-addon1">
+                    <ion-icon name="search"></ion-icon>
+                </span>
+            </div>
+        </div>
+        <div class="body">
+            @foreach ($products as $item)
+                {{-- @for ($i = 0; $i < $cardCount; $i++) --}}
+                <a href="/store/detail">
+                    <div class="card">
+                        <img src="{{ url('./assets/img/bc-1.png') }}" class="card-img-top" alt="...">
+                        <button class="btn">Detail</button>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $item->name }}</h5>
+                            <p class="card-price">rp {{ number_format($item->price, 0, ',', '.') }}</p>
+                        </div>
                     </div>
-                </div>
-            </a>
-        @endfor
+                </a>
+                {{-- @endfor --}}
+            @endforeach
+        </div>
+        <div class="pagination">
+            {{ $products->links() }}
+        </div>
     </div>
+
+
 </div>

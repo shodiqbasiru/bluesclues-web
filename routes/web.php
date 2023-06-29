@@ -62,12 +62,13 @@ Route::get('/events/request-show', function () {
 
 // store page
 
-Route::get('/store', [Store::class])->name('merchandise.home');
-
-Route::group(['middleware' => []], function () {
-    Route::get('/store', [StoreController::class, 'index']);
-    Route::get('/store/detail', [StoreController::class, 'detail']);
-});
+// Route::get('/store', [Store::class, 'render'])->name('merchandise.home');
+Route::get('/store', [StoreController::class, 'index'])->name('merchandise.home');
+// Route::get('/store', [Store::class, 'render'])->name('merchandise.home');
+// Route::group(['middleware' => []], function () {
+//     Route::get('/store', [StoreController::class, 'index']);
+//     Route::get('/store/detail', [StoreController::class, 'detail']);
+// });
 
 // Music Page
 Route::get('/music', [MusicsController::class, 'index']);

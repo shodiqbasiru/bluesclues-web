@@ -16,11 +16,16 @@ class DashboardEventsController extends Controller
      */
     public function index()
     {
-        //
+        // item number pagination
+        $perPage = 10;
+        $currentPage = request()->query('page', 1);
+        $startIndex = ($currentPage - 1) * $perPage + 1;
+        
         $events = Event::latest()->paginate(10);
         return view('dashboard.events.index', [
             'title' => 'Events',
             'events' => $events,
+            'startIndex' => $startIndex,
         ]);
     }
 

@@ -17,6 +17,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
+                <th scope="col">Category</th>
                 <th scope="col">Price</th>
                 <th scope="col">Action</th>
             </tr>
@@ -24,8 +25,9 @@
         <tbody>
             @foreach ($merchandise as $item)
             <tr>
-                <td>{{ $loop->iteration }}</td>
+                <td>{{ $startIndex + $loop->index }}</td>
                 <td style="max-width: 550px;">{{ $item->name }}</td>
+                <td>{{ $item->merchCategory->name }}</td>
                 <td>Rp {{ number_format($item->price, 0, ',', '.') }}</td>
                 <td>
                     <a href="/admin/dashboard/merchandise/{{ $item->slug }}" class="btn btn-sm btn-outline-light me-2"><span

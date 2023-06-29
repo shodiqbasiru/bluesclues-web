@@ -8,15 +8,15 @@ class StoreController extends Controller
 {
     public function index()
     {
-        return view('merchandise.store', [
-            "title" => "Halaman Store"
+        return view('layouts.merchandise.main', [
+            'title' => 'Merchandise',
         ]);
     }
 
-    public function detail()
-    {
-        return view('merchandise.detailStore', [
-            "title" => "Detail Store",
-        ]);
-    }
+    // public function detail()
+    // {
+    //     return view('merchandise.detailStore', [
+    //         "title" => "Detail Store",
+    //     ]);
+    // }
 }

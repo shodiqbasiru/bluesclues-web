@@ -38,6 +38,10 @@
                 <div class="mx-auto mt-3 text-center">
                     <h2 class=" mb-4">{{ $merchandise->name }}</h2>
                 </div>
+
+                <div class="mx-auto mt-3 text-center">
+                    <h3 class=" mb-4">Category: {{ $merchandise->merchCategory->name }}</h3>
+                </div>
                 <div class="mx-auto mt-3 text-center">
                     <h5 class=" mb-4">Rp {{ number_format($merchandise->price, 0, ',', '.') }}</h5>
                 </div>

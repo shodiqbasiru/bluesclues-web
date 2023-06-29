@@ -12,6 +12,7 @@
         "anhskohbo/no-captcha": "^3.5",
         "google/apiclient": "^2.13",
         "guzzlehttp/guzzle": "^7.2",
+        "itsgoingd/clockwork": "^5.1",
         "jorenvanhocht/laravel-share": "^4.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",

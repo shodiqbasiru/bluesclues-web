@@ -28,6 +28,20 @@
             @endif
         </div>
         <div class="form-group my-4">
+            <label for="category_id">Category</label>
+            <select name="category_id" id="category_id" class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}">
+                <option value="">Select category</option>
+                @foreach ($categories as $category)
+                <option value="{{ $category->id }}" {{ old('category', $merchandise->category_id) == $category->id ? 'selected' : '' }}>
+                    {{ $category->name }}
+                </option>
+                @endforeach
+            </select>
+            @if ($errors->has('category_id'))
+            <span class="invalid-feedback">{{ $errors->first('category_id') }}</span>
+            @endif
+        </div>
+        <div class="form-group my-4">
             <label for="price">Price</label>
             <input type="text" name="price" id="price"
                 class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }} mt-2" value="{{ old('price', $merchandise->price) }}">
