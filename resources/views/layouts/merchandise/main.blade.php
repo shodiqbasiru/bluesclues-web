@@ -10,7 +10,7 @@
     {{-- <link rel="shortcut icon" href="{{ url('/assets/img/logo-blues.png') }}"> --}}
     {{-- <link rel="icon" type="image/x-icon" href="{{ url('/assets/img/logo-blues.png') }}"> --}}
 
-    <title>{{ $title }} | Blues Clues</title>
+    <title>Merchandise | Blues Clues</title>
     {{-- Bootstrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -27,19 +27,14 @@
 <body>
     {{-- @include('merchandise.layouts.navigation') --}}
     <livewire:layout.navbar />
-    {{-- @yield('content') --}}
-    <livewire:merchandise.store />
+
+    <main>
+        @yield('content')
+        @include('layouts.merchandise.footer')
+    </main>
 
 
-    @include('layouts.merchandise.footer')
     @livewireScripts
-
-    {{-- Turbolinks --}}
-    <script type="module">
-        import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
-    </script>
-    <script src="https://cdn.jsdelivr.net/gh/livewire/turbolinks@v0.1.x/dist/livewire-turbolinks.js"
-        data-turbolinks-eval="false" data-turbo-eval="false"></script>
 
     {{-- Bootstrap --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

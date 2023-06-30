@@ -19,6 +19,7 @@ use App\Http\Controllers\DashboardEventsController;
 use App\Http\Controllers\DashboardMerchandiseController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Livewire\Merchandise\Store;
+use App\Http\Livewire\Merchandise\StoreCategory;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,8 +63,10 @@ Route::get('/events/request-show', function () {
 
 // store page
 
-// Route::get('/store', [Store::class, 'render'])->name('merchandise.home');
-Route::get('/store', [StoreController::class, 'index'])->name('merchandise.home');
+Route::get('/store', Store::class)->name('merchandise.home');
+Route::get('/store/category/{categoryId}', StoreCategory::class)->name('merchandise.category');
+// Route::get('/store', [StoreController::class, 'index'])->name('merchandise.home');
+// Route::get('/store/{$categoryId}', [StoreController::class, 'index'])->name('merchandise.home');
 // Route::get('/store', [Store::class, 'render'])->name('merchandise.home');
 // Route::group(['middleware' => []], function () {
 //     Route::get('/store', [StoreController::class, 'index']);

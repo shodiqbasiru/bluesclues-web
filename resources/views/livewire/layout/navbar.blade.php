@@ -19,9 +19,13 @@
                             Category
                         </a>
                         <ul class="dropdown-menu">
-                            @foreach ($categories as $item)
-                                <li><a class="dropdown-item" href="#">{{ $item->name }}</a></li>
+                            @foreach ($categories as $category)
+                                <li>
+                                    <a class="dropdown-item"
+                                        href="{{ route('merchandise.category', $category->id) }}">{{ $category->name }}</a>
+                                </li>
                             @endforeach
+
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -55,5 +59,4 @@
             </div>
         </div>
     </nav>
-
 </div>

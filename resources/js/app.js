@@ -1,4 +1,4 @@
 import "./bootstrap";
 
-const Turbolinks = require("turbolinks");
-Turbolinks.start();
+// const Turbolinks = require("turbolinks");
+// Turbolinks.start();

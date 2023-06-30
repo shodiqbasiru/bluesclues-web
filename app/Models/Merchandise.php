@@ -17,11 +17,13 @@ class Merchandise extends Model
         return 'slug';
     }
 
-    public function merchCategory(){
+    public function merchCategory()
+    {
         return $this->belongsTo(MerchCategory::class, 'category_id', 'id');
     }
 
-    public function orderDetails(){
+    public function orderDetails()
+    {
         return $this->hasMany(OrderDetail::class, 'merchandise_id', 'id');
     }
 }

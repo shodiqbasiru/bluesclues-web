@@ -28,12 +28,10 @@ class Store extends Component
 
             $products = Merchandise::paginate(8);
         }
+
         return view('livewire.merchandise.store', [
+            'title' => 'All Prodcuts',
             'products' => $products,
-        ]);
-        // ->extends('layouts.merchandise.main');
-        // return view('livewire.merchandise.store')->extends('layouts.merchandise.main', [
-        //     'products' => $products,
-        // ]);
+        ])->extends('layouts.merchandise.main');
     }
 }

@@ -33,7 +33,7 @@
     @endphp --}}
     <div class="content">
         <div class="header">
-            <h2>All Products</h2>
+            <h2>{{ $title }}</h2>
             <div class="input-group">
                 <input wire:model="search" type="text" class="form-control" placeholder="Search . . ."
                     aria-label="Search" aria-describedby="basic-addon1">
