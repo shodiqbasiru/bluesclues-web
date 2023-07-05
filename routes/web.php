@@ -1,25 +1,31 @@
 <?php
 
+use Illuminate\Http\Request;
+use App\Http\Livewire\Merchandise\History;
+use App\Http\Livewire\Merchandise\Checkout;
+use App\Http\Livewire\Merchandise\ProofUpload;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Merchandise\Cart;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\UserController;
+use App\Http\Livewire\Merchandise\Store;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\UserController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
-use App\Http\Controllers\StoreController;
 use App\Http\Controllers\EventsController;
-use App\Http\Controllers\ShowRequestsController;
 use App\Http\Controllers\MusicsController;
 use App\Http\Controllers\VideosController;
+use App\Http\Livewire\Merchandise\Product;
+use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\ShowRequestsController;
+use App\Http\Livewire\Merchandise\ProductDetail;
 use App\Http\Controllers\DashboardNewsController;
 use App\Http\Controllers\DashboardSongsController;
+use App\Http\Livewire\Merchandise\ProductCategory;
 use App\Http\Controllers\DashboardEventsController;
 use App\Http\Controllers\DashboardMerchandiseController;
-use App\Http\Controllers\MessagesController;
-use App\Http\Livewire\Merchandise\Store;
-use App\Http\Livewire\Merchandise\StoreCategory;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,7 +61,7 @@ Route::get('/events/filter/{filter}', [EventsController::class, 'filter'])->name
 
 //show requests routes
 Route::post('/events/request-show', [ShowRequestsController::class, 'store'])->name('showRequests.store');
-Route::get('/events/request-show', function () {
+Route::get('/request-show', function () {
     return view('event.request-show', [
         'title' => 'Request Show'
     ]);
@@ -64,14 +70,20 @@ Route::get('/events/request-show', function () {
 // store page
 
 Route::get('/store', Store::class)->name('merchandise.home');
-Route::get('/store/category/{categoryId}', StoreCategory::class)->name('merchandise.category');
-// Route::get('/store', [StoreController::class, 'index'])->name('merchandise.home');
-// Route::get('/store/{$categoryId}', [StoreController::class, 'index'])->name('merchandise.home');
-// Route::get('/store', [Store::class, 'render'])->name('merchandise.home');
-// Route::group(['middleware' => []], function () {
-//     Route::get('/store', [StoreController::class, 'index']);
-//     Route::get('/store/detail', [StoreController::class, 'detail']);
-// });
+Route::get('/product', Product::class)->name('products');
+Route::get('/product/category/{categoryId}', ProductCategory::class)->name('product.category');
+Route::get('/product/{slug}', ProductDetail::class)->name('product.detail');
+
+Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::get('/cart', Cart::class)->name('merchandise.cart');
+    Route::get('/checkout', Checkout::class)->name('merchandise.checkout');
+    Route::get('/checkout/upload/{orderId}', ProofUpload::class)
+        ->name('proof-upload');
+    Route::get('/store/history', History::class)
+        ->name('history');;
+});
+// Route::post('/cart', [Cart::class, 'addToCart'])->middleware(['auth', 'verified']);
+
 
 // Music Page
 Route::get('/music', [MusicsController::class, 'index']);
@@ -110,6 +122,9 @@ Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.lo
 
 // Email Verification
 Route::get('/email/verify', function () {
+    if (Auth::user()->hasVerifiedEmail()) {
+        return redirect('/'); // Replace 'home' with the desired route for already verified users
+    }
     return view('auth.verify.verify-email');
 })->middleware('auth')->name('verification.notice');
 

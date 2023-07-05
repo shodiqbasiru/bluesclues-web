@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone_number')->nullable();
             $table->string('address')->nullable();
+            $table->integer('postal_code')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

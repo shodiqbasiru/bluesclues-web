@@ -33,14 +33,7 @@
                             <a class="nav-link {{ request()->segment(1) == 'store' ? 'active' : '' }}"
                                 href="/store">Store</a>
                         </li>
-                        @if (auth()->check())
-                            <li class="nav-item">
-                                <form action="{{ route('user.logout') }}" method="post">
-                                    @csrf
-                                    <button type="submit" class="nav-link">Logout</button>
-                                </form>
-                            </li>
-                        @endif
+
                     </div>
                     <div class="d-flex">
                         <li class="nav-item">

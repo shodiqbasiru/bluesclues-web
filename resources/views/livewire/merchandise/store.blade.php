@@ -1,4 +1,4 @@
-<div class="container-fluid page-store">
+<div class="container-fluid page-store" id="homeStore">
 
     {{-- Slider Header --}}
     <div class="slider">
@@ -13,9 +13,7 @@
                 <div class="swiper-slide">
                     <img src="{{ url('./assets/img/banner-3.png') }}" alt="...">
                 </div>
-
             </div>
-
         </div>
         <div class="slider-control">
             <div class="swiper-button-prev slider-arrow">
@@ -28,24 +26,15 @@
         </div>
     </div>
 
-    {{-- @php
-        $cardCount = 12; 
-    @endphp --}}
+
     <div class="content">
         <div class="header">
             <h2>{{ $title }}</h2>
-            <div class="input-group">
-                <input wire:model="search" type="text" class="form-control" placeholder="Search . . ."
-                    aria-label="Search" aria-describedby="basic-addon1">
-                <span class="input-group-text" id="basic-addon1">
-                    <ion-icon name="search"></ion-icon>
-                </span>
-            </div>
+            <a href="{{ route('products') }}" class="btn btn-home">View All <i class="fa fa-angle-right"></i></a>
         </div>
         <div class="body">
             @foreach ($products as $item)
-                {{-- @for ($i = 0; $i < $cardCount; $i++) --}}
-                <a href="/store/detail">
+                <a href="{{ route('product.detail', $item->slug) }}">
                     <div class="card">
                         <img src="{{ url('./assets/img/bc-1.png') }}" class="card-img-top" alt="...">
                         <button class="btn">Detail</button>
@@ -55,11 +44,7 @@
                         </div>
                     </div>
                 </a>
-                {{-- @endfor --}}
             @endforeach
-        </div>
-        <div class="pagination">
-            {{ $products->links() }}
         </div>
     </div>
 

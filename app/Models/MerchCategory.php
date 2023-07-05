@@ -9,7 +9,13 @@ class MerchCategory extends Model
 {
     use HasFactory;
 
-    function merchandises(){
+    function merchandises()
+    {
         return $this->hasMany(Merchandise::class, 'category_id', 'id');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

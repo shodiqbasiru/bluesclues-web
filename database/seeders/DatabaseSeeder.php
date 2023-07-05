@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
                 // Song::factory(31)->create();
                 Admin::factory(1)->create();
                 MerchCategory::factory(4)->create();
-                Merchandise::factory(50)->create();
+                Merchandise::factory(100)->create();
                 Event::factory(31)->create();
                 Message::factory(41)->create();
                 ShowRequest::factory(50)->create();

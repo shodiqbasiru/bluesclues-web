@@ -2,36 +2,21 @@
 
 namespace App\Http\Livewire\Merchandise;
 
-use App\Models\Merchandise;
 use Livewire\Component;
-use Livewire\WithPagination;
+use App\Models\Merchandise;
 
 class Store extends Component
 {
 
-    use WithPagination;
-
-    public $search;
-    protected $paginationTheme = 'bootstrap';
-    protected $queryString = ['search'];
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
-
     public function render()
     {
-        if ($this->search) {
-            $products = Merchandise::where('name', 'like', '%' . $this->search . '%')->paginate(8);
-        } else {
+        $products = Merchandise::take(4)->get();
 
-            $products = Merchandise::paginate(8);
-        }
 
         return view('livewire.merchandise.store', [
-            'title' => 'All Prodcuts',
+            'title' => 'Products Recommendation',
             'products' => $products,
+
         ])->extends('layouts.merchandise.main');
     }
 }

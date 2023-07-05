@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->text('description');
             $table->integer('price');
-            $table->boolean('is_ready')->default(true);
+            $table->boolean('is_available')->default(true);
             $table->integer('category_id');
             $table->timestamps();
         });

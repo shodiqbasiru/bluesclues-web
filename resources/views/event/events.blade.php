@@ -57,7 +57,7 @@
                 @endforeach
             </div>
 
-            <a href="/events/request-show" class="btn btn-event">Request a Show</a>
+            <a href="/request-show" class="btn btn-event">Request a Show</a>
         </div>
     </div>
 @endsection

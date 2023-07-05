@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MerchCategory>
@@ -18,8 +19,11 @@ class MerchCategoryFactory extends Factory
     {
         static $names = ['Apparel', 'Music', 'Accessories', 'Others'];
 
+        $name = array_shift($names);
+
         return [
-            'name' => array_shift($names),
+            'name' => $name,
+            'slug' => Str::slug($name) . '-' . $this->faker->unique()->numberBetween(1, 99)
         ];
     }
 }

@@ -7,26 +7,34 @@ use App\Models\Merchandise;
 use App\Models\MerchCategory;
 use Livewire\WithPagination;
 
-class StoreCategory extends Component
+class ProductCategory extends Component
 {
     use WithPagination;
 
-    public $search, $categoryId;
+    public $search, $categoryId, $selectedCategoryId;
     protected $paginationTheme = 'bootstrap';
     protected $queryString = ['search'];
+    protected $listeners = ['selectCategory'];
+
 
     public function updatingSearch()
     {
         $this->resetPage();
     }
 
+
     public function mount($categoryId)
     {
-        $this->categoryId = $categoryId;
+        $showCategory = MerchCategory::find($categoryId);
+        if ($showCategory) {
+
+            $this->categoryId = $categoryId;
+        }
     }
 
     public function render()
     {
+        $categories = MerchCategory::all();
         $category = MerchCategory::findOrFail($this->categoryId);
 
         if ($this->search) {
@@ -37,9 +45,14 @@ class StoreCategory extends Component
             $products = Merchandise::where('category_id', $this->categoryId)->paginate(8);
         }
 
-        return view('livewire.merchandise.store', [
+
+
+        return view('livewire.merchandise.product', [
             'products' => $products,
-            'title' => $category->name
+            'categories' => $categories,
+            'title' => $category->name,
+            'selectedCategoryId' => $this->selectedCategoryId, // Menggunakan nilai $selectedCategoryId pada view
+
         ])->extends('layouts.merchandise.main');
     }
 }

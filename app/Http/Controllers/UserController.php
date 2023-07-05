@@ -63,7 +63,7 @@ class UserController extends Controller
 
             $request->session()->regenerate();
 
-            return redirect()->intended('/');
+            return redirect()->intended('/store');
         }
 
         return back()->with('loginError', 'Login Failed');
@@ -76,6 +76,6 @@ class UserController extends Controller
         request()->session()->invalidate();
         request()->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/store');
     }
 }

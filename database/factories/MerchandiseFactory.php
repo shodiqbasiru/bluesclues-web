@@ -26,8 +26,8 @@ class MerchandiseFactory extends Factory
             'image' => 'merchandise-images/2a75hZBL4R18PGAkrdiFl69BWnBWPzfvgktncDjF.png',
             'description' => $this->faker->paragraph,
             'price' => $price,
-            'is_ready' => $this->faker->boolean,
-            'category_id' => $this->faker->numberBetween(1,4),
+            'is_available' => 1,
+            'category_id' => $this->faker->numberBetween(1, 4),
         ];
     }
 }

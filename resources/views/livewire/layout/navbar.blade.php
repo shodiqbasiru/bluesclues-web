@@ -1,6 +1,6 @@
 <div>
     <nav class="navbar navbar-expand-lg" id="storeNav">
-        <div class="container p-0">
+        <div class="container-fluid p-0">
             <a class="navbar-brand" href="/">
                 <img src="{{ url('./assets/img/icons/logo_2.png') }}" alt="">
             </a>
@@ -22,9 +22,13 @@
                             @foreach ($categories as $category)
                                 <li>
                                     <a class="dropdown-item"
-                                        href="{{ route('merchandise.category', $category->id) }}">{{ $category->name }}</a>
+                                        href="{{ route('product.category', $category->id) }}">{{ $category->name }}</a>
                                 </li>
                             @endforeach
+                            <li>
+                                <hr>
+                                <a class="dropdown-item" href="{{ route('products') }}">All Products</a>
+                            </li>
 
                         </ul>
                     </li>
@@ -36,23 +40,85 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <img src="{{ url('./assets/img/icons/person.svg') }}" alt="">
+                            @if (auth()->check())
+                                <img src="{{ url('./assets/img/icons/person.svg') }}" alt="">
+                                {{ Auth::user()->username }}
+                            @else
+                                <img src="{{ url('./assets/img/icons/person.svg') }}" alt="">
+                            @endif
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            @if (auth()->check())
+                                <li class="nav-item">
+
+                                    <form action="{{ route('user.logout') }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item">Logout</button>
+                                    </form>
+                                </li>
+                            @else
+                                <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+                            @endif
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+
+                    <li class="nav-item dropdown cart">
+                        {{-- @if (auth()->check()) --}}
+                        <a class="nav-link dropdown-toggle position-relative" href="{{ route('merchandise.cart') }}">
                             <img src="{{ url('./assets/img/icons/cart.svg') }}" alt="">
+                            @if ($count_order !== 0)
+                                <span class="count">
+                                    {{ $count_order }}
+                                </span>
+                            @endif
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        {{-- @else
+                            <a class="nav-link d-none dropdown-toggle position-relative"
+                                href="{{ route('merchandise.cart') }}">
+                                <img src="{{ url('./assets/img/icons/cart.svg') }}" alt="">
+                                @if ($count_order !== 0)
+                                    <span class="count">
+                                        {{ $count_order }}
+                                    </span>
+                                @endif
+                            </a>
+                        @endif --}}
+                        <ul class="dropdown-menu cart">
+                            @forelse ($products as $product)
+                                <li class="dropdown-item list-products">
+                                    <div class="img-dropdown">
+                                        <img src="{{ url('./assets/img/bc-3.png') }}" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <p class="p-name">
+                                            {{ $product->merchandise->name }}
+                                        </p>
+
+                                        <p class="qty">
+                                            qty : {{ $product->quantity }}
+                                        </p>
+                                    </div>
+                                    <div class="price">
+                                        <p>
+                                            Rp {{ number_format($product->merchandise->price, 0, ',', '.') }}
+                                        </p>
+                                    </div>
+                                </li>
+                            @empty
+                                <li class="dropdown-item list-products">
+                                    No Items
+                                </li>
+                            @endforelse
+
+                            <li class="dropdown-item button">
+                                <p>
+                                    {{ $count_order <= 3 ? '' : $count_order - 3 . ' more products in cart' }}
+
+                                </p>
+
+                                <a class="btn btn-dropdown d-flex justify-content-center"
+                                    href="{{ route('merchandise.cart') }}">View My Shopping Cart</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -60,3 +126,15 @@
         </div>
     </nav>
 </div>
+
+{{-- 
+<li class="nav-item">
+    <a class="nav-link position-relative" href="{{ route('merchandise.cart') }}">
+        <img src="{{ url('./assets/img/icons/cart.svg') }}" alt="">
+        @if ($count_order !== 0)
+            <span class="count">
+                {{ $count_order }}
+            </span>
+        @endif
+    </a>
+</li> --}}
