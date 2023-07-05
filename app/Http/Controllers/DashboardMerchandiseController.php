@@ -63,6 +63,7 @@ class DashboardMerchandiseController extends Controller
             'image' => 'image|file|max:7168',
             'content' => 'required',
             'category_id' => 'required|exists:merch_categories,id',
+            'is_available' => 'required|boolean'
         ]);
 
 
@@ -74,6 +75,7 @@ class DashboardMerchandiseController extends Controller
         $merchandise->price = $validatedData['price'];
         $merchandise->description = $validatedData['content'];
         $merchandise->category_id = $validatedData['category_id'];
+        $merchandise->is_available = $validatedData['is_available'];
 
         $truncatedName = substr($validatedData['name'], 0, 50);
         $slug = Str::slug($truncatedName, '-') . '-' . uniqid();
@@ -142,6 +144,7 @@ class DashboardMerchandiseController extends Controller
             'image' => 'image|file|max:7168',
             'content' => 'required',
             'category_id' => 'required|exists:merch_categories,id',
+            'is_available' => 'required|boolean'
         ]);
 
 
@@ -151,6 +154,7 @@ class DashboardMerchandiseController extends Controller
         $merchandise->price = $validatedData['price'];
         $merchandise->description = $validatedData['content'];
         $merchandise->category_id = $validatedData['category_id'];
+        $merchandise->is_available = $validatedData['is_available'];
 
         $truncatedName = substr($validatedData['name'], 0, 50);
         $slug = Str::slug($truncatedName, '-') . '-' . uniqid();

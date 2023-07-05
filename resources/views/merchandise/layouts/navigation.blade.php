@@ -20,9 +20,9 @@
             </ul>
         </div>
         <div class="dropdown">
-            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a href="{{ route('cart.index') }}" class="btn dropdown-toggle">
                 <img src="{{ url('./assets/img/icons/cart.svg') }}" alt="">
-            </button>
+            </a>
             <ul class="dropdown-menu cart-items">
 
             </ul>

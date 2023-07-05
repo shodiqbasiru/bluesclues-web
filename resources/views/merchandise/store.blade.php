@@ -3,10 +3,14 @@
 @section('content')
     <div class="container-fluid page-store">
         <div class="filter" id="filter">
-            <button>Apparel</button>
-            <button>Music</button>
-            <button>Accessories</button>
+            <a href="{{ route('store.index') }}"><button>All</button></a> <!-- Display the "All" category -->
+            @foreach ($merchCategories as $category)
+                <a href="{{ route('store.index', ['category' => $category->slug]) }}"><button>{{ $category->name }}</button></a>
+            @endforeach
         </div>
+        
+        
+        
         <div class="slider">
             <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
@@ -41,23 +45,23 @@
             </div>
         </div>
 
-        @php
-            $cardCount = 12; // Jumlah kartu yang ingin ditampilkan
-        @endphp
-
         <div class="content">
-            @for ($i = 0; $i < $cardCount; $i++)
-                <a href="/store/detail">
+            @foreach ($merchandise as $item)
+                <a href="/store/detail/{{ $item->slug }}">
                     <div class="card">
-                        <img src="{{ url('./assets/img/bc-1.png') }}" class="card-img-top" alt="...">
+                        <img src="{{  asset('storage/' . $item->image) }}" class="card-img-top" alt="...">
                         <button class="btn">Detail</button>
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-price">rp.10.000</p>
+                            <h5 class="card-title">
+                                {{ $item->name }}
+                            </h5>
+                            <p class="card-price">
+                                Rp {{ number_format($item->price, 0, ',', '.') }}
+                            </p>
                         </div>
                     </div>
                 </a>
-            @endfor
+            @endforeach
         </div>
     </div>
 @endsection

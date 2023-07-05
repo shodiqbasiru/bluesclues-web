@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\ShowRequestsController;
 use App\Http\Controllers\MusicsController;
@@ -18,6 +19,10 @@ use App\Http\Controllers\DashboardSongsController;
 use App\Http\Controllers\DashboardEventsController;
 use App\Http\Controllers\DashboardMerchandiseController;
 use App\Http\Controllers\MessagesController;
+use App\Http\Livewire\Checkout;
+use App\Http\Livewire\History;
+use App\Http\Livewire\ProofUpload;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,9 +64,24 @@ Route::get('/events/request-show', function () {
 
 // store page
 Route::group(['middleware' => []], function () {
-    Route::get('/store', [StoreController::class, 'index']);
-    Route::get('/store/detail', [StoreController::class, 'detail']);
+    Route::get('/store', [StoreController::class, 'index'])->name('store.index');
+    Route::get('/store/detail/{merchandise:slug}', [StoreController::class, 'detail']);
 });
+
+Route::post('/store/detail/{merchandise:slug}', [CartController::class, 'addToCart'])->name('addToCart')->middleware(['auth', 'verified']);
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middleware(['auth', 'verified']);
+Route::delete('/cart/{orderDetail}', [CartController::class, 'destroy'])->name('cart.destroy')->middleware(['auth', 'verified']);
+Route::patch('/cart/{orderDetail}/increase', [CartController::class, 'increaseQuantity'])->name('cart.increaseQuantity')->middleware(['auth', 'verified']);
+Route::patch('/cart/{orderDetail}/decrease', [CartController::class, 'decreaseQuantity'])->name('cart.decreaseQuantity')->middleware(['auth', 'verified']);
+
+Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::get('/checkout', Checkout::class)->name('checkout');
+    Route::get('/checkout/upload/{orderId}', ProofUpload::class)
+        ->name('proof-upload');
+    Route::get('/store/history', History::class)
+        ->name('history');;
+});
+
 
 // Music Page
 Route::get('/music', [MusicsController::class, 'index']);
@@ -100,8 +120,11 @@ Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.lo
 
 // Email Verification
 Route::get('/email/verify', function () {
+    if (Auth::user()->hasVerifiedEmail()) {
+        return redirect('/'); // Replace 'home' with the desired route for already verified users
+    }
     return view('auth.verify.verify-email');
-})->middleware('auth')->name('verification.notice');
+})->middleware(['auth', 'verified'])->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();

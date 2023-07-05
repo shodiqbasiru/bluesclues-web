@@ -59,6 +59,16 @@
             @endif
         </div>
         <div class="form-group my-4">
+            <label for="is_available">Stock Availability</label>
+            <select name="is_available" id="is_available" class="form-control{{ $errors->has('is_available') ? ' is-invalid' : '' }}">
+                <option value="1" {{ old('is_available') == 1 ? 'selected' : '' }}>Available</option>
+                <option value="0" {{ old('is_available') == 0 ? 'selected' : '' }}>Sold Out</option>
+            </select>
+            @if ($errors->has('is_available'))
+                <span class="invalid-feedback">{{ $errors->first('is_available') }}</span>
+            @endif
+        </div>
+        <div class="form-group my-4">
 
             <label class="mb-2" for="content">Description</label>
 
