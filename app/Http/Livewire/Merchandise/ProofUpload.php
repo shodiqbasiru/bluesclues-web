@@ -22,8 +22,8 @@ class ProofUpload extends Component
 
         $order = Order::where('user_id', Auth::user()->id)->where('id', $orderId)->first();
 
-        if (!$order || $order->status > 2) {
-            return redirect()->route('store.index');
+        if (!$order || $order->status > 2 || $order->status == 0) {
+            return redirect()->route('merchandise.home');
         }
     }
 
@@ -57,6 +57,8 @@ class ProofUpload extends Component
 
     public function render()
     {
-        return view('livewire.merchandise.proof-upload')->extends('layouts.merchandise.main');
+        return view('livewire.merchandise.proof-upload', [
+            'preview' => $this->proof ? $this->proof->temporaryUrl() : null,
+        ])->extends('layouts.merchandise.main');
     }
 }

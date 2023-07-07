@@ -1,47 +1,39 @@
 <div class="container product-detail" id="productDetail">
     <div class="row justify-content-between">
+        @if (session('error'))
+            <div class="alert alert-error alert-dismissible fade show" role="alert" id="errorAlert">
+                <p>{{ session('error') }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="col-lg-6 detail-card">
             <img src="{{ url('./assets/img/bc-3.png') }}" alt="">
         </div>
         <div class="col-lg-6 content">
             @if (session('success'))
-                <div class="alert alert-box alert-dismissible">
+                <div class="alert alert-box alert-dismissible" id="successAlert">
                     <div class="content">
-                        <h3>{{ session('success') }}</h3>
-                        <div class="product-added">
-                            <img src="{{ url('./assets/img/bc-3.png') }}" alt="">
-                            <p>{{ $product->name }}</p>
+                        <div class="alert-information">
+                            <h3>{{ session('success') }}</h3>
                         </div>
+                        <div class="body">
+                            <div class="product-added">
+                                <img src="{{ url('./assets/img/bc-3.png') }}" alt="">
+                                <div>
+                                    <p class="m-0">{{ $product->name }}</p>
+                                    {{-- <p class="m-0">Qty : {{ $product->quantity }}</p> --}}
+                                </div>
+                            </div>
 
-                        <a href="{{ route('merchandise.cart') }}" class="btn-alert cart">View My Cart</a>
-                        <a href="{{ route('merchandise.cart') }}" class="btn-alert checkout">Checkout</a>
-                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">continue
-                            shopping</button>
-                    </div>
-                    {{-- <div class="alert-information">
-                        <p>{{ session('success') }}</p>
-                    </div> --}}
-                </div>
-            @endif
-            @if (session('error'))
-                <div class="alert alert-box alert-dismissible">
-                    <div class="content">
-                        <h3>Your Shopping cart</h3>
-                        <div class="product-added">
-                            <img src="{{ url('./assets/img/bc-3.png') }}" alt="">
-                            <p>{{ $product->name }}</p>
+                            <a href="{{ route('merchandise.cart') }}" class="btn-alert cart">View My Cart</a>
+                            <a href="{{ route('merchandise.checkout') }}" class="btn-alert checkout">Checkout</a>
+                            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">continue
+                                shopping</button>
                         </div>
-
-                        <a href="{{ route('merchandise.cart') }}" class="btn-alert cart">View My Cart</a>
-                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">continue
-                            shopping</button>
-                    </div>
-                    <div class="alert-information">
-                        <p>{{ session('error') }}</p>
-                        {{-- <p>Product added to cart</p> --}}
                     </div>
                 </div>
             @endif
+
             <div class="header">
 
                 <h3 class="title">{{ $product->name }}</h3>
@@ -103,3 +95,29 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    setTimeout(function() {
+        var errorAlert = document.getElementById('errorAlert');
+        if (errorAlert) {
+            errorAlert.classList.add('fade-out');
+            setTimeout(function() {
+                errorAlert.style.display = 'none';
+            }, 500);
+        }
+    }, 3000);
+
+    // Menghilangkan alert ketika mengklik di luar area alert
+    function closeAlert(event, alertId) {
+        var alertElement = document.getElementById(alertId);
+        if (alertElement && !alertElement.contains(event.target)) {
+            alertElement.style.display = 'none';
+        }
+    }
+
+    document.addEventListener('click', function(event) {
+        closeAlert(event, 'errorAlert');
+        closeAlert(event, 'successAlert');
+    });
+</script>

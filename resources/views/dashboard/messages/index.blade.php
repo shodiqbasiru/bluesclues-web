@@ -46,9 +46,9 @@
                 </td>
             </tr>
             @endforeach
-            {{ $message->links() }}
         <tbody>
     </table>
+    {{ $message->links() }}
 </div>
 
 <script>

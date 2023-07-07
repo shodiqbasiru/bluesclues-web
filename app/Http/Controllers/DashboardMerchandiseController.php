@@ -148,6 +148,8 @@ class DashboardMerchandiseController extends Controller
         ]);
 
 
+
+
         // update the merhcandise entry
         $merchandise = Merchandise::find($merchandise->id);
         $merchandise->name = $validatedData['name'];

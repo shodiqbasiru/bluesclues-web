@@ -46,14 +46,15 @@
                     <form action="/admin/dashboard/news/{{ $item->slug }}" method="post" class="d-inline">
                         @method('delete')
                         @csrf
-                        <button type="submit" class="btn btn-sm btn-outline-light me-2" onclick="return confirm ('Are you sure to delete this entry?')"><span
+                        <button type="submit" class="btn btn-sm btn-outline-light me-2"
+                            onclick="return confirm ('Are you sure to delete this entry?')"><span
                                 data-feather="trash"></span></button>
                     </form>
                 </td>
             </tr>
             @endforeach
-            {{ $news->links() }}
         <tbody>
     </table>
+    {{ $news->links() }}
 </div>
 @endsection

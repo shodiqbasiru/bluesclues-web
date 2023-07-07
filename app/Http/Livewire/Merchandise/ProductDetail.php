@@ -57,7 +57,7 @@ class ProductDetail extends Component
             $orderDetail = $order->orderDetails()->where('merchandise_id', $this->product->id)->first();
             if ($orderDetail) {
                 if ($orderDetail->quantity + $quantity > 10) {
-                    return redirect()->back()->with('error', 'Maximum quantity limit reached for the product.');
+                    return redirect()->back()->with('error', 'The product could not be added, the maximum number of product is 10.');
                 }
                 // Update the quantity and total price of the existing orderDetail
                 $orderDetail->update([
@@ -85,7 +85,7 @@ class ProductDetail extends Component
                 'total_price' => $total_price,
                 'status' => 0,
             ]);
-            $order->order_number = 'ORD-' . $order->id;
+            $order->order_number = 'BLS-' . $order->id;
             $order->save();
 
             // Create a new orderDetail entry

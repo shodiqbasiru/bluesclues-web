@@ -25,6 +25,7 @@ use App\Http\Controllers\DashboardSongsController;
 use App\Http\Livewire\Merchandise\ProductCategory;
 use App\Http\Controllers\DashboardEventsController;
 use App\Http\Controllers\DashboardMerchandiseController;
+use App\Http\Controllers\DashboardOrdersController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
@@ -175,13 +176,9 @@ Route::get('admin/dashboard/messages/{message}', [MessagesController::class, 'sh
 Route::delete('admin/dashboard/messages/{message}', [MessagesController::class, 'destroy']) // Delete message
     ->middleware('admin');
 
-
-Route::get('/admin/dashboard/show-requests/{status?}', [ShowRequestsController::class, 'index'])
+Route::get('/admin/dashboard/show-requests', [ShowRequestsController::class, 'index'])
     ->middleware('admin')
     ->name('show-requests.index');
-
-
-
 
 //show requests approval or denial
 Route::post('/show-requests/{showRequest}/approve', [ShowRequestsController::class, 'approve'])
@@ -190,3 +187,9 @@ Route::post('/show-requests/{showRequest}/approve', [ShowRequestsController::cla
 Route::post('/show-requests/{showRequest}/reject', [ShowRequestsController::class, 'reject'])
     ->middleware('admin')
     ->name('show-request.reject');
+
+Route::get('/admin/dashboard/orders', [DashboardOrdersController::class, 'index'])
+    ->middleware('admin')
+    ->name('order.index');
+
+Route::get('/admin/dashboard/orders/{order}', [DashboardOrdersController::class, 'show']);

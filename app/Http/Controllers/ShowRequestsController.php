@@ -62,7 +62,8 @@ class ShowRequestsController extends Controller
         $currentPage = request()->query('page', 1);
         $startIndex = ($currentPage - 1) * $perPage + 1;
 
-        $showRequests = $showRequests->paginate(10);
+        $showRequests = $showRequests->paginate($perPage)
+            ->appends(['status' => $status]);
         return view('dashboard.show-requests.index', [
             'title' => 'Show Requests',
             'showRequests' => $showRequests,

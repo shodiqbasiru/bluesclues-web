@@ -45,7 +45,7 @@
             </tr>
             @endforeach
         <tbody>
-            {{ $songs->links() }}
     </table>
+    {{ $songs->links() }}
 </div>
 @endsection

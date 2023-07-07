@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('notes')->nullable();
             $table->integer('user_id');
             $table->string('proof')->nullable();
+            $table->string('name')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('address')->nullable();
+            $table->integer('postal_code')->nullable();
             $table->timestamps();
         });
     }

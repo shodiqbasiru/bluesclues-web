@@ -11,7 +11,6 @@ class History extends Component
     public $orders;
     public $filterStatus;
 
-
     public function render()
     {
         if (Auth::user()) {
@@ -28,6 +27,29 @@ class History extends Component
             $this->orders = $query->get();
         }
 
-        return view('livewire.merchandise.history')->extends('layouts.merchandise.main');
+        $labels = [
+            '' => 'All Orders',
+            '1' => 'Waiting for Payment',
+            '2' => 'Checking Payment',
+            '3' => 'Payment Success',
+            '4' => 'Cancelled',
+        ];
+
+        $statusLabel = $labels[$this->filterStatus] ?? 'Filter Status';
+
+        return view('livewire.merchandise.history', [
+            'orders' => $this->orders,
+            'statusLabel' => $statusLabel,
+        ])->extends('layouts.merchandise.main');
+    }
+
+    public function setFilterStatus($status)
+    {
+        $this->filterStatus = $status;
+    }
+
+    public function mount()
+    {
+        $this->filterStatus = '';
     }
 }

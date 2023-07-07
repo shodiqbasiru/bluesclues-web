@@ -3,16 +3,8 @@
 @extends('layouts.main')
 
 @section('content-page')
-
-
-    <div class="container"
-        style="
-        height: 90vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    ">
-        <div class="wrapper" style="width: 80%">
+    <div class="container" id="verify">
+        <div class="content">
             @if (session('message'))
                 <div class="alert alert-success text-center">{{ session('message') }}</div>
             @else
@@ -31,7 +23,7 @@
                             @csrf
                             <button type="submit"
                                 class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                another') }}</button>.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                another') }}</button>.
                         </form>
                     </div>
                 </div>

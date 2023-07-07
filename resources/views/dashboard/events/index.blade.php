@@ -48,7 +48,7 @@
             </tr>
             @endforeach
         <tbody>
-            {{ $events->links() }}
     </table>
+    {{ $events->links() }}
 </div>
 @endsection

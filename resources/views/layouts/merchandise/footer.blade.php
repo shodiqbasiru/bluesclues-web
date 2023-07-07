@@ -1,4 +1,49 @@
-<footer>
+<footer id="footerStore">
+    <div class="wrapper">
+        <div class="information">
+            <img src="{{ url('./assets/img/icons/logo-blues.png') }}" alt="">
+            <p>+6281-8765-0634</p>
+            <p>bluesclues@gmail.com</p>
+        </div>
+        <div class="links">
+            <h5>Quick Links</h5>
+            <div class="nav-link">
+                <a href="" class="link-item">Home</a>
+                <a href="" class="link-item">About</a>
+                <a href="" class="link-item">Videos</a>
+                <a href="" class="link-item">Musics</a>
+                <a href="" class="link-item">Event</a>
+                <a href="" class="link-item">News & Articles</a>
+            </div>
+        </div>
+        <div class="contact">
+            <h5>Get In The Know</h5>
+            <form method="post">
+                @csrf
+                <div class="mb-3">
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter Email">
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">
+                        <p>
+                            I agree to receive personalized updates and marketing messages about ONE OK ROCK based
+                            on my information, interests, activities, website visits and device data.
+                        </p>
+                        <p>
+                            For more information about how we use your personal information, please see our Privacy
+                            Policy.
+                        </p>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </div>
+</footer>
+
+{{-- <footer>
     <div class="f-store">
         <div class="row">
             <div class="col-md-2">
@@ -71,4 +116,4 @@
 
 
     </div>
-</footer>
+</footer> --}}

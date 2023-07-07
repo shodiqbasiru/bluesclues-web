@@ -23,14 +23,15 @@
 
     {{-- MyCss --}}
     <link rel="stylesheet" href="{{ url('/assets/css/style.css') }}">
+
     @livewireStyles
 </head>
 </head>
 
-<body class="position-relative" id="merchandise">
-    <div class="bg-color-store"></div>
+<body id="merchandise">
     {{-- @include('merchandise.layouts.navigation') --}}
     <livewire:layout.navbar />
+    {{-- <div class="bg-color-store"></div> --}}
 
     <main>
         @yield('content')

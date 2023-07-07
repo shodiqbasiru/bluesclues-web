@@ -94,9 +94,9 @@
                 @endif
             </tr>
             @endforeach
-            {{ $showRequests->links() }}
         <tbody>
     </table>
+    {{ $showRequests->links() }}
 </div>
 
 <script>

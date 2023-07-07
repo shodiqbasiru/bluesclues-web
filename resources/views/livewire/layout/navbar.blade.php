@@ -33,7 +33,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">History</a>
+                        <a class="nav-link" href="{{ route('history') }}">History</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto icons">
@@ -63,7 +63,6 @@
                     </li>
 
                     <li class="nav-item dropdown cart">
-                        {{-- @if (auth()->check()) --}}
                         <a class="nav-link dropdown-toggle position-relative" href="{{ route('merchandise.cart') }}">
                             <img src="{{ url('./assets/img/icons/cart.svg') }}" alt="">
                             @if ($count_order !== 0)
@@ -72,38 +71,30 @@
                                 </span>
                             @endif
                         </a>
-                        {{-- @else
-                            <a class="nav-link d-none dropdown-toggle position-relative"
-                                href="{{ route('merchandise.cart') }}">
-                                <img src="{{ url('./assets/img/icons/cart.svg') }}" alt="">
-                                @if ($count_order !== 0)
-                                    <span class="count">
-                                        {{ $count_order }}
-                                    </span>
-                                @endif
-                            </a>
-                        @endif --}}
                         <ul class="dropdown-menu cart">
                             @forelse ($products as $product)
-                                <li class="dropdown-item list-products">
-                                    <div class="img-dropdown">
-                                        <img src="{{ url('./assets/img/bc-3.png') }}" alt="">
-                                    </div>
-                                    <div class="text">
-                                        <p class="p-name">
-                                            {{ $product->merchandise->name }}
-                                        </p>
+                                <a class="text-decoration-none"
+                                    href="{{ route('product.detail', $product->merchandise->slug) }}">
+                                    <li class="dropdown-item list-products">
+                                        <div class="img-dropdown">
+                                            <img src="{{ url('./assets/img/bc-3.png') }}" alt="">
+                                        </div>
+                                        <div class="text">
+                                            <p class="p-name">
+                                                {{ $product->merchandise->name }}
+                                            </p>
 
-                                        <p class="qty">
-                                            qty : {{ $product->quantity }}
-                                        </p>
-                                    </div>
-                                    <div class="price">
-                                        <p>
-                                            Rp {{ number_format($product->merchandise->price, 0, ',', '.') }}
-                                        </p>
-                                    </div>
-                                </li>
+                                            <p class="qty">
+                                                qty : {{ $product->quantity }}
+                                            </p>
+                                        </div>
+                                        <div class="price">
+                                            <p>
+                                                Rp {{ number_format($product->merchandise->price, 0, ',', '.') }}
+                                            </p>
+                                        </div>
+                                    </li>
+                                </a>
                             @empty
                                 <li class="dropdown-item list-products">
                                     No Items
@@ -126,15 +117,3 @@
         </div>
     </nav>
 </div>
-
-{{-- 
-<li class="nav-item">
-    <a class="nav-link position-relative" href="{{ route('merchandise.cart') }}">
-        <img src="{{ url('./assets/img/icons/cart.svg') }}" alt="">
-        @if ($count_order !== 0)
-            <span class="count">
-                {{ $count_order }}
-            </span>
-        @endif
-    </a>
-</li> --}}

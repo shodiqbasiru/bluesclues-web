@@ -30,22 +30,23 @@
                 <td>{{ $item->merchCategory->name }}</td>
                 <td>Rp {{ number_format($item->price, 0, ',', '.') }}</td>
                 <td>
-                    <a href="/admin/dashboard/merchandise/{{ $item->slug }}" class="btn btn-sm btn-outline-light me-2"><span
-                            data-feather="eye"></span></a>
+                    <a href="/admin/dashboard/merchandise/{{ $item->slug }}"
+                        class="btn btn-sm btn-outline-light me-2"><span data-feather="eye"></span></a>
 
                     <a href="/admin/dashboard/merchandise/{{ $item->slug }}/edit"
                         class="btn btn-sm btn-outline-light me-2"><span data-feather="edit"></span></a>
                     <form action="/admin/dashboard/merchandise/{{ $item->slug }}" method="post" class="d-inline">
                         @method('delete')
                         @csrf
-                        <button type="submit" class="btn btn-sm btn-outline-light me-2" onclick="return confirm ('Are you sure to delete this entry?')"><span
+                        <button type="submit" class="btn btn-sm btn-outline-light me-2"
+                            onclick="return confirm ('Are you sure to delete this entry?')"><span
                                 data-feather="trash"></span></button>
                     </form>
                 </td>
             </tr>
             @endforeach
-            {{ $merchandise->links() }}
         <tbody>
     </table>
+    {{ $merchandise->links() }}
 </div>
 @endsection
