@@ -10,6 +10,7 @@
     "require": {
         "php": "^8.0.2",
         "anhskohbo/no-captcha": "^3.5",
+        "barryvdh/laravel-dompdf": "^2.0",
         "google/apiclient": "^2.13",
         "guzzlehttp/guzzle": "^7.2",
         "itsgoingd/clockwork": "^5.1",

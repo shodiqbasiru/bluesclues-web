@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\ShowRequest;
+use Illuminate\Http\Request;
 use App\Http\Controllers\EmailController;
+use PDF;
 
 class ShowRequestsController extends Controller
 {
@@ -44,31 +46,70 @@ class ShowRequestsController extends Controller
     public function index(Request $request)
     {
         $status = $request->input('status');
+        $month = $request->input('month');
+        $year = $request->input('year');
+        $yearonly = $request->input('yearonly');
 
         $showRequests = ShowRequest::query();
 
         if ($status === NULL) {
-            $showRequests->where('status', 0);
+            $showRequests->where('status', 0)
+                ->orderByDesc('created_at');
         } elseif ($status === 'awaiting-approval') {
-            $showRequests->where('status', 0);
+            $showRequests->where('status', 0)
+                ->orderByDesc('created_at');
         } elseif ($status === 'approved') {
-            $showRequests->where('status', 1);
+            $showRequests->where('status', 1)
+                ->orderByDesc('created_at');
         } elseif ($status === 'rejected') {
-            $showRequests->where('status', 2);
+            $showRequests->where('status', 2)
+                ->orderByDesc('created_at');
         }
 
-        // item number pagination
+        // Retrieve the search query
+        $searchQuery = $request->input('search');
+
+        // Apply the search filter if a search query is provided
+        if (!empty($searchQuery)) {
+            $showRequests->where(function ($query) use ($searchQuery) {
+                $query->where('company_name', 'like', "%$searchQuery%")
+                    ->orWhere('eventname', 'like', "%$searchQuery%")
+                    ->orWhere('location', 'like', "%$searchQuery%");
+            });
+        }
+
+        if ($month && $year) {
+            $dateString = $year . '-' . $month . '-01'; // Construct a date string with year, month, and day
+            $showRequests->whereMonth('date', Carbon::parse($dateString)->month)
+                ->whereYear('date', $year);
+        }
+        if ($yearonly) {
+            $showRequests->whereYear('date', $yearonly);
+        }
+
+        // Pagination settings
         $perPage = 10;
-        $currentPage = request()->query('page', 1);
+        $currentPage = $request->query('page', 1);
         $startIndex = ($currentPage - 1) * $perPage + 1;
 
-        $showRequests = $showRequests->paginate($perPage)
-            ->appends(['status' => $status]);
+        // Paginate the results
+        $showRequests = $showRequests->paginate($perPage)->appends([
+            'status' => $status,
+            'search' => $searchQuery,
+            'month' => $month,
+            'year' => $year,
+            'yearonly' => $yearonly,
+        ]);
+
         return view('dashboard.show-requests.index', [
             'title' => 'Show Requests',
             'showRequests' => $showRequests,
             'status' => $status,
             'startIndex' => $startIndex,
+            'searchQuery' => $searchQuery,
+            'month' => $month,
+            'selectedYear' => $year,
+            'selectedYearOnly' => $yearonly,
         ]);
     }
 
@@ -141,5 +182,60 @@ class ShowRequestsController extends Controller
         } else {
             return redirect()->back();
         }
+    }
+
+    public function export(Request $request)
+    {
+        $status = $request->input('status');
+        $month = $request->input('month');
+        $year = $request->input('year');
+        $yearonly = $request->input('yearonly');
+
+        $showRequests = ShowRequest::query();
+        $filename = 'show-requests-report';
+
+        if ($status === NULL) {
+            $showRequests->where('status', 0)
+                ->orderByDesc('created_at');
+        } elseif ($status === 'awaiting-approval') {
+            $showRequests->where('status', 0)
+                ->orderByDesc('created_at');
+        } elseif ($status === 'approved') {
+            $showRequests->where('status', 1)
+                ->orderByDesc('created_at');
+        } elseif ($status === 'rejected') {
+            $showRequests->where('status', 2)
+                ->orderByDesc('created_at');
+        }
+        if (!empty($status)) {
+            $filename .= '-status-' . $status;
+        }
+
+
+        if ($month && $year) {
+            $dateString = $year . '-' . $month . '-01'; // Construct a date string with year, month, and day
+            $showRequests->whereMonth('date', Carbon::parse($dateString)->month)
+                ->whereYear('date', $year);
+                $filename .= '-date-' . date('F', mktime(0, 0, 0, $month, 1)) . '-' . $year;
+        }
+        if ($yearonly) {
+            $showRequests->whereYear('date', $yearonly);
+            $filename .= '-date-' . $yearonly;
+        }
+
+        $showRequests = $showRequests->get();
+        
+        $pdf = PDF::loadview('dashboard.show-requests.report', [
+            'showRequests' => $showRequests,
+            'status' => $status,
+            'month' => $month,
+            'selectedYear' => $year,
+            'selectedYearOnly' => $yearonly,
+        ]);
+
+        $filename = preg_replace('/[^a-zA-Z0-9\-]/', '_', $filename);
+
+        return $pdf->download($filename . '.pdf');
+
     }
 }

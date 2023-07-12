@@ -13,8 +13,10 @@
     <div class="row">
         <div class="col-md-12">
             @if (session()->has('message'))
-                <div class="alert alert-success">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('message') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
                 </div>
             @endif
         </div>
@@ -22,22 +24,22 @@
 
     <div class="row mt-4">
         <div class="col">
+            <div class="dropdown">
+                <button class="dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    {{ $statusLabel }}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                    <li><a class="dropdown-item" wire:click="setFilterStatus('')">All Orders</a></li>
+                    <li><a class="dropdown-item" wire:click="setFilterStatus('1')">Waiting for Payment</a></li>
+                    <li><a class="dropdown-item" wire:click="setFilterStatus('2')">Checking Payment</a></li>
+                    <li><a class="dropdown-item" wire:click="setFilterStatus('3')">Payment Success</a></li>
+                    <li><a class="dropdown-item" wire:click="setFilterStatus('4')">Cancelled</a></li>
+                    <li><a class="dropdown-item" wire:click="setFilterStatus('5')">Shipping</a></li>
+                    <li><a class="dropdown-item" wire:click="setFilterStatus('6')">Product Received</a></li>
+                </ul>
+            </div>
             <div class="table-responsive">
-                <div class="col-md-2">
-                    <div class="dropdown">
-                        <button class="dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            {{ $statusLabel }}
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="filterDropdown">
-                            <li><a class="dropdown-item" wire:click="setFilterStatus('')">All Orders</a></li>
-                            <li><a class="dropdown-item" wire:click="setFilterStatus('1')">Waiting for Payment</a></li>
-                            <li><a class="dropdown-item" wire:click="setFilterStatus('2')">Checking Payment</a></li>
-                            <li><a class="dropdown-item" wire:click="setFilterStatus('3')">Payment Success</a></li>
-                            <li><a class="dropdown-item" wire:click="setFilterStatus('4')">Cancelled</a></li>
-                        </ul>
-                    </div>
-                </div>
                 <table class="table">
                     <thead>
                         <tr>
@@ -73,17 +75,36 @@
                                 </td>
                                 <td>
                                     <div class="icon-status">
-                                        @if ($order->status != 1 && $order->proof)
-                                            <a href="{{ asset('storage/' . $order->proof) }}" target="_blank"><i
-                                                    class="fas fa-eye"></i></a>
-                                        @endif
 
+                                        @if ($order->status != 1 && $order->proof)
+                                            @if ($order->status != 5 && $order->status != 6)
+                                                <a href="{{ asset('storage/' . $order->proof) }}" target="_blank"><i
+                                                        class="fas fa-eye"></i></a>
+                                            @endif
+                                        @endif
                                         @if ($order->status == 1)
                                             <a href="{{ route('proof-upload', ['orderId' => $order->id]) }}"><i
                                                     class="fas fa-upload"></i></a>
+                                            <button class="btn-cancel" wire:click="cancelOrder('{{ $order->id }}')"
+                                                wire:loading.remove wire:target="cancelOrder('{{ $order->id }}')"><i
+                                                    class="fas fa-ban"></i> Cancel</button>
+                                            <span wire:loading
+                                                wire:target="cancelOrder('{{ $order->id }}')">Canceling...</span>
                                         @elseif($order->status == 2)
                                             <a href="{{ route('proof-upload', ['orderId' => $order->id]) }}"><i
                                                     class="fas fa-edit"></i></a>
+                                        @elseif($order->status == 4)
+                                            -
+                                        @elseif($order->status == 5)
+                                            <button class="btn-receive"
+                                                wire:click="receiveOrder('{{ $order->id }}')" wire:loading.remove
+                                                wire:target="receiveOrder('{{ $order->id }}')"><i
+                                                    class="fas fa-check"></i> Pesanan Diterima</button>
+                                            <span wire:loading
+                                                wire:target="receiveOrder('{{ $order->id }}')">Menerima
+                                                Pesanan...</span>
+                                        @else
+                                            -
                                         @endif
                                     </div>
                                 </td>
@@ -97,12 +118,20 @@
                                             Checking Payment
                                         </p>
                                     @elseif($order->status == 3)
-                                        <p>
+                                        <p class="text-success">
                                             Payment Success
                                         </p>
                                     @elseif($order->status == 4)
-                                        <p>
+                                        <p class="text-cancel">
                                             Cancelled
+                                        </p>
+                                    @elseif($order->status == 5)
+                                        <p>
+                                            Shipping
+                                        </p>
+                                    @elseif($order->status == 6)
+                                        <p class="text-success">
+                                            Product Received
                                         </p>
                                     @endif
                                 </td>
@@ -121,15 +150,3 @@
 
 
 </div>
-
-
-{{-- <div class="custom-option" wire:click="$set('filterStatus', ''); $set('isActiveFilter', '')"
-    @class(['active' => $isActiveFilter === ''])>All Orders</div>
-<div class="custom-option" wire:click="$set('filterStatus', '1'); $set('isActiveFilter', '1')"
-    @class(['active' => $isActiveFilter === '1'])>Waiting for Payment</div>
-<div class="custom-option" wire:click="$set('filterStatus', '2'); $set('isActiveFilter', '2')"
-    @class(['active' => $isActiveFilter === '2'])>Checking Payment</div>
-<div class="custom-option" wire:click="$set('filterStatus', '3'); $set('isActiveFilter', '3')"
-    @class(['active' => $isActiveFilter === '3'])>Payment Success</div>
-<div class="custom-option" wire:click="$set('filterStatus', '4'); $set('isActiveFilter', '4')"
-    @class(['active' => $isActiveFilter === '4'])>Cancelled</div> --}}

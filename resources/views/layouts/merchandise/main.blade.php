@@ -40,6 +40,16 @@
 
 
     @livewireScripts
+    {{-- <script type="module">
+        import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/livewire/turbolinks@v0.1.x/dist/livewire-turbolinks.js"
+        data-turbolinks-eval="false" data-turbo-eval="false"></script> --}}
+    {{-- <script>
+        $(document).on('turbolinks:load', function() {
+            $('.dropdown-toggle').dropdown()
+        })
+    </script> --}}
 
     {{-- Bootstrap --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

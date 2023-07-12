@@ -30,57 +30,60 @@
                 <div class="form-group">
                     <label for="name">Full Name<span>*</span></label>
                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                        wire:model="name" value="{{ old('name') }}" autocomplete="name" autofocus required>
+                        wire:model="name" value="{{ old('name') }}" autocomplete="name" autofocus>
 
-                    @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+
+                    @if ($errors->has('name'))
+                        <span class="error" role="alert">
+                            <strong>{{ $errors->getBag('default')->first('name') ?? $messages['postal_code.required'] }}</strong>
                         </span>
-                    @enderror
+                    @endif
                 </div>
 
                 <div class="form-group">
                     <label for="phone_number">Phone Number<span>*</span></label>
                     <input id="phone_number" type="text"
                         class="form-control @error('phone_number') is-invalid @enderror" wire:model="phone_number"
-                        value="{{ old('phone_number') }}" autocomplete="name" autofocus required>
+                        value="{{ old('phone_number') }}" autocomplete="name" autofocus>
 
-                    @error('phone_number')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                    @if ($errors->has('phone_number'))
+                        <span class="error" role="alert">
+                            <strong>{{ $errors->getBag('default')->first('phone_number') ?? $messages['postal_code.required'] }}</strong>
                         </span>
-                    @enderror
+                    @endif
                 </div>
 
                 <div class="form-group">
                     <label for="address">Full Address<span>*</span></label>
-                    <textarea wire:model="address" class="form-control @error('address') is-invalid @enderror" required></textarea>
+                    <textarea wire:model="address" class="form-control @error('address') is-invalid @enderror"></textarea>
 
-                    @error('address')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                    @if ($errors->has('address'))
+                        <span class="error" role="alert">
+                            <strong>{{ $errors->getBag('default')->first('address') ?? $messages['postal_code.required'] }}</strong>
                         </span>
-                    @enderror
+                    @endif
                 </div>
 
                 <div class="form-group">
                     <label for="postal_code">Postal Code<span>*</span></label>
                     <input id="postal_code" type="number"
                         class="form-control @error('postal_code') is-invalid @enderror" wire:model="postal_code"
-                        value="{{ old('postal_code') }}" autocomplete="name" autofocus required>
+                        value="{{ old('postal_code') }}" autocomplete="name" autofocus>
 
-                    @error('postal_code')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                    @if ($errors->has('postal_code'))
+                        <span class="error" role="alert">
+                            <strong>{{ $errors->getBag('default')->first('postal_code') ?? $messages['postal_code.required'] }}</strong>
                         </span>
-                    @enderror
+                    @endif
+
+
                 </div>
                 <div class="form-group">
                     <label for="notes">Notes</label>
                     <textarea wire:model="notes" class="form-control @error('notes') is-invalid @enderror"></textarea>
 
                     @error('notes')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="error" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror

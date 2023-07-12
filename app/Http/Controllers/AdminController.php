@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     //
-    public function login(){
+    public function login()
+    {
         return view('auth.admin.login', [
             'title' => 'Admin Login'
         ]);
@@ -21,7 +22,8 @@ class AdminController extends Controller
             'password' => 'required'
         ]);
 
-        if(Auth::guard('admin')->attempt($credentials)){
+
+        if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
 
             return redirect()->intended('/admin/dashboard');
@@ -30,7 +32,8 @@ class AdminController extends Controller
         return back()->with('loginError', 'Invalid email or password.');
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::guard('admin')->logout();
 
         request()->session()->invalidate();

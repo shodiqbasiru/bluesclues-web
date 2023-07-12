@@ -6,6 +6,7 @@ use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class DashboardNewsController extends Controller
 {
@@ -14,18 +15,52 @@ class DashboardNewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // item number pagination
         $perPage = 10;
         $currentPage = request()->query('page', 1);
         $startIndex = ($currentPage - 1) * $perPage + 1;
-        $news = News::latest()->paginate(10);
+
+        $searchQuery = $request->input('search');
+        $month = $request->input('month');
+        $year = $request->input('year');
+        $yearonly = $request->input('yearonly');
+
+
+        $news = News::latest();
+
+        if ($month && $year) {
+            $dateString = $year . '-' . $month . '-01'; // Construct a date string with year, month, and day
+            $news->whereMonth('created_at', Carbon::parse($dateString)->month)
+                ->whereYear('created_at', $year);
+        }
+
+        if ($yearonly) {
+            $news->whereYear('created_at', $yearonly);
+        }
+
+        if (!empty($searchQuery)) {
+            $news->where(function ($query) use ($searchQuery) {
+                $query->where('title', 'like', "%$searchQuery%");
+            });
+        }
+
+        $news = $news->paginate($perPage)->appends([
+            'search' => $searchQuery,
+            'month' => $month,
+            'year' => $year,
+            'yearonly' => $yearonly,
+        ]);
 
         return view('dashboard.news.index', [
             'title' => 'News',
             'news' => $news,
             'startIndex' => $startIndex,
+            'searchQuery' => $searchQuery,
+            'month' => $month,
+            'selectedYear' => $year,
+            'selectedYearOnly' => $yearonly,
         ]);
     }
 

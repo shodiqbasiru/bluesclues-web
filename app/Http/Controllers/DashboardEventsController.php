@@ -6,6 +6,7 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use PDF;
 
 class DashboardEventsController extends Controller
 {
@@ -14,21 +15,56 @@ class DashboardEventsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // item number pagination
         $perPage = 10;
         $currentPage = request()->query('page', 1);
         $startIndex = ($currentPage - 1) * $perPage + 1;
-        
-        $events = Event::latest()->paginate(10);
+
+        $searchQuery = $request->input('search');
+        $month = $request->input('month');
+        $year = $request->input('year');
+        $yearonly = $request->input('yearonly');
+
+
+        $events = Event::latest();
+
+        if ($month && $year) {
+            $dateString = $year . '-' . $month . '-01'; // Construct a date string with year, month, and day
+            $events->whereMonth('date', Carbon::parse($dateString)->month)
+                ->whereYear('date', $year);
+        }
+        if ($yearonly) {
+            $events->whereYear('date', $yearonly);
+        }
+
+        if (!empty($searchQuery)) {
+            $events->where(function ($query) use ($searchQuery) {
+                $query->where('eventname', 'like', "%$searchQuery%")
+                    ->orWhere('location', 'like', "%$searchQuery%");
+            });
+        }
+        $events->orderByDesc('date');
+
+        $events = $events->paginate($perPage)->appends([
+            'search' => $searchQuery,
+            'month' => $month,
+            'year' => $year,
+            'yearonly' => $yearonly,
+        ]);
+
         return view('dashboard.events.index', [
             'title' => 'Events',
             'events' => $events,
             'startIndex' => $startIndex,
+            'searchQuery' => $searchQuery,
+            'month' => $month,
+            'selectedYear' => $year,
+            'selectedYearOnly' => $yearonly,
+
         ]);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -162,5 +198,46 @@ class DashboardEventsController extends Controller
         //
         Event::destroy($event->id);
         return redirect('/admin/dashboard/events')->with('success', 'Event has been deleted!');
+    }
+
+    public function export(Request $request)
+    {
+        
+        $month = $request->input('month');
+        $year = $request->input('year');
+        $yearonly = $request->input('yearonly');
+
+
+        $events = Event::latest();
+
+        $filename = 'events-report';
+
+        if ($month && $year) {
+            $dateString = $year . '-' . $month . '-01'; // Construct a date string with year, month, and day
+            $events->whereMonth('date', Carbon::parse($dateString)->month)
+                ->whereYear('date', $year);
+            $filename .= '-date-' . date('F', mktime(0, 0, 0, $month, 1)) . '-' . $year;
+        }
+
+        if ($yearonly) {
+            $events->whereYear('date', $yearonly);
+            $filename .= '-date-' . $yearonly;
+        }
+
+        $events->orderByDesc('date');
+
+        $events = $events->get();
+
+        $pdf = PDF::loadview('dashboard.events.report', [
+            'events' => $events,
+            'month' => $month,
+            'selectedYear' => $year,
+            'selectedYearOnly' => $yearonly,
+        ]);
+
+        $filename = preg_replace('/[^a-zA-Z0-9\-]/', '_', $filename);
+
+        return $pdf->download($filename . '.pdf');
+
     }
 }

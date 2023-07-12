@@ -11,7 +11,7 @@ class ProductCategory extends Component
 {
     use WithPagination;
 
-    public $search, $categoryId, $selectedCategoryId;
+    public $search, $categoryId;
     protected $paginationTheme = 'bootstrap';
     protected $queryString = ['search'];
     protected $listeners = ['selectCategory'];
@@ -34,7 +34,6 @@ class ProductCategory extends Component
 
     public function render()
     {
-        $categories = MerchCategory::all();
         $category = MerchCategory::findOrFail($this->categoryId);
 
         if ($this->search) {
@@ -49,9 +48,7 @@ class ProductCategory extends Component
 
         return view('livewire.merchandise.product', [
             'products' => $products,
-            'categories' => $categories,
             'title' => $category->name,
-            'selectedCategoryId' => $this->selectedCategoryId, // Menggunakan nilai $selectedCategoryId pada view
 
         ])->extends('layouts.merchandise.main');
     }

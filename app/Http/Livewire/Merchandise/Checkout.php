@@ -22,6 +22,19 @@ class Checkout extends Component
         'postal_code' => 'required|min:2|max:8',
     ];
 
+    protected $messages = [
+        'name.required' => 'The name field is required.',
+        'name.min' => 'The name must be at least 2 min characters.',
+        'name.max' => 'The name may not be greater than 50 max characters.',
+        'phone_number.required' => 'The phone number field is required.',
+        'phone_number.min' => 'The phone number must be at least 2 min characters.',
+        'phone_number.max' => 'The phone number may not be greater than 20 max characters.',
+        'address.required' => 'The address field is required.',
+        'postal_code.required' => 'The postal code field is required.',
+        'postal_code.min' => 'The postal code must be at least 2 min characters.',
+        'postal_code.max' => 'The postal code may not be greater than 8 max characters.',
+    ];
+
     public function mount()
     {
         if (!Auth::user()) {

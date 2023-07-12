@@ -10,8 +10,22 @@
 </div>
 @endif
 <div class="table-responsive">
-    <table class="table table-striped table-sm">
+    <div class="d-flex justify-content-between">
         <a href="/admin/dashboard/songs/create" class="btn btn-outline-light mb-3">Add a song</a>
+        <form action="{{ route('songs.index') }}" method="GET" class="mb-3">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Search songs"
+                    value="{{ $searchQuery ?? '' }}">
+                <button type="submit" class="btn btn-outline-secondary">Search</button>
+            </div>
+        </form>
+    </div>
+    @if ($searchQuery)
+    <div class="mb-3">
+        <h5>Results for: "{{ $searchQuery }}"</h5>
+    </div>
+    @endif
+    <table class="table table-striped table-sm">
         <thead>
             <tr>
                 <th scope="col">#</th>

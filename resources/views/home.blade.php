@@ -22,7 +22,7 @@
                 <h5 class="card-title">Mangsa ka Mangsa</h5>
                 <p class="card-text">The New Single, Out Now</p>
                 <a href="#" class="btn btn-home">Listen Now</a>
-                <a href="#" class="btn btn-home">All Music</a>
+                <a href="{{ route('music') }}" class="btn btn-home">All Music</a>
             </div>
         </div>
 
@@ -78,35 +78,19 @@
             <h3>Show your support for <span>blues clues </span><br>with our exclusive merchandise <br>collection.</h2>
         </div>
         <div class="p-merch">
-            <a href="#" class="btn btn-home">All Items</a>
+            <a href="{{ route('products') }}" class="btn btn-home">All Items</a>
             <div class="m-card">
-                <div class="card-merch">
-                    <div class="head">
-                        <img src="{{ url('/assets/img/jaket_1.png') }}" alt="">
+                @foreach ($products as $product)
+                    <div class="card-merch">
+                        <div class="head">
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="">
+                        </div>
+                        <div class="body">
+                            <p class="name">{{ $product->name }}</p>
+                            <p class="price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                        </div>
                     </div>
-                    <div class="body">
-                        <p class="name">Crewnack Jacket</p>
-                        <p class="price">Rp. 50.000</p>
-                    </div>
-                </div>
-                <div class="card-merch">
-                    <div class="head">
-                        <img src="{{ url('/assets/img/jaket_1.png') }}" alt="">
-                    </div>
-                    <div class="body">
-                        <p class="name">Crewnack Jacket</p>
-                        <p class="price">Rp. 50.000</p>
-                    </div>
-                </div>
-                <div class="card-merch">
-                    <div class="head">
-                        <img src="{{ url('/assets/img/jaket_1.png') }}" alt="">
-                    </div>
-                    <div class="body">
-                        <p class="name">Crewnack Jacket</p>
-                        <p class="price">Rp. 50.000</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
 

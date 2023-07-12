@@ -7,7 +7,7 @@
             </div>
         @endif
         <div class="col-lg-6 detail-card">
-            <img src="{{ url('./assets/img/bc-3.png') }}" alt="">
+            <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
         </div>
         <div class="col-lg-6 content">
             @if (session('success'))
@@ -18,7 +18,8 @@
                         </div>
                         <div class="body">
                             <div class="product-added">
-                                <img src="{{ url('./assets/img/bc-3.png') }}" alt="">
+                                <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top"
+                                    alt="{{ $product->name }}">
                                 <div>
                                     <p class="m-0">{{ $product->name }}</p>
                                     {{-- <p class="m-0">Qty : {{ $product->quantity }}</p> --}}
@@ -61,10 +62,12 @@
                     <button type="button" class="btn-merchan" wire:click="addToCart">Add to cart</button>
 
                     <div class="description">
-                        <p>{{ $product->description }}</p>
+                        <p>{!! $product->description !!}</p>
                     </div>
                 @else
-                    <p class="text-center">Out of stock</p>
+                    <div class="description">
+                        <p>{!! $product->description !!}</p>
+                    </div>
                 @endif
 
             </form>
@@ -83,7 +86,8 @@
             @foreach ($products as $item)
                 <a href="{{ route('product.detail', $item->slug) }}">
                     <div class="card">
-                        <img src="{{ url('./assets/img/bc-1.png') }}" class="card-img-top" alt="...">
+                        <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top"
+                            alt="{{ $item->name }}">
                         <button class="btn">Detail</button>
                         <div class="card-body">
                             <h5 class="card-title">{{ $item->name }}</h5>

@@ -1,7 +1,86 @@
 @extends('dashboard.layouts.main')
 @section('content')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
+    <div>
+    </div>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <form action="{{ route('order.export') }}" method="GET">
+            <div class="mx-2">
+                @if ($status)
+                <input type="hidden" name="status" value="{{ $status ?? '' }}">
+                @endif
+                @if ($month)
+                <input type="hidden" name="month" value="{{ $month ?? '' }}">
+                @endif
+                @if ($selectedYear)
+                <input type="hidden" name="year" value="{{ $selectedYear ?? '' }}">
+                @endif
+                @if ($selectedYearOnly)
+                <input type="hidden" name="yearonly" value="{{ $selectedYearOnly ?? '' }}">
+                @endif
+                <button type="submit" class="btn btn-md btn-outline-secondary">Export</button>
+            </div>
+        </form>
+        <form action="{{ route('order.index') }}" method="GET">
+            <div class="input-group">
+                <span class="input-group-text">
+                    <span data-feather="calendar" class="align-text-bottom"></span>
+                </span>
+                <select class="form-select" name="month" required>
+                    <option value="">Select Month</option>
+                    @for ($i = 1; $i <= 12; $i++) <option value="{{ $i }}" {{ $month==$i ? 'selected' : '' }}>
+                        {{ date('F', mktime(0, 0, 0, $i, 1)) }}
+                        </option>
+                        @endfor
+                </select>
+                <select class="form-select" name="year" required>
+                    <option value="">Select Year</option>
+                    @php
+                    $currentYear = date('Y');
+                    $yearRange = 3;
+                    $startYear = $currentYear - $yearRange;
+                    $endYear = $currentYear + $yearRange;
+                    @endphp
+                    @for ($year = $startYear; $year <= $endYear; $year++) <option value="{{ $year }}" {{
+                        $year==$selectedYear ? 'selected' : '' }}>
+                        {{ $year }}
+                        </option>
+                        @endfor
+                </select>
+                <input type="hidden" name="status" value="{{ $status ?? '' }}">
+                <button type="submit" class="btn btn-outline-secondary">Filter</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 border-bottom">
     <h1 class="h2">Orders</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <form action="{{ route('order.index') }}" method="GET">
+            <div class="input-group">
+                <span class="input-group-text">
+                    <span class="align-text-bottom mx-2">Filter by year</span>
+                    <span data-feather="calendar" class="align-text-bottom"></span>
+                </span>
+                <select class="form-select" name="yearonly" required>
+                    <option value="">Select Year</option>
+                    @php
+                    $currentYear = date('Y');
+                    $yearRange = 3;
+                    $startYear = $currentYear - $yearRange;
+                    $endYear = $currentYear + $yearRange;
+                    @endphp
+                    @for ($yearonly = $startYear; $yearonly <= $endYear; $yearonly++) <option value="{{ $yearonly }}" {{
+                        $yearonly==$selectedYearOnly ? 'selected' : '' }}>
+                        {{ $yearonly }}
+                        </option>
+                        @endfor
+                </select>
+                <input type="hidden" name="status" value="{{ $status ?? '' }}">
+                <button type="submit" class="btn btn-outline-secondary">Filter</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 @if (session('success'))
@@ -10,32 +89,69 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
-
-<div class="table-responsive">
+<div class="d-flex justify-content-between">
     <form action="{{ route('order.index', ['status' => $status ?? '']) }}" method="GET">
         <div class="btn-group" role="group" aria-label="Filter Orders">
             <button type="submit" name="status" value=""
-                class="btn btn-outline-light mb-3{{ empty($status) ? ' active' : '' }}">All</button>
+                class="btn btn-outline-light{{ empty($status) ? ' active' : '' }}">All</button>
             <button type="submit" name="status" value="waiting-for-payment"
-                class="btn btn-outline-light mb-3{{ $status === 'waiting-for-payment' ? ' active' : '' }}">Waiting For
+                class="btn btn-outline-light{{ $status === 'waiting-for-payment' ? ' active' : '' }}">Waiting For
                 Payment</button>
             <button type="submit" name="status" value="checking-payment"
-                class="btn btn-outline-light mb-3{{ $status === 'checking-payment' ? ' active' : '' }}">Checking
+                class="btn btn-outline-light{{ $status === 'checking-payment' ? ' active' : '' }}">Checking
                 Payment</button>
             <button type="submit" name="status" value="success"
-                class="btn btn-outline-light mb-3{{ $status === 'success' ? ' active' : '' }}">Success</button>
+                class="btn btn-outline-light{{ $status === 'success' ? ' active' : '' }}">Payment Success</button>
             <button type="submit" name="status" value="cancelled"
-                class="btn btn-outline-light mb-3{{ $status === 'cancelled' ? ' active' : '' }}">Cancelled</button>
+                class="btn btn-outline-light{{ $status === 'cancelled' ? ' active' : '' }}">Cancelled</button>
         </div>
     </form>
+    <form action="{{ route('order.index') }}" method="GET" class="">
+        <div class="input-group">
+            <input type="text" class="form-control" name="search" placeholder="Search orders"
+                value="{{ $searchQuery ?? '' }}">
+            <button type="submit" class="btn btn-outline-secondary">Search</button>
+        </div>
+    </form>
+</div>
+<form action="{{ route('order.index', ['status' => $status ?? '']) }}" method="GET">
+    <div class="btn-group btn-no-space" role="group" aria-label="Filter Orders">
+        <button type="submit" name="status" value="shipping"
+            class="btn btn-outline-light mb-3{{ $status === 'shipping' ? ' active' : '' }}">Shipping</button>
+        <button type="submit" name="status" value="product-received"
+            class="btn btn-outline-light mb-3{{ $status === 'product-received' ? ' active' : '' }}">Product
+            Received</button>
+    </div>
+</form>
+@if ($searchQuery)
+<div class="mb-3">
+    <h5>Results for: "{{ $searchQuery }}"</h5>
+</div>
+@endif
+
+@if ($month && $selectedYear)
+<div class="mb-3">
+    <h5>Showing orders created in: {{ date('F', mktime(0, 0, 0, $month, 1)) }} {{ $selectedYear }}</h5>
+</div>
+@endif
+
+@if ($selectedYearOnly)
+<div class="mb-3">
+    <h5>Showing orders created in: {{ $selectedYearOnly }}</h5>
+</div>
+@endif
+
+<div class="table-responsive">
+
     <table class="table table-striped table-sm text-center">
         <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Date of Transaction</th>
+                <th scope="col">Customer Name</th>
                 <th scope="col">Order Number</th>
                 <th scope="col">Orders</th>
-                @if ($status == NULL)
+                @if ($status == NULL || $status == 'cancelled')
                 <th scope="col">Status</th>
                 @else
                 <th scope="col">Proof of Payment</th>
@@ -58,9 +174,11 @@
             </div>
 
             <tr>
-                <td>{{ $startIndex + $loop->index }}</td>
-                <td>{{ \Illuminate\Support\Carbon::parse($order->created_at)->format('d F Y') }}</td>
-                <td>{{ $order->order_number }}</td>
+                <td class="align-middle">{{ $startIndex + $loop->index }}</td>
+                <td class="align-middle">{{ \Illuminate\Support\Carbon::parse($order->created_at)->format('d F Y') }}
+                </td>
+                <td class="align-middle">{{ $order->name }}</td>
+                <td class="align-middle">{{ $order->order_number }}</td>
                 <td class="text-left">
                     @foreach ($order->orderDetails->take(3) as $orderDetail)
                     <div class="d-flex align-items-center">
@@ -91,7 +209,16 @@
                         <span class="badge badge-danger">
                             Cancelled
                         </span>
+                        @elseif($order->status == 5)
+                        <span class="badge badge-primary">
+                            Shipping
+                        </span>
+                        @elseif($order->status == 6)
+                        <span class="badge badge-primary">
+                            Product Received
+                        </span>
                         @endif
+
 
                         @if ($order->status != 1 && $order->proof)
                         <button type="button" class="btn btn-outline-light mb-3 btn-sm" data-bs-toggle="modal"
@@ -114,24 +241,54 @@
                         </button>
                     </div>
                 </td>
-                @else
+                @elseif($order->status == 1)
                 <td class="align-middle">
                     <span class="badge badge-warning">
-                        Waiting for Payment
+                        Waiting for Payments
+                    </span>
+                </td>
+                @elseif($order->status == 2)
+                <td class="align-middle">
+                    <span class="badge badge-info">
+                        Checking Payment
+                    </span> 
+                </td>
+                @elseif($order->status == 3)
+                <td class="align-middle">
+                    <span class="badge badge-success">
+                        Payment Success
+                    </span>
+                </td>
+                @elseif($order->status == 4)
+                <td class="align-middle">
+                    <span class="badge badge-danger">
+                        Cancelled
+                    </span>
+                </td>
+                @elseif($order->status == 5)
+                <td class="align-middle">
+                    <span class="badge badge-primary">
+                        Shipping
+                    </span>
+                </td>
+                @elseif($order->status == 6)
+                <td class="align-middle">
+                    <span class="badge badge-primary">
+                        Product Received
                     </span>
                 </td>
                 @endif
                 @endif
-                <td><strong>Rp {{ number_format($order->total_price, 0, ',', '.') }}</strong></td>
-                <td><a href="/admin/dashboard/orders/{{ $order->id }}" class="btn btn-sm btn-outline-light me-2"><span
-                            data-feather="eye"></span></a></td>
+                <td class="align-middle"><strong>Rp {{ number_format($order->total_price, 0, ',', '.') }}</strong></td>
+                <td class="align-middle"><a href="/admin/dashboard/orders/{{ $order->id }}"
+                        class="btn btn-sm btn-outline-light me-2"><span data-feather="eye"></span></a></td>
             </tr>
             @empty
             <tr>
                 <td colspan="7">Data Empty</td>
             </tr>
             @endforelse
-        <tbody>
+        </tbody>
     </table>
     {{ $orders->links() }}
 </div>

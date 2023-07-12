@@ -14,10 +14,10 @@
                         <a class="nav-link" href="{{ route('merchandise.home') }}">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <button class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Category
-                        </a>
+                        </button>
                         <ul class="dropdown-menu">
                             @foreach ($categories as $category)
                                 <li>
@@ -32,9 +32,11 @@
 
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('history') }}">History</a>
-                    </li>
+                    @if (auth()->check())
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('history') }}">History</a>
+                        </li>
+                    @endif
                 </ul>
                 <ul class="navbar-nav ms-auto icons">
                     <li class="nav-item dropdown">
@@ -62,56 +64,59 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item dropdown cart">
-                        <a class="nav-link dropdown-toggle position-relative" href="{{ route('merchandise.cart') }}">
-                            <img src="{{ url('./assets/img/icons/cart.svg') }}" alt="">
-                            @if ($count_order !== 0)
-                                <span class="count">
-                                    {{ $count_order }}
-                                </span>
-                            @endif
-                        </a>
-                        <ul class="dropdown-menu cart">
-                            @forelse ($products as $product)
-                                <a class="text-decoration-none"
-                                    href="{{ route('product.detail', $product->merchandise->slug) }}">
+                    @if (auth()->check())
+
+                        <li class="nav-item dropdown cart">
+                            <a class="nav-link dropdown-toggle position-relative"
+                                href="{{ route('merchandise.cart') }}">
+                                <img src="{{ url('./assets/img/icons/cart.svg') }}" alt="">
+                                @if ($count_order !== 0)
+                                    <span class="count">
+                                        {{ $count_order }}
+                                    </span>
+                                @endif
+                            </a>
+                            <ul class="dropdown-menu cart">
+                                @forelse ($products as $product)
+                                    <a class="text-decoration-none"
+                                        href="{{ route('product.detail', $product->merchandise->slug) }}">
+                                        <li class="dropdown-item list-products">
+                                            <div class="img-dropdown">
+                                                <img src="{{ url('./assets/img/bc-3.png') }}" alt="">
+                                            </div>
+                                            <div class="text">
+                                                <p class="p-name">
+                                                    {{ $product->merchandise->name }}
+                                                </p>
+
+                                                <p class="qty">
+                                                    qty : {{ $product->quantity }}
+                                                </p>
+                                            </div>
+                                            <div class="price">
+                                                <p>
+                                                    Rp {{ number_format($product->merchandise->price, 0, ',', '.') }}
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </a>
+                                @empty
                                     <li class="dropdown-item list-products">
-                                        <div class="img-dropdown">
-                                            <img src="{{ url('./assets/img/bc-3.png') }}" alt="">
-                                        </div>
-                                        <div class="text">
-                                            <p class="p-name">
-                                                {{ $product->merchandise->name }}
-                                            </p>
-
-                                            <p class="qty">
-                                                qty : {{ $product->quantity }}
-                                            </p>
-                                        </div>
-                                        <div class="price">
-                                            <p>
-                                                Rp {{ number_format($product->merchandise->price, 0, ',', '.') }}
-                                            </p>
-                                        </div>
+                                        No Items
                                     </li>
-                                </a>
-                            @empty
-                                <li class="dropdown-item list-products">
-                                    No Items
+                                @endforelse
+
+                                <li class="dropdown-item button">
+                                    <p>
+                                        {{ $count_order <= 3 ? '' : $count_order - 3 . ' more products in cart' }}
+                                    </p>
+                                    <a class="btn btn-dropdown d-flex justify-content-center"
+                                        href="{{ route('merchandise.cart') }}">View My Shopping Cart</a>
                                 </li>
-                            @endforelse
 
-                            <li class="dropdown-item button">
-                                <p>
-                                    {{ $count_order <= 3 ? '' : $count_order - 3 . ' more products in cart' }}
-
-                                </p>
-
-                                <a class="btn btn-dropdown d-flex justify-content-center"
-                                    href="{{ route('merchandise.cart') }}">View My Shopping Cart</a>
-                            </li>
-                        </ul>
-                    </li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>

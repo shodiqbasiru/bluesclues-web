@@ -36,7 +36,8 @@
             @foreach ($products as $item)
                 <a href="{{ route('product.detail', $item->slug) }}">
                     <div class="card">
-                        <img src="{{ url('./assets/img/bc-1.png') }}" class="card-img-top" alt="...">
+                        <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top"
+                            alt="{{ $item->name }}">
                         <button class="btn">Detail</button>
                         <div class="card-body">
                             <h5 class="card-title">{{ $item->name }}</h5>

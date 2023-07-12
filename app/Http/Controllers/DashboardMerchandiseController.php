@@ -15,7 +15,7 @@ class DashboardMerchandiseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
         // item number pagination
@@ -23,13 +23,29 @@ class DashboardMerchandiseController extends Controller
         $currentPage = request()->query('page', 1);
         $startIndex = ($currentPage - 1) * $perPage + 1;
 
-        $merchandise = Merchandise::with(['merchCategory'])->latest()->paginate(10);
+        $searchQuery = $request->input('search');
+
+        $merchandise = Merchandise::with(['merchCategory'])->latest();
+
+        if (!empty($searchQuery)) {
+            $merchandise->where(function ($query) use ($searchQuery) {
+                $query->where('name', 'like', "%$searchQuery%")
+                ->orWhere('price', 'like', "%$searchQuery%");
+            });
+        }
+
+
+        $merchandise = $merchandise->paginate($perPage)->appends(['search' => $searchQuery]);
+
         return view('dashboard.merchandises.index', [
             'title' => 'Merchs',
             'merchandise' => $merchandise,
             'startIndex' => $startIndex,
+            'searchQuery' => $searchQuery,
         ]);
     }
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -147,7 +163,7 @@ class DashboardMerchandiseController extends Controller
             'is_available' => 'required|boolean'
         ]);
 
-
+        
 
 
         // update the merhcandise entry

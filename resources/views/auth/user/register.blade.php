@@ -14,7 +14,7 @@
             @csrf
             <div class="form-group">
                 <input type="name" name="name" class="myinput {{ $errors->has('name') ? ' is-invalid' : '' }}"
-                    value="{{ old('name') }}" id="name" required>
+                    value="{{ old('name') }}" id="name">
                 <label for="name" class="mylabel">Name</label>
                 @if ($errors->has('name'))
                     <span class="invalid-feedback">{{ $errors->first('name') }}</span>
@@ -22,7 +22,7 @@
             </div>
             <div class="form-group">
                 <input type="email" name="email" class="myinput {{ $errors->has('email') ? ' is-invalid' : '' }}"
-                    value="{{ old('email') }}" id="email" required>
+                    value="{{ old('email') }}" id="email">
                 <label for="email" class="mylabel">Email</label>
                 @if ($errors->has('email'))
                     <span class="invalid-feedback">{{ $errors->first('email') }}</span>
@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <input type="username" name="username" class="myinput {{ $errors->has('username') ? ' is-invalid' : '' }}"
-                    value="{{ old('username') }}" id="username" required>
+                    value="{{ old('username') }}" id="username">
                 <label for="username" class="mylabel">Username</label>
                 @if ($errors->has('username'))
                     <span class="invalid-feedback">{{ $errors->first('username') }}</span>
@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <input type="password" name="password"
-                    class="myinput pass {{ $errors->has('password') ? ' is-invalid' : '' }}" id="pasword" required>
+                    class="myinput pass {{ $errors->has('password') ? ' is-invalid' : '' }}" id="pasword">
                 <label for="password" class="mylabel">Password</label>
                 @if ($errors->has('password'))
                     <span class="invalid-feedback">{{ $errors->first('password') }}</span>
@@ -46,8 +46,7 @@
             </div>
             <div class="form-group">
                 <input type="password" name="password_confirmation"
-                    class="myinput {{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" id="pasword"
-                    required>
+                    class="myinput {{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" id="pasword">
                 <label for="password_confirmation" class="mylabel">Confirm Password</label>
             </div>
             <div class="form-group {{ $errors->has('g-recaptcha-response') ? ' is-invalid' : '' }}">
@@ -62,7 +61,7 @@
             </div>
 
             <button type="submit" class="btn">Register</button>
-            <a href="#" class="forgetpass">Already have an account?</a>
+            <a href="{{ route('login') }}" class="forgetpass">Already have an account?</a>
         </form>
     </div>
 @endsection

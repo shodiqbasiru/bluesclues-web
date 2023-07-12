@@ -18,7 +18,7 @@ class MerchandiseFactory extends Factory
     public function definition()
     {
         $price = $this->faker->numberBetween(1, 57) * 10000;
-        $name = $this->faker->word;
+        $name = $this->faker->sentence(2, 3);
         $slug = Str::slug($name) . '-' . $this->faker->unique()->numberBetween(1, 9999);
         return [
             'name' => $name,
@@ -26,7 +26,7 @@ class MerchandiseFactory extends Factory
             'image' => 'merchandise-images/2a75hZBL4R18PGAkrdiFl69BWnBWPzfvgktncDjF.png',
             'description' => $this->faker->paragraph,
             'price' => $price,
-            'is_available' => 1,
+            'is_available' => $this->faker->boolean,
             'category_id' => $this->faker->numberBetween(1, 4),
         ];
     }

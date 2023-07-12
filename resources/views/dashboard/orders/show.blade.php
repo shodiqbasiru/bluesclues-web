@@ -4,24 +4,31 @@
     <h1 class="h2">Order Details</h1>
 </div>
 <a href="/admin/dashboard/orders" class="btn btn-transparent me-2 my-3">
-    <div class="d-flex justify-content-center align-items-center"><span data-feather="arrow-left"
-            class="me-1"></span> Back to Orders</div>
+    <div class="d-flex justify-content-center align-items-center"><span data-feather="arrow-left" class="me-1"></span>
+        Back to Orders</div>
 </a>
+
+@if (session('success'))
+<div class="alert alert-success alert-dismissible fade show my-2" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 
 <div class="card">
     <div class="card-body">
         <h3 class="card-title mb-4">Order Information</h3>
         <p><strong>Order Number:</strong> {{ $order->order_number }}</p>
         <p><strong>Date of Transaction:</strong> {{ $order->created_at->format('d F Y') }}</p>
-        <p><strong>Status:</strong> 
+        <p><strong>Status:</strong>
             @if ($order->status == 1)
-                <span class="badge badge-warning">Waiting for Payment</span>
+            <span class="badge badge-warning">Waiting for Payment</span>
             @elseif ($order->status == 2)
-                <span class="badge badge-info">Checking Payment</span>
+            <span class="badge badge-info">Checking Payment</span>
             @elseif ($order->status == 3)
-                <span class="badge badge-success">Payment Success</span>
+            <span class="badge badge-success">Payment Success</span>
             @elseif ($order->status == 4)
-                <span class="badge badge-danger">Cancelled</span>
+            <span class="badge badge-danger">Cancelled</span>
             @endif
         </p>
         <p><strong>Total:</strong> Rp {{ number_format($order->total_price, 0, ',', '.') }}</p>
@@ -35,11 +42,11 @@
     <div class="card-body">
         <h3 class="card-title mb-4">Order Items</h3>
         @foreach ($order->orderDetails as $orderDetail)
-            <div class="d-flex align-items-center">
-                <img src="{{ asset('storage/' . $orderDetail->merchandise->image) }}" class="img-fluid mr-2" width="50">
-                <span>{{ $orderDetail->merchandise->name }}</span>
-                <span class="mx-2">(Quantity: {{ $orderDetail->quantity }})</span>
-            </div>
+        <div class="d-flex align-items-center">
+            <img src="{{ asset('storage/' . $orderDetail->merchandise->image) }}" class="img-fluid mr-2" width="50">
+            <span>{{ $orderDetail->merchandise->name }}</span>
+            <span class="mx-2">(Quantity: {{ $orderDetail->quantity }})</span>
+        </div>
         @endforeach
     </div>
 </div>
@@ -53,7 +60,85 @@
         <p><strong>Address:</strong> {{ $order->address }}</p>
         <p><strong>Postal Code:</strong> {{ $order->postal_code }}</p>
         <p><strong>Phone Number:</strong> {{ $order->phone_number }}</p>
-        
+
     </div>
 </div>
+@if ($order->proof)
+<div class="modal fade justify-content-center" id="proofModal" tabindex="-1" aria-labelledby="proofModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="{{ asset('storage/' . $order->proof) }}" class="img-fluid" alt="Proof of Payment">
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+
+<div class="card my-4 mb-5">
+    <div class="card-body">
+        <h3 class="card-title mb-4">
+            Proof Of Payment
+        </h3>
+        <div class="d-flex align-items-center justify-content-center">
+            <button type="button" class="btn btn-outline-light mb-3 btn-sm" data-bs-toggle="modal"
+                data-bs-target="#proofModal">
+                View Proof of Payment
+            </button>
+        </div>
+    </div>
+</div>
+@endif
+
+@if ($order->status == 2)
+<div class="d-flex align-items-center justify-content-center">
+    <form action="{{ route('order.confirm', $order->id)}}" method="post">
+        @csrf
+        <button type="submit" onclick="return confirm ('Are you sure to confirm this order?')" class="btn btn-outline-light mb-3 btn-sm">Confirm Payment</button>
+</div>
+@elseif ($order->status == 3)
+<div class="d-flex align-items-center justify-content-center">
+    <form action="{{ route('order.shipping', $order->id)}}" method="post">
+        @csrf
+        <button type="submit" onclick="return confirm ('Are you sure you want to ship this order?')" class="btn btn-outline-light mb-3 btn-sm">Ship Order</button>
+    </form>
+</div>
+@endif
+
+<style>
+    .modal-dialog.modal-dialog-scrollable {
+        max-width: 60%;
+        height: 60%;
+    }
+
+    .modal-dialog.modal-dialog-scrollable .modal-content {
+        border: none;
+        box-shadow: none;
+    }
+
+    .modal-dialog.modal-dialog-scrollable .modal-body {
+        padding: 0;
+
+    }
+
+    .modal-dialog.modal-dialog-scrollable .btn-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #000;
+        opacity: 0.5;
+        font-size: 1.5rem;
+    }
+</style>
+
+<script>
+    var myModal = new bootstrap.Modal(document.getElementById('proofModal'));
+
+    // Optional: Close the modal when the "Close" button is clicked
+    document.getElementById('proofModal').addEventListener('hide.bs.modal', function () {
+        myModal.hide();
+    });
+</script>
+
 @endsection

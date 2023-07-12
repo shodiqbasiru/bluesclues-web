@@ -17,7 +17,7 @@ class ProductDetail extends Component
 
     public function mount($slug)
     {
-        $otherProducts = Merchandise::inRandomOrder()->limit(3)->get();
+        $otherProducts = Merchandise::where('is_available', 1)->inRandomOrder()->limit(3)->get();
         $this->randomItems = $otherProducts;
 
         $productDetail = Merchandise::where('slug', $slug)->firstOrFail();

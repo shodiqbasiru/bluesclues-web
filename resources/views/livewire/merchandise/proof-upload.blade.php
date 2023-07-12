@@ -10,19 +10,22 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12 header">
+        <div class="col-lg-6 header">
             <p>Lakukan pembayaran dari rekening bank BCA ke rekening berikut. dengan total <br>
                 pembayaran Rp 150.000</p>
             <img src="{{ url('/assets/img/icons/bca.png') }}" alt="">
         </div>
+        {{-- <div class="col-lg-6 header">
+            <p id="countdown">{{ gmdate('H:i:s', $remainingTime) }}</p>
+        </div> --}}
         <div class="row">
             <div class="col-lg-12">
                 <form wire:submit.prevent="submit" enctype="multipart/form-data">
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="name">Name</label>
                         <p>Bang Toyib</p>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="name">Account Numbers</label>
                         <div class="d-flex justify-content-between">
                             <p id="accountNumber">33339546644</p>
@@ -41,13 +44,13 @@
                             <input id="proof" type="file"
                                 class="form-control @error('proof') is-invalid @enderror" wire:model="proof">
                         </div>
-
-                        @error('proof')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
                     </div>
+                    @if ($errors->has('proof'))
+                        <span class="error" role="alert">
+                            <strong>{{ $errors->getBag('default')->first('proof') ?? $messages['postal_code.required'] }}</strong>
+                        </span>
+                    @endif
+
 
                     <button type="submit" class="btn-checkout">Submit</button>
                 </form>

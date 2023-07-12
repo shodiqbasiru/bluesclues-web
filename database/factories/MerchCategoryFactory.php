@@ -17,7 +17,7 @@ class MerchCategoryFactory extends Factory
      */
     public function definition()
     {
-        static $names = ['Apparel', 'Music', 'Accessories', 'Others'];
+        static $names = ['Apparel', 'Music', 'Accessories'];
 
         $name = array_shift($names);
 

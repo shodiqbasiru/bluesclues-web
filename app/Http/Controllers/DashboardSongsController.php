@@ -15,21 +15,32 @@ class DashboardSongsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // item number pagination
         $perPage = 10;
         $currentPage = request()->query('page', 1);
         $startIndex = ($currentPage - 1) * $perPage + 1;
 
-        $songs = Song::latest()->paginate(10);
+        $searchQuery = $request->input('search');
+
+        $songs = Song::latest();
+
+        if (!empty($searchQuery)) {
+            $songs->where(function ($query) use ($searchQuery) {
+                $query->where('title', 'like', "%$searchQuery%");
+            });
+        }
+
+        $songs = $songs->paginate($perPage)->appends(['search' => $searchQuery]);
+
         return view('dashboard.songs.index', [
             'title' => 'Songs',
             'songs' => $songs,
             'startIndex' => $startIndex,
+            'searchQuery' => $searchQuery,
         ]);
     }
-
     /**
      * Show the form for creating a new resource.
      *

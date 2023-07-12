@@ -11,7 +11,23 @@
 @endif
 
 <div class="table-responsive">
-    <a href="/admin/dashboard/merchandise/create" class="btn btn-outline-light mb-3">Add a new merch</a>
+    
+    <div class="d-flex justify-content-between">
+        <a href="/admin/dashboard/merchandise/create" class="btn btn-outline-light mb-3">Add a new merch</a>
+        <form action="{{ route('merchandise.index') }}" method="GET" class="mb-3">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Search merchandises"
+                    value="{{ $searchQuery ?? '' }}">
+                <button type="submit" class="btn btn-outline-secondary">Search</button>
+            </div>
+        </form>
+    </div>
+    @if ($searchQuery)
+    <div class="mb-3">
+        <h5>Results for: "{{ $searchQuery }}"</h5>
+    </div>
+    @endif
+    
     <table class="table table-striped table-sm">
         <thead>
             <tr>

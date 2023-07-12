@@ -10,8 +10,9 @@ class Store extends Component
 
     public function render()
     {
-        $products = Merchandise::take(4)->get();
-
+        $products = Merchandise::where('is_available', 1)
+            ->take(4)
+            ->get();
 
         return view('livewire.merchandise.store', [
             'title' => 'Products Recommendation',

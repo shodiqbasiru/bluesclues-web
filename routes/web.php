@@ -1,9 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Http\Livewire\Merchandise\History;
-use App\Http\Livewire\Merchandise\Checkout;
-use App\Http\Livewire\Merchandise\ProofUpload;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Merchandise\Cart;
@@ -16,18 +13,21 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\MusicsController;
 use App\Http\Controllers\VideosController;
+use App\Http\Livewire\Merchandise\History;
 use App\Http\Livewire\Merchandise\Product;
+use App\Http\Livewire\Merchandise\Checkout;
 use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Livewire\Merchandise\ProofUpload;
 use App\Http\Controllers\ShowRequestsController;
 use App\Http\Livewire\Merchandise\ProductDetail;
 use App\Http\Controllers\DashboardNewsController;
 use App\Http\Controllers\DashboardSongsController;
 use App\Http\Livewire\Merchandise\ProductCategory;
 use App\Http\Controllers\DashboardEventsController;
-use App\Http\Controllers\DashboardMerchandiseController;
 use App\Http\Controllers\DashboardOrdersController;
+use App\Http\Controllers\DashboardMerchandiseController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -69,7 +69,6 @@ Route::get('/request-show', function () {
 });
 
 // store page
-
 Route::get('/store', Store::class)->name('merchandise.home');
 Route::get('/product', Product::class)->name('products');
 Route::get('/product/category/{categoryId}', ProductCategory::class)->name('product.category');
@@ -87,7 +86,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 
 // Music Page
-Route::get('/music', [MusicsController::class, 'index']);
+Route::get('/music', [MusicsController::class, 'index'])->name('music');
 Route::get('/music/{song:slug}', [MusicsController::class, 'show']);
 
 // contact-us
@@ -149,17 +148,15 @@ Route::post('/email/verification-notification', function (Request $request) {
 // })->middleware(['auth', 'verified']);
 
 
-Route::get('/admin/dashboard', function () {
-    return view('dashboard.index', [
-        'title' => 'Admin Dashboard'
-    ]);
-})->middleware('admin')->name('admin.dashboard');
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->middleware('admin')->name('admin.dashboard');
 
 Route::resource('/admin/dashboard/news', DashboardNewsController::class)
     ->middleware('admin');
 
 Route::resource('/admin/dashboard/events', DashboardEventsController::class)
     ->middleware('admin');
+Route::get('/admin/dashboard/export-events', [DashboardEventsController::class, 'export'])->name('events.export');
+
 
 Route::resource('/admin/dashboard/songs', DashboardSongsController::class)
     ->middleware('admin');
@@ -180,16 +177,35 @@ Route::get('/admin/dashboard/show-requests', [ShowRequestsController::class, 'in
     ->middleware('admin')
     ->name('show-requests.index');
 
-//show requests approval or denial
-Route::post('/show-requests/{showRequest}/approve', [ShowRequestsController::class, 'approve'])
-    ->middleware('admin')
-    ->name('show-request.approve');
-Route::post('/show-requests/{showRequest}/reject', [ShowRequestsController::class, 'reject'])
-    ->middleware('admin')
-    ->name('show-request.reject');
+Route::group(['middleware' => ['admin']], function () {
+    //show requests approval or denial
+    Route::post('/show-requests/{showRequest}/approve', [ShowRequestsController::class, 'approve'])
+        ->middleware('admin')
+        ->name('show-request.approve');
+    Route::post('/show-requests/{showRequest}/reject', [ShowRequestsController::class, 'reject'])
+        ->middleware('admin')
+        ->name('show-request.reject');
+    Route::get('/admin/dashboard/export-show-requests', [ShowRequestsController::class, 'export'])->name('show-requests.export');
 
-Route::get('/admin/dashboard/orders', [DashboardOrdersController::class, 'index'])
-    ->middleware('admin')
-    ->name('order.index');
+    Route::get('/admin/dashboard/orders', [DashboardOrdersController::class, 'index'])
+        ->middleware('admin')
+        ->name('order.index');
+    Route::get('/admin/dashboard/orders/{order}', [DashboardOrdersController::class, 'show']);
+    Route::post('/admin/dashboard/orders/{order}/confirm', [DashboardOrdersController::class, 'confirm'])->name('order.confirm');
+    Route::post('/admin/dashboard/orders/{order}/shipping', [DashboardOrdersController::class, 'shipping'])->name('order.shipping');
+    Route::get('/admin/dashboard/export-orders', [DashboardOrdersController::class, 'export'])->name('order.export');
+});
 
-Route::get('/admin/dashboard/orders/{order}', [DashboardOrdersController::class, 'show']);
+
+// Route::post('/show-requests/{showRequest}/approve', [ShowRequestsController::class, 'approve'])
+//     ->middleware('admin')
+//     ->name('show-request.approve');
+// Route::post('/show-requests/{showRequest}/reject', [ShowRequestsController::class, 'reject'])
+//     ->middleware('admin')
+//     ->name('show-request.reject');
+
+// Route::get('/admin/dashboard/orders', [DashboardOrdersController::class, 'index'])
+//     ->middleware('admin')
+//     ->name('order.index');
+
+// Route::get('/admin/dashboard/orders/{order}', [DashboardOrdersController::class, 'show']);

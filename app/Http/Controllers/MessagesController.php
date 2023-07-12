@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\Message;
+use Illuminate\Http\Request;
 use App\Http\Controllers\EmailController;
 
 class MessagesController extends Controller
@@ -47,20 +48,60 @@ class MessagesController extends Controller
         return redirect('/contact-us')->with('success', 'Message sent!');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         // item number pagination
         $perPage = 10;
         $currentPage = request()->query('page', 1);
         $startIndex = ($currentPage - 1) * $perPage + 1;
 
-        $message = Message::latest()->paginate(10);
+        $searchQuery = $request->input('search');
+
+        $month = $request->input('month');
+        $year = $request->input('year');
+
+        $yearonly = $request->input('yearonly');
+
+        $message = Message::latest();
+
+
+        if (!empty($searchQuery)) {
+            $message->where(function ($query) use ($searchQuery) {
+                $query->where('subject', 'like', "%$searchQuery%")
+                    ->orWhere('name', 'like', "%$searchQuery%")
+                    ->orWhere('email', 'like', "%$searchQuery%")
+                    ->orWhere('whatsapp', 'like', "%$searchQuery%")
+                    ->orWhere('message_content', 'like', "%$searchQuery%");
+            });
+        }
+
+        if ($month && $year) {
+            $dateString = $year . '-' . $month . '-01'; // Construct a date string with year, month, and day
+            $message->whereMonth('created_at', Carbon::parse($dateString)->month)
+                ->whereYear('created_at', $year);
+        }
+        if ($yearonly) {
+            $message->whereYear('created_at', $yearonly);
+        }
+
+        $message = $message->paginate($perPage)->appends([
+            'search' => $searchQuery,
+            'month' => $month,
+            'year' => $year,
+            'yearonly' => $yearonly,
+        ]);
+
         return view('dashboard.messages.index', [
-            'title' => 'Show Requests',
+            'title' => 'Messages',
             'message' => $message,
             'startIndex' => $startIndex,
+            'searchQuery' => $searchQuery,
+            'month' => $month,
+            'selectedYear' => $year,
+            'selectedYearOnly' => $yearonly,
         ]);
     }
+
     public function show(Message $message)
     {
 
@@ -77,6 +118,4 @@ class MessagesController extends Controller
         Message::destroy($message->id);
         return redirect('/admin/dashboard/messages')->with('success', 'Message has been deleted!');
     }
-
-
 }

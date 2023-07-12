@@ -16,6 +16,18 @@ class ProofUpload extends Component
     public $proof;
     public $orderId;
 
+
+    protected $rules = [
+        'proof' => 'required|image|mimes:jpeg,png|max:2048',
+    ];
+
+    protected $messages = [
+        'proof.required' => 'The image field is required.',
+        'proof.image' => 'The file must be an image.',
+        'proof.mimes' => 'The image must be a file of type: jpeg, png.',
+        'proof.max' => 'The image may not be greater than 2048 max kilobytes.',
+    ];
+
     public function mount($orderId)
     {
         $this->orderId = $orderId;
@@ -29,9 +41,7 @@ class ProofUpload extends Component
 
     public function submit()
     {
-        $this->validate([
-            'proof' => 'required|image|max:7168', // Adjust the image validation rules as needed
-        ]);
+        $this->validate();
 
         $order = Order::find($this->orderId);
 
