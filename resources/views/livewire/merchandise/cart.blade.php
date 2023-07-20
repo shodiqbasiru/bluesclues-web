@@ -31,7 +31,7 @@
                             @foreach ($order_details as $order_detail)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td class="image"><img src="{{ url('./assets/img/bc-1.png') }}"
+                                    <td class="image"><img src="{{ asset('storage/' . $order_detail->merchandise->image) }}"
                                             alt="Product Image">
                                     </td>
                                     <td>{{ $order_detail->merchandise->name }}</td>

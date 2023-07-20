@@ -50,9 +50,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('admin/dashboard/profile*') ? 'active' : 'text-light' }}" href="/admin/dashboard/profile">
+                <a class="nav-link {{ Request::is('admin/dashboard/admins*') ? 'active' : 'text-light' }}" href="/admin/dashboard/admins">
+                    <span data-feather="shield" class="align-text-bottom"></span>
+                    Admins
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('admin/dashboard/users*') ? 'active' : 'text-light' }}" href="/admin/dashboard/users">
                     <span data-feather="users" class="align-text-bottom"></span>
-                    Profile
+                    Users
                 </a>
             </li>
         </ul>
