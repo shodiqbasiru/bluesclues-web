@@ -74,6 +74,15 @@
             {{-- <div class="noted">
                 <p>Note: This product only available to ship in the <br> Jakarta and Malaysia</p>
             </div> --}}
+            <div class="share-icons">
+                <p>Share :</p>
+
+                @foreach ($shareLinks as $platform => $link)
+                    <a href="{{ $link }}" target="_blank" target="_blank"
+                        onclick="openSmallWindow(event, '{{ $link }}')"><img
+                            src="{{ url('./assets/img/icons/icon-' . $platform . '.png') }}" alt=""></a>
+                @endforeach
+            </div>
 
         </div>
     </div>

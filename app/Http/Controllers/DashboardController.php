@@ -37,6 +37,30 @@ class DashboardController extends Controller
             ->where('date', '<=', Carbon::now()->addMonth())
             ->get();
 
+        // Get the latest order's creation date
+        $latestOrderDate = Order::where('status', '!=', 0)->latest('created_at')->value('created_at');
+        $latestOrderDays = Carbon::parse($latestOrderDate)->diffInDays(Carbon::now());
+
+        // Get the latest approval request's creation date
+        $latestApprovalRequestDate = ShowRequest::where('status', 0)->latest('created_at')->value('created_at');
+        $latestApprovalRequestDays = Carbon::parse($latestApprovalRequestDate)->diffInDays(Carbon::now());
+
+        // Get the latest order's creation date
+        $latestOrderDate = Order::where('status', '!=', 0)->latest('created_at')->value('created_at');
+        $latestOrderDays = Carbon::parse($latestOrderDate)->diffInDays(Carbon::now());
+
+        // Get the latest user's creation date
+        $latestUserDate = User::latest('created_at')->value('created_at');
+        $latestUserDays = Carbon::parse($latestUserDate)->diffInDays(Carbon::now());
+
+        // Get the latest merchandise's creation date
+        $latestMerchandiseDate = Merchandise::latest('created_at')->value('created_at');
+        $latestMerchandiseDays = Carbon::parse($latestMerchandiseDate)->diffInDays(Carbon::now());
+
+        // Get the latest news' creation date
+        $latestNewsDate = News::latest('created_at')->value('created_at');
+        $latestNewsDays = Carbon::parse($latestNewsDate)->diffInDays(Carbon::now());
+
         return view('dashboard.index', [
             'totalUsers' => $totalUsers,
             'totalOrders' => $totalOrders,
@@ -45,6 +69,12 @@ class DashboardController extends Controller
             'totalMerchandise' => $totalMerchandise,
             'totalNews' => $totalNews,
             'nearEvents' => $nearEvents,
+            'latestApprovalRequestDays' => $latestApprovalRequestDays,
+            'latestOrderDays' => $latestOrderDays,
+            'latestUserDays' => $latestUserDays,
+            'latestMerchandiseDays' => $latestMerchandiseDays,
+            'latestNewsDays' => $latestNewsDays,
+
         ]);
     }
 }

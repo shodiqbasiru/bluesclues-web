@@ -34,8 +34,8 @@
         </div>
         <div class="body">
             @foreach ($products as $item)
-                <a href="{{ route('product.detail', $item->slug) }}">
-                    <div class="card">
+                <div class="card">
+                    <a href="{{ route('product.detail', $item->slug) }}">
                         <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top"
                             alt="{{ $item->name }}">
                         <button class="btn">Detail</button>
@@ -43,8 +43,8 @@
                             <h5 class="card-title">{{ $item->name }}</h5>
                             <p class="card-price">rp {{ number_format($item->price, 0, ',', '.') }}</p>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             @endforeach
         </div>
     </div>

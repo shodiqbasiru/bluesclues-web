@@ -25,7 +25,7 @@
                         <label for="name" class="form-label">Name*</label>
                         <input type="text" name="name"
                             class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" id="name"
-                            value="{{ old('name') }}" placeholder="Please enter your name" required>
+                            value="{{ old('name') }}" placeholder="Please enter your name">
                         @if ($errors->has('name'))
                             <span class="invalid-feedback">{{ $errors->first('name') }}</span>
                         @endif
@@ -34,7 +34,7 @@
                         <label for="email" class="form-label">Your E-mail*</label>
                         <input type="email" name="email"
                             class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" id="email"
-                            value="{{ old('email') }}" placeholder="Please enter your E-mail" required>
+                            value="{{ old('email') }}" placeholder="Please enter your E-mail">
                         @if ($errors->has('email'))
                             <span class="invalid-feedback">{{ $errors->first('email') }}</span>
                         @endif
@@ -43,7 +43,7 @@
                         <label for="whatsapp" class="form-label">Whatsapp*</label>
                         <input type="text" name="whatsapp"
                             class="form-control {{ $errors->has('whatsapp') ? ' is-invalid' : '' }}" id="whatsapp"
-                            value="{{ old('whatsapp') }}" placeholder="Please enter your whatsapp number" required>
+                            value="{{ old('whatsapp') }}" placeholder="Please enter your whatsapp number">
                         @if ($errors->has('whatsapp'))
                             <span class="invalid-feedback">{{ $errors->first('whatsapp') }}</span>
                         @endif
@@ -52,7 +52,7 @@
                         <label for="subject" class="form-label">Subject*</label>
                         <input type="text" name="subject"
                             class="form-control {{ $errors->has('subject') ? ' is-invalid' : '' }}" id="subject"
-                            value="{{ old('subject') }}" placeholder="Please enter the subject of the message" required>
+                            value="{{ old('subject') }}" placeholder="Please enter the subject of the message">
                         @if ($errors->has('subject'))
                             <span class="invalid-feedback">{{ $errors->first('subject') }}</span>
                         @endif
@@ -60,7 +60,7 @@
                     <div class="col-12">
                         <label for="message_content" class="form-label">Message*</label>
                         <textarea name="message_content" class="form-control {{ $errors->has('message') ? ' is-invalid' : '' }}"
-                            id="message_content" placeholder="Please enter your message" rows="3" required>{{ old('message_content') }}</textarea>
+                            id="message_content" placeholder="Please enter your message" rows="3">{{ old('message_content') }}</textarea>
                     </div>
                     <div class="col-12 text-center {{ $errors->has('g-recaptcha-response') ? ' is-invalid' : '' }}">
                         {!! NoCaptcha::renderJs() !!}
@@ -73,7 +73,7 @@
                         @endif
                     </div>
                     <div class="col-12">
-                        <button type="submit" class="btn btn-home">Sumbit</button>
+                        <button type="submit" class="btn btn-home">Submit</button>
                     </div>
                 </form>
             </div>

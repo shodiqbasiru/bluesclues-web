@@ -13,7 +13,7 @@ class ProductDetail extends Component
 {
     use AuthorizesRequests;
 
-    public $product, $quantity = 1, $randomItems;
+    public $product, $quantity = 1, $randomItems, $shareLinks;
 
     public function mount($slug)
     {
@@ -25,6 +25,16 @@ class ProductDetail extends Component
 
             $this->product = $productDetail;
         }
+
+        // add fitur share
+        $share = \Share::page(route('product.detail', $productDetail->slug), $productDetail->title)
+            ->facebook()
+            ->telegram()
+            ->twitter()
+            ->whatsapp()
+            ->getRawLinks();
+
+        $this->shareLinks = $share;
     }
 
     public function addToCart()
@@ -122,6 +132,7 @@ class ProductDetail extends Component
             'title' => 'Product Detail',
             'quantity' => $this->quantity,
             'products' => $this->randomItems,
+            'shareLinks' => $this->shareLinks
 
         ])->extends('layouts.merchandise.main');
     }

@@ -13,7 +13,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('merchandise.home') }}">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item ctg dropdown">
                         <button class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Category

@@ -14,7 +14,7 @@
                 <label for="company_name" class="form-label">Name/Company name*</label>
                 <input type="text" name="company_name"
                     class="form-control {{ $errors->has('company_name') ? ' is-invalid' : '' }}" id="company_name"
-                    value="{{ old('company_name') }}" required autofocus>
+                    value="{{ old('company_name') }}" autofocus>
 
                 @if ($errors->has('company_name'))
                     <span class="invalid-feedback">{{ $errors->first('company_name') }}</span>
@@ -24,7 +24,7 @@
                 <label for="eventname" class="form-label">Event name*</label>
                 <input type="text" name="eventname"
                     class="form-control {{ $errors->has('eventname') ? ' is-invalid' : '' }}" value="{{ old('eventname') }}"
-                    id="eventname" required>
+                    id="eventname">
                 @if ($errors->has('eventname'))
                     <span class="invalid-feedback">{{ $errors->first('eventname') }}</span>
                 @endif
@@ -33,7 +33,7 @@
                 <label for="duration" class="form-label">Duration*</label>
                 <input type="teks" name="duration"
                     class="form-control {{ $errors->has('duration') ? ' is-invalid' : '' }}" value="{{ old('duration') }}"
-                    id="duration" required>
+                    id="duration">
                 @if ($errors->has('duration'))
                     <span class="invalid-feedback">{{ $errors->first('duration') }}</span>
                 @endif
@@ -41,7 +41,7 @@
             <div class="col-12">
                 <label for="date" class="form-label">Date*</label>
                 <input type="date" name="date" class="form-control {{ $errors->has('date') ? ' is-invalid' : '' }}"
-                    value="{{ old('date') }}" id="date" required>
+                    value="{{ old('date') }}" id="date">
                 @if ($errors->has('date'))
                     <span class="invalid-feedback">{{ $errors->first('date') }}</span>
                 @endif
@@ -50,7 +50,7 @@
                 <label for="location" class="form-label">Location*</label>
                 <input type="text" name="location"
                     class="form-control {{ $errors->has('location') ? ' is-invalid' : '' }}" value="{{ old('location') }}"
-                    id="location" required>
+                    id="location">
                 @if ($errors->has('location'))
                     <span class="invalid-feedback">{{ $errors->first('location') }}</span>
                 @endif
@@ -59,7 +59,7 @@
                 <label for="whatsapp" class="form-label">Whatsapp*</label>
                 <input type="text" name="whatsapp"
                     class="form-control {{ $errors->has('whatsapp') ? ' is-invalid' : '' }}" value="{{ old('whatsapp') }}"
-                    id="whatsapp" required>
+                    id="whatsapp">
                 @if ($errors->has('whatsapp'))
                     <span class="invalid-feedback">{{ $errors->first('whatsapp') }}</span>
                 @endif
@@ -67,7 +67,7 @@
             <div class="col-12">
                 <label for="email" class="form-label">Email*</label>
                 <input type="email" name="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}"
-                    value="{{ old('email') }}" id="email" required>
+                    value="{{ old('email') }}" id="email">
                 @if ($errors->has('email'))
                     <span class="invalid-feedback">{{ $errors->first('email') }}</span>
                 @endif

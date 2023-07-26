@@ -21,7 +21,7 @@
             <div class="card-body">
                 <h5 class="card-title">Mangsa ka Mangsa</h5>
                 <p class="card-text">The New Single, Out Now</p>
-                <a href="#" class="btn btn-home">Listen Now</a>
+                <a href="https://snd.click/gfpc" class="btn btn-home" target="_blank">Listen Now</a>
                 <a href="{{ route('music') }}" class="btn btn-home">All Music</a>
             </div>
         </div>

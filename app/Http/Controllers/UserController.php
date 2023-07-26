@@ -66,7 +66,7 @@ class UserController extends Controller
             return redirect()->intended('/store');
         }
 
-        return back()->with('loginError', 'Login Failed');
+        return back()->with('loginError', 'Email or Password is Wrong');
     }
 
     public function logout()
