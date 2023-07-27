@@ -216,7 +216,7 @@ class ShowRequestsController extends Controller
             $dateString = $year . '-' . $month . '-01'; // Construct a date string with year, month, and day
             $showRequests->whereMonth('date', Carbon::parse($dateString)->month)
                 ->whereYear('date', $year);
-                $filename .= '-date-' . date('F', mktime(0, 0, 0, $month, 1)) . '-' . $year;
+            $filename .= '-date-' . date('F', mktime(0, 0, 0, $month, 1)) . '-' . $year;
         }
         if ($yearonly) {
             $showRequests->whereYear('date', $yearonly);
@@ -224,7 +224,7 @@ class ShowRequestsController extends Controller
         }
 
         $showRequests = $showRequests->get();
-        
+
         $pdf = PDF::loadview('dashboard.show-requests.report', [
             'showRequests' => $showRequests,
             'status' => $status,
@@ -236,6 +236,5 @@ class ShowRequestsController extends Controller
         $filename = preg_replace('/[^a-zA-Z0-9\-]/', '_', $filename);
 
         return $pdf->download($filename . '.pdf');
-
     }
 }

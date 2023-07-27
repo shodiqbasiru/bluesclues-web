@@ -144,7 +144,7 @@
         </div>
     @endif
 
-    <div class="table-responsive">
+    <div class="table-responsive" id="orderDashboard">
 
         <table class="table table-striped table-sm text-center">
             <thead>
@@ -227,7 +227,7 @@
 
 
                                     @if ($order->status != 1 && $order->proof)
-                                        <button type="button" class="btn-primary-dashboard mb-3 btn-sm"
+                                        <button type="button" class="btn-view-dashboard mb-3 btn-sm"
                                             data-bs-toggle="modal" data-bs-target="#proofModal{{ $order->id }}">
                                             View Proof of Payment
                                         </button>
@@ -285,7 +285,7 @@
                         <td class="align-middle"><strong>Rp {{ number_format($order->total_price, 0, ',', '.') }}</strong>
                         </td>
                         <td class="align-middle"><a href="/admin/dashboard/orders/{{ $order->id }}"
-                                class="btn btn-sm btn-outline-light me-2"><span data-feather="eye"></span></a></td>
+                                class="btn-action-dashboard btn-sm me-2"><i class="fas fa-eye"></i></a></td>
                     </tr>
                 @empty
                     <tr>

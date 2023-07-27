@@ -13,7 +13,7 @@
     <div class="table-responsive">
 
         <div class="d-flex justify-content-between">
-            <a href="/admin/dashboard/merchandise/create" class="btn-primary-dashboard mb-3">Add a new merch</a>
+            <a href="/admin/dashboard/merchandise/create" class="btn-primary-dashboard mb-3">Add products</a>
             <form action="{{ route('merchandise.index') }}" method="GET" class="mb-3">
                 <div class="input-group">
                     <input type="text" class="form-control" name="search" placeholder="Search merchandises"

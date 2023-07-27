@@ -35,6 +35,16 @@
     border: none;
 }
 
+.btn-view-dashboard {
+    background-color: transparent;
+    color: var(--primary-color);
+    border-radius: 5px;
+    padding: 5px 8px;
+    border: none;
+    font-size: 12px;
+    text-transform: lowercase;
+}
+
 .fa-eye {
     color: var(--fas-eye-color);
 }
@@ -144,6 +154,11 @@ header a img {
 .dashboard-home table tbody tr td {
     padding: 15px 18px;
     font-size: 14px;
+}
+
+/* ORDER */
+#orderDashboard table tbody tr td span {
+    font-size: 16px;
 }
 
 .bd-placeholder-img {
