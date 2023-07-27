@@ -13,7 +13,7 @@
                 <a class="filter-btn{{ $filter === 'all' ? ' active' : '' }}"
                     href="{{ route('events', ['filter' => 'all']) }}" data-filter="all">All</a>
                 <a class="filter-btn{{ $filter === 'currently' ? ' active' : '' }}"
-                    href="{{ route('events', ['filter' => 'currently']) }}" data-filter="currently">Currently</a>
+                    href="{{ route('events', ['filter' => 'currently']) }}" data-filter="currently">Upcoming</a>
                 <a class="filter-btn{{ $filter === 'past' ? ' active' : '' }}"
                     href="{{ route('events', ['filter' => 'past']) }}" data-filter="past">Past</a>
             </div>

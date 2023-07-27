@@ -25,6 +25,8 @@
     {{-- my css --}}
     <link rel="stylesheet" href="{{ url('./assets/css/dashboard.css') }}">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     {{-- fontawesome --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 

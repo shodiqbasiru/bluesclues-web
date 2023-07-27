@@ -194,6 +194,17 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('/admin/dashboard/orders/{order}/confirm', [DashboardOrdersController::class, 'confirm'])->name('order.confirm');
     Route::post('/admin/dashboard/orders/{order}/shipping', [DashboardOrdersController::class, 'shipping'])->name('order.shipping');
     Route::get('/admin/dashboard/export-orders', [DashboardOrdersController::class, 'export'])->name('order.export');
+
+
+    Route::get('/admin/dashboard/admins', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/admin/dashboard/admins/create', [AdminController::class, 'create'])->name('admin.create');
+    Route::post('/admin/dashboard/admins', [AdminController::class, 'store'])->name('admin.store');
+    Route::get('/admin/dashboard/admins/change-password', [AdminController::class, 'edit'])->name('admin.edit');
+    Route::post('/admin/dashboard/admins/change-password', [AdminController::class, 'update'])->name('admin.update');
+    Route::delete('/admin/dashboard/admins/{admin}', [AdminController::class, 'destroy'])->name('admin.destroy');
+
+    Route::get('/admin/dashboard/users', [UserController::class, 'index'])->name('user.index');
+
 });
 
 

@@ -78,4 +78,49 @@ class UserController extends Controller
 
         return redirect('/store');
     }
+
+    public function index(Request $request)
+    {
+
+        $status = $request->input('status');
+        $users = User::query();
+
+        if ($status === 'unverified') {
+            $users->whereNull('email_verified_at');
+        } elseif ($status === 'verified') {
+            $users->whereNotNull('email_verified_at');
+        }
+        // item number pagination
+        $perPage = 10;
+        $currentPage = request()->query('page', 1);
+        $startIndex = ($currentPage - 1) * $perPage + 1;
+
+        $searchQuery = $request->input('search');
+
+
+        if (!empty($searchQuery)) {
+            $users->where(function ($query) use ($searchQuery) {
+                $query->where('name', 'like', "%$searchQuery%")
+                ->orWhere('email', 'like', "%$searchQuery%");
+            });
+        }
+
+        $users->orderByDesc('created_at');
+
+
+        $users = $users->paginate($perPage)->appends([
+            'search' => $searchQuery,
+            'status' => $status,
+        ]);
+
+        return view('dashboard.user-accounts.index', [
+            'title' => 'Users',
+            'users' => $users,
+            'startIndex' => $startIndex,
+            'searchQuery' => $searchQuery,
+            'status' => $status
+        ]);
+
+        
+    }
 }
