@@ -99,7 +99,7 @@
                                             <button class="btn-receive"
                                                 wire:click="receiveOrder('{{ $order->id }}')" wire:loading.remove
                                                 wire:target="receiveOrder('{{ $order->id }}')"><i
-                                                    class="fas fa-check"></i> Pesanan Diterima</button>
+                                                    class="fas fa-check"></i> Product received</button>
                                             <span wire:loading
                                                 wire:target="receiveOrder('{{ $order->id }}')">Menerima
                                                 Pesanan...</span>
