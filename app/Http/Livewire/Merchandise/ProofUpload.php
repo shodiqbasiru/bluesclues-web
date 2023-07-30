@@ -18,7 +18,7 @@ class ProofUpload extends Component
 
 
     protected $rules = [
-        'proof' => 'required|image|mimes:jpeg,png|max:2048',
+        'proof' => 'required|image|mimes:jpeg,png|max:5048',
     ];
 
     protected $messages = [
