@@ -91,7 +91,7 @@
     @endif
 
     <div class="table-responsive">
-        <dialog id="approve_confirmation" style="max-width: 500px; text-align: center;">
+        <dialog id="approve_confirmation" class="box-dialog" style="max-width: 500px; text-align: center;">
             <h5>Are you sure you want to approve this show request?</h5>
             <p>By approving this show request, an email will be sent to the company notifying them that their request has
                 been approved. </p>
@@ -106,7 +106,7 @@
                     onclick="approve_confirmation.close(); event.preventDefault();"><span>No</span></button>
             </form>
         </dialog>
-        <dialog id="reject_confirmation" style="max-width: 500px; text-align: center;">
+        <dialog id="reject_confirmation" class="box-dialog" style="max-width: 500px; text-align: center;">
             <h5>Are you sure you want to reject this show request?</h5>
             <p>By rejecting this show request, an email will be sent to the company notifying them that their request has
                 been rejected.</p>
@@ -209,7 +209,7 @@
             </div>
         @endif
 
-        <table class="table table-striped table-sm">
+        <table class="table table-sm">
             <thead>
                 <tr>
                     <th scope="col">#</th>

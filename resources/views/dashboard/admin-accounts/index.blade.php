@@ -15,15 +15,15 @@
     @endif
     <div class="d-flex justify-content-between">
         <div>
-            <a href="{{ route('admin.edit') }}" class="btn btn-outline-light mb-3">Change Password</a>
-            <a href="{{ route('admin.create') }}" class="btn btn-outline-light mb-3">Add an admin account</a>
+            <a href="{{ route('admin.edit') }}" class="btn-primary-dashboard mb-3">Change Password</a>
+            <a href="{{ route('admin.create') }}" class="btn-primary-dashboard mb-3">Add an admin account</a>
 
         </div>
         <form action="{{ route('admin.index') }}" method="GET" class="mb-3">
             <div class="input-group">
                 <input type="text" class="form-control" name="search" placeholder="Search admin accounts"
                     value="{{ $searchQuery ?? '' }}">
-                <button type="submit" class="btn btn-outline-secondary">Search</button>
+                <button type="submit" class="btn-primary-dashboard">Search</button>
             </div>
         </form>
     </div>

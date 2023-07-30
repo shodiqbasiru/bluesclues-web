@@ -25,7 +25,7 @@
                 <h5>Results for: "{{ $searchQuery }}"</h5>
             </div>
         @endif
-        <table class="table table-striped table-sm">
+        <table class="table table-sm">
             <thead>
                 <tr>
                     <th scope="col">#</th>
