@@ -25,7 +25,7 @@ class ProofUpload extends Component
         'proof.required' => 'The image field is required.',
         'proof.image' => 'The file must be an image.',
         'proof.mimes' => 'The image must be a file of type: jpeg, png.',
-        'proof.max' => 'The image may not be greater than 4124 max kilobytes.',
+        'proof.max' => 'The image may not be greater than 5124 max kilobytes.',
     ];
 
     public function mount($orderId)
