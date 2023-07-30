@@ -5,13 +5,14 @@
         <div class="hero">
             <img src="{{ url('/assets/img/bg-contact.jpg') }}" alt="">
         </div>
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show my-2" role="alert"
+                style="width: 50%; margin: 0 auto;">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="content">
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show my-2" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
             <div class="contact-information">
                 <h4>Contact Information</h4>
                 <p><span>Email :</span> bluesclues@gmail.com</p>

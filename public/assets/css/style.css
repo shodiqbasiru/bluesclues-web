@@ -3862,6 +3862,11 @@ footer .container-fluid p {
         font-size: 18px;
     }
 
+    /* Detail news */
+    .d-news {
+        padding: 4rem 2rem;
+    }
+
     /* footer */
     footer .container-fluid {
         flex-direction: column-reverse;
@@ -3924,6 +3929,10 @@ footer .container-fluid p {
 
 /* `sm` applies to x-small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
+    body {
+        overflow-x: hidden;
+    }
+
     /* home */
     .bg-hero .logo img {
         width: 208px;
@@ -3978,6 +3987,11 @@ footer .container-fluid p {
 
     .h-music .card img {
         width: 100%;
+    }
+
+    /* detail news */
+    .d-news {
+        padding: 2rem 1rem;
     }
 
     /* store */
