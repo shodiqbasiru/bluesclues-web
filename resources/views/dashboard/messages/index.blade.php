@@ -1,67 +1,7 @@
 @extends('dashboard.layouts.main')
 @section('content')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
-        <div></div>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <form action="/admin/dashboard/messages" method="GET">
-                <div class="input-group">
-                    <span class="input-group-text">
-                        <span data-feather="calendar" class="align-text-bottom"></span>
-                    </span>
-                    <select class="form-select" name="month" required>
-                        <option value="">Select Month</option>
-                        @for ($i = 1; $i <= 12; $i++)
-                            <option value="{{ $i }}" {{ $month == $i ? 'selected' : '' }}>
-                                {{ date('F', mktime(0, 0, 0, $i, 1)) }}
-                            </option>
-                        @endfor
-                    </select>
-                    <select class="form-select" name="year" required>
-                        <option value="">Select Year</option>
-                        @php
-                            $currentYear = date('Y');
-                            $yearRange = 3;
-                            $startYear = $currentYear - $yearRange;
-                            $endYear = $currentYear + $yearRange;
-                        @endphp
-                        @for ($year = $startYear; $year <= $endYear; $year++)
-                            <option value="{{ $year }}" {{ $year == $selectedYear ? 'selected' : '' }}>
-                                {{ $year }}
-                            </option>
-                        @endfor
-                    </select>
-                    <button type="submit" class="btn btn-outline-secondary">Filter</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 border-bottom">
-        <h1 class="h2">All News</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <form action="/admin/dashboard/messages" method="GET">
-                <div class="input-group">
-                    <span class="input-group-text">
-                        <span class="align-text-bottom mx-2">Filter by year</span>
-                        <span data-feather="calendar" class="align-text-bottom"></span>
-                    </span>
-                    <select class="form-select" name="yearonly" required>
-                        <option value="">Select Year</option>
-                        @php
-                            $currentYear = date('Y');
-                            $yearRange = 3;
-                            $startYear = $currentYear - $yearRange;
-                            $endYear = $currentYear + $yearRange;
-                        @endphp
-                        @for ($yearonly = $startYear; $yearonly <= $endYear; $yearonly++)
-                            <option value="{{ $yearonly }}" {{ $yearonly == $selectedYearOnly ? 'selected' : '' }}>
-                                {{ $yearonly }}
-                            </option>
-                        @endfor
-                    </select>
-                    <button type="submit" class="btn btn-outline-secondary">Filter</button>
-                </div>
-            </form>
-        </div>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 border-bottom py-3">
+        <h1 class="h2">Messages</h1>
     </div>
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show my-2" role="alert">
@@ -71,15 +11,89 @@
     @endif
 
     <div class="table-responsive">
-
         <div class="d-flex justify-content-between">
             <div>
+                <div class="dropdown mb-3">
+                    <button class="btn-primary-dashboard dropdown-toggle" type="button" id="filterDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Select Filter Option
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                        <li><a class="dropdown-item" href="#" data-filter="monthYear">Filter by Month and Year</a>
+                        </li>
+                        <li><a class="dropdown-item" href="#" data-filter="yearOnly">Filter by Year</a></li>
+                    </ul>
+                </div>
+
+                <div id="filterMonthYearForm" style="display: none;" class="mb-3">
+                    <form action="/admin/dashboard/messages" method="GET">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <span data-feather="calendar" class="align-text-bottom"></span>
+                            </span>
+                            <select class="form-select" name="month" required>
+                                <option value="">Select Month</option>
+                                @for ($i = 1; $i <= 12; $i++)
+                                    <option value="{{ $i }}" {{ $month == $i ? 'selected' : '' }}>
+                                        {{ date('F', mktime(0, 0, 0, $i, 1)) }}
+                                    </option>
+                                @endfor
+                            </select>
+                            <select class="form-select" name="year" required>
+                                <option value="">Select Year</option>
+                                @php
+                                    $currentYear = date('Y');
+                                    $yearRange = 3;
+                                    $startYear = $currentYear - $yearRange;
+                                    $endYear = $currentYear + $yearRange;
+                                @endphp
+                                @for ($year = $startYear; $year <= $endYear; $year++)
+                                    <option value="{{ $year }}" {{ $year == $selectedYear ? 'selected' : '' }}>
+                                        {{ $year }}
+                                    </option>
+                                @endfor
+                            </select>
+                            <button type="submit" class="btn btn-outline-secondary">Filter</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="filterYearOnlyForm" style="display: none;" class="mb-3">
+                    <form action="/admin/dashboard/messages" method="GET">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <span class="align-text-bottom mx-2">Filter by year</span>
+                                <span data-feather="calendar" class="align-text-bottom"></span>
+                            </span>
+                            <select class="form-select" name="yearonly" required>
+                                <option value="">Select Year</option>
+                                @php
+                                    $currentYear = date('Y');
+                                    $yearRange = 3;
+                                    $startYear = $currentYear - $yearRange;
+                                    $endYear = $currentYear + $yearRange;
+                                @endphp
+                                @for ($yearonly = $startYear; $yearonly <= $endYear; $yearonly++)
+                                    <option value="{{ $yearonly }}"
+                                        {{ $yearonly == $selectedYearOnly ? 'selected' : '' }}>
+                                        {{ $yearonly }}
+                                    </option>
+                                @endfor
+                            </select>
+                            <button type="submit" class="btn btn-outline-secondary">Filter</button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
+
             <form action="/admin/dashboard/messages" method="GET" class="mb-3">
                 <div class="input-group">
                     <input type="text" class="form-control" name="search" placeholder="Search messages"
                         value="{{ $searchQuery ?? '' }}">
-                    <button type="submit" class="btn btn-outline-secondary">Search</button>
+                    <span class="input-group-text search-dashboard">
+                        <i class="fas fa-search"></i>
+                    </span>
                 </div>
             </form>
         </div>
@@ -141,6 +155,4 @@
         </table>
         {{ $message->links() }}
     </div>
-
-    <script></script>
 @endsection

@@ -1,8 +1,9 @@
 @extends('dashboard.layouts.main')
 @section('content')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
-        <div>
-        </div>
+
+    <div class="d-flex justify-content-between py-3 flex-wrap flex-md-nowrap align-items-center mb-3 border-bottom">
+        <h1 class="h2">Show Requests</h1>
+
         <div class="btn-toolbar mb-2 mb-md-0">
             <form action="{{ route('show-requests.export') }}" method="GET">
                 <div class="mx-2">
@@ -18,69 +19,10 @@
                     @if ($selectedYearOnly)
                         <input type="hidden" name="yearonly" value="{{ $selectedYearOnly ?? '' }}">
                     @endif
-                    <button type="submit" class="btn btn-md btn-outline-secondary">Export</button>
+                    <button type="submit" class="btn-primary-dashboard">Export</button>
                 </div>
             </form>
-            <form action="{{ route('show-requests.index') }}" method="GET">
-                <div class="input-group">
-                    <span class="input-group-text">
-                        <span data-feather="calendar" class="align-text-bottom"></span>
-                    </span>
-                    <select class="form-select" name="month" required>
-                        <option value="">Select Month</option>
-                        @for ($i = 1; $i <= 12; $i++)
-                            <option value="{{ $i }}" {{ $month == $i ? 'selected' : '' }}>
-                                {{ date('F', mktime(0, 0, 0, $i, 1)) }}
-                            </option>
-                        @endfor
-                    </select>
-                    <select class="form-select" name="year" required>
-                        <option value="">Select Year</option>
-                        @php
-                            $currentYear = date('Y');
-                            $yearRange = 3;
-                            $startYear = $currentYear - $yearRange;
-                            $endYear = $currentYear + $yearRange;
-                        @endphp
-                        @for ($year = $startYear; $year <= $endYear; $year++)
-                            <option value="{{ $year }}" {{ $year == $selectedYear ? 'selected' : '' }}>
-                                {{ $year }}
-                            </option>
-                        @endfor
-                    </select>
-                    <input type="hidden" name="status" value="{{ $status ?? '' }}">
-                    <button type="submit" class="btn btn-outline-secondary">Filter</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 border-bottom">
-        <h1 class="h2">Show Requests</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <form action="{{ route('show-requests.index') }}" method="GET">
-                <div class="input-group">
-                    <span class="input-group-text">
-                        <span class="align-text-bottom mx-2">Filter by year</span>
-                        <span data-feather="calendar" class="align-text-bottom"></span>
-                    </span>
-                    <select class="form-select" name="yearonly" required>
-                        <option value="">Select Year</option>
-                        @php
-                            $currentYear = date('Y');
-                            $yearRange = 3;
-                            $startYear = $currentYear - $yearRange;
-                            $endYear = $currentYear + $yearRange;
-                        @endphp
-                        @for ($yearonly = $startYear; $yearonly <= $endYear; $yearonly++)
-                            <option value="{{ $yearonly }}" {{ $yearonly == $selectedYearOnly ? 'selected' : '' }}>
-                                {{ $yearonly }}
-                            </option>
-                        @endfor
-                    </select>
-                    <input type="hidden" name="status" value="{{ $status ?? '' }}">
-                    <button type="submit" class="btn btn-outline-secondary">Filter</button>
-                </div>
-            </form>
+
         </div>
     </div>
     @if (session('success'))
@@ -124,7 +66,7 @@
 
 
         <div class="d-flex justify-content-between">
-            <form action="{{ route('show-requests.index', ['status' => $status ?? '']) }}" method="GET">
+            <form action="{{ route('show-requests.index', ['status' => $status ?? '']) }}" method="GET" class="me-3">
                 <div class="btn-group" role="group" aria-label="Filter show requests">
                     <button type="button" class="btn-primary-dashboard dropdown-toggle" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -141,12 +83,85 @@
                     </div>
                 </div>
             </form>
-            <form action="{{ route('show-requests.index') }}" method="GET" class="mb-3">
+
+            <div class="filter-dashboard">
+                <div class="dropdown mb-3">
+                    <button class="btn-filter-dashboard dropdown-toggle" type="button" id="filterDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Select Filter Option
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                        <li><a class="dropdown-item" href="#" data-filter="monthYear">Filter by Month and Year</a>
+                        </li>
+                        <li><a class="dropdown-item" href="#" data-filter="yearOnly">Filter by Year</a></li>
+                    </ul>
+                </div>
+
+                <div id="filterMonthYearForm" style="display: none;" class="mb-3">
+                    <form action="{{ route('show-requests.index') }}" method="GET">
+                        <div class="input-group">
+                            <select class="form-select" name="month" required>
+                                <option value="">Select Month</option>
+                                @for ($i = 1; $i <= 12; $i++)
+                                    <option value="{{ $i }}" {{ $month == $i ? 'selected' : '' }}>
+                                        {{ date('F', mktime(0, 0, 0, $i, 1)) }}
+                                    </option>
+                                @endfor
+                            </select>
+                            <select class="form-select" name="year" required>
+                                <option value="">Select Year</option>
+                                @php
+                                    $currentYear = date('Y');
+                                    $yearRange = 3;
+                                    $startYear = $currentYear - $yearRange;
+                                    $endYear = $currentYear + $yearRange;
+                                @endphp
+                                @for ($year = $startYear; $year <= $endYear; $year++)
+                                    <option value="{{ $year }}" {{ $year == $selectedYear ? 'selected' : '' }}>
+                                        {{ $year }}
+                                    </option>
+                                @endfor
+                            </select>
+                            <input type="hidden" name="status" value="{{ $status ?? '' }}">
+                            <button type="submit" class="btn-filter-dashboard">Filter</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="filterYearOnlyForm" style="display: none;" class="mb-3">
+                    <form action="{{ route('show-requests.index') }}" method="GET">
+                        <div class="input-group">
+                            <select class="form-select" name="yearonly" required>
+                                <option value="">Select Year</option>
+                                @php
+                                    $currentYear = date('Y');
+                                    $yearRange = 3;
+                                    $startYear = $currentYear - $yearRange;
+                                    $endYear = $currentYear + $yearRange;
+                                @endphp
+                                @for ($yearonly = $startYear; $yearonly <= $endYear; $yearonly++)
+                                    <option value="{{ $yearonly }}"
+                                        {{ $yearonly == $selectedYearOnly ? 'selected' : '' }}>
+                                        {{ $yearonly }}
+                                    </option>
+                                @endfor
+                            </select>
+                            <input type="hidden" name="status" value="{{ $status ?? '' }}">
+                            <button type="submit" class="btn-filter-dashboard">Filter</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <form action="{{ route('show-requests.index') }}" method="GET" class="mb-3 ms-auto">
                 <div class="input-group">
                     <input type="text" class="form-control" name="search" placeholder="Search requests"
                         value="{{ $searchQuery ?? '' }}">
                     <input type="hidden" name="status" value="{{ $status ?? '' }}">
-                    <button type="submit" class="btn btn-outline-secondary">Search</button>
+                    <span class="input-group-text search-dashboard">
+                        <i class="fas fa-search"></i>
+                    </span>
                 </div>
             </form>
         </div>
@@ -212,7 +227,7 @@
         <table class="table table-sm">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">No</th>
                     <th scope="col">Company Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Date</th>
@@ -241,7 +256,7 @@
                             <td>
                                 <button type="button" class="btn btn-sm btn-success me-2"
                                     onclick="showConfirmationModal('approve', {{ $item->id }})"><span>Approve</span></button>
-                                <button type="button" class="btn btn-sm btn-warning me-2"
+                                <button type="button" class="btn btn-sm btn-danger me-2"
                                     onclick="showConfirmationModal('reject', {{ $item->id }})"><span>Reject</span></button>
                             </td>
                         @else

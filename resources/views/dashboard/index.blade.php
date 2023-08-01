@@ -6,18 +6,11 @@
             <div class="col-md-6">
                 <h1 class="h2">Dashboard</h1>
             </div>
-            {{-- <div class="col-md-6 text-end">
-            <span class="text">Quick Actions:</span>
-            <div class="btn-group" role="group" aria-label="Quick Actions">
-                <a href="/admin/dashboard/news/create" class="btn btn-sm btn-outline-light">Create News</a>
-                <a href="/admin/dashboard/events/create" class="btn btn-sm btn-outline-light">Add Event</a>
-            </div>
-        </div> --}}
         </div>
     </div>
     <div class="container dashboard-home">
         <div class="row mt-4">
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <a href="/admin/dashboard/orders?status=checking-payment" class="text-decoration-none">
                     <div class="card card-dashboard">
                         <div class="card-content">
@@ -31,7 +24,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <a href="/admin/dashboard/show-requests?status=awaiting-approval" class="text-decoration-none">
                     <div class="card card-dashboard">
                         <div class="card-content">
@@ -45,7 +38,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="card card-dashboard">
                     <div class="card-content">
                         <h4>Total Orders</h4>
@@ -61,7 +54,7 @@
         </div>
 
         <div class="row mt-4">
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="card card-dashboard">
                     <div class="card-content">
                         <h4>Total Users</h4>
@@ -74,7 +67,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="card card-dashboard">
                     <div class="card-content">
                         <h4>Total Merchandise</h4>
@@ -87,7 +80,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="card card-dashboard">
                     <div class="card-content">
                         <h4>Total News</h4>

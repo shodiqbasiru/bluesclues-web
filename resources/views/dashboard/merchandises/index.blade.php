@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.main')
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">All Merchs</h1>
+        <h1 class="h2">All Products</h1>
     </div>
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show my-2" role="alert">
@@ -13,12 +13,15 @@
     <div class="table-responsive">
 
         <div class="d-flex justify-content-between">
-            <a href="/admin/dashboard/merchandise/create" class="btn-primary-dashboard mb-3">Add products</a>
+            <a href="/admin/dashboard/merchandise/create" class="btn-primary-dashboard mb-3"><i
+                    class="fas fa-circle-plus"></i> Add products</a>
             <form action="{{ route('merchandise.index') }}" method="GET" class="mb-3">
                 <div class="input-group">
                     <input type="text" class="form-control" name="search" placeholder="Search merchandises"
                         value="{{ $searchQuery ?? '' }}">
-                    <button type="submit" class="btn-primary-dashboard">Search</button>
+                    <span class="input-group-text search-dashboard">
+                        <i class="fas fa-search"></i>
+                    </span>
                 </div>
             </form>
         </div>
@@ -31,7 +34,7 @@
         <table class="table table-sm">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">No</th>
                     <th scope="col">Name</th>
                     <th scope="col">Category</th>
                     <th scope="col">Price</th>

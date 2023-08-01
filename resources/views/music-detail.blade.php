@@ -13,7 +13,7 @@
                 </div>
                 <div class="thumbnail">
                     <img src="{{ asset('storage/' . $song->image) }}" alt="image">
-                    <p>Release {{ date('Y-m-d', strtotime($song->release_date)) }}</p>
+                    <p>Released On {{ date('d F Y', strtotime($song->release_date)) }}</p>
                     <p>
                         <a href="{{ $song->link }}" target="blank">Stream/Download</a>
                     </p>

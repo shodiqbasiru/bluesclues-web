@@ -9,7 +9,9 @@
 }
 
 :root {
-    --primary-color: #6ca2dd;
+    --primary-color: #5570F1;
+    --seccondary-color: #6ca2dd;
+    --color-accent: #27272E;
     --background-card-dashboard: #23272e;
 
     --fas-eye-color: #dfefff;
@@ -24,6 +26,14 @@
     border-radius: 5px;
     padding: 10px 15px;
     border: 0;
+}
+
+.btn-filter-dashboard {
+    padding: 10px 15px;
+    border-radius: 5.596px;
+    border: 1px solid #656565;
+    background: var(--color-accent);
+    box-shadow: 0px 3.730497121810913px 14.921988487243652px 0px rgba(0, 0, 0, 0.04);
 }
 
 .btn-action-dashboard {
@@ -55,6 +65,16 @@
 
 .fa-trash {
     color: var(--fas-trash-color);
+}
+
+.search-dashboard {
+    background-color: var(--color-accent);
+}
+
+/* FILTER DASHBOARD */
+.filter-dashboard {
+    display: flex;
+    gap: 24px;
 }
 
 /* HEADER */
@@ -137,7 +157,7 @@
 }
 
 .table-events .card-header a {
-    color: #6ca2dd;
+    color: var(--seccondary-color);
     font-size: 13px;
     font-style: normal;
     font-weight: 600;
@@ -364,4 +384,64 @@ body {
     text-decoration: none;
 }
 
+/* style modal order dashboard */
+.modal-dialog.modal-dialog-scrollable {
+    max-width: 60%;
+    height: 60%;
+}
 
+.modal-dialog.modal-dialog-scrollable .modal-content {
+    border: none;
+    box-shadow: none;
+}
+
+.modal-dialog.modal-dialog-scrollable .modal-body {
+    padding: 0;
+
+}
+
+.modal-dialog.modal-dialog-scrollable .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #000;
+    opacity: 0.5;
+    font-size: 1.5rem;
+}
+
+/* sidebar */
+
+#sidebarMenu {
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+#sidebarMenu .header {
+    background: #1E2226;
+}
+
+#sidebarMenu .nav-item {
+    margin-bottom: 9px;
+}
+
+#sidebarMenu .nav-item .active {
+    background-color: var(--seccondary-color);
+    color: #fff;
+    border-radius: 6px;
+}
+
+#sidebarMenu .sidebar-sticky {
+    margin: 0 14px;
+}
+
+/* DASHBOARD DETAIL ORDER */
+#showOrder {
+    margin: 1rem 7rem;
+}
+
+#showOrder .card{
+    background-color: var(--background-card-dashboard);
+}

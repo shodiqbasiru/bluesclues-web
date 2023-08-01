@@ -23,7 +23,9 @@
             <div class="input-group">
                 <input type="text" class="form-control" name="search" placeholder="Search admin accounts"
                     value="{{ $searchQuery ?? '' }}">
-                <button type="submit" class="btn-primary-dashboard">Search</button>
+                <span class="input-group-text search-dashboard">
+                    <i class="fas fa-search"></i>
+                </span>
             </div>
         </form>
     </div>

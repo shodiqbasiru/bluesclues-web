@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-lg-6 header">
             <p>Lakukan pembayaran dari rekening bank BCA ke rekening berikut. dengan total <br>
-                pembayaran Rp 150.000</p>
+                pembayaran <strong> Rp {{ number_format($order->total_price, 0, ',', '.') }} </strong></p>
             <img src="{{ url('/assets/img/icons/bca.png') }}" alt="">
         </div>
         {{-- <div class="col-lg-6 header">

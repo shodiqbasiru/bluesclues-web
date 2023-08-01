@@ -67,8 +67,10 @@ class ProofUpload extends Component
 
     public function render()
     {
+        $order = Order::where('user_id', Auth::user()->id)->where('id', $this->orderId)->first();
         return view('livewire.merchandise.proof-upload', [
             'preview' => $this->proof ? $this->proof->temporaryUrl() : null,
+            'order' => $order
         ])->extends('layouts.merchandise.main');
     }
 }

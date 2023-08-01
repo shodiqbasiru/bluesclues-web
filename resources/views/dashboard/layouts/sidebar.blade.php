@@ -1,7 +1,8 @@
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
-    <div class="header border-bottom">
+    <div class="header">
         <a class="text-decoration-none " href="/">
-            <img src="{{ url('./assets/img/icons/logo-blues.png') }}" alt=""> Blues Clues</a>
+            <img src="{{ url('./assets/img/icons/logo-blues.png') }}" alt=""> Bluesclues
+        </a>
     </div>
     <div class="position-sticky pt-3 sidebar-sticky">
         <ul class="nav flex-column">
@@ -78,30 +79,10 @@
             <li class="nav-item">
                 <form id="logoutForm" action="{{ route('admin.logout') }}" method="post">
                     @csrf
-                    <button type="submit" class="nav-link" style="color: red;"><i class="fas fa-right-from-bracket"
-                            style="color: red; margin-right: 4px;"></i> Logout</button>
+                    <button type="submit" class="nav-link" style="color: #fff;"><i class="fas fa-right-from-bracket"
+                            style=" margin-right: 4px;"></i> Logout</button>
                 </form>
             </li>
         </ul>
     </div>
 </nav>
-
-
-<script>
-    // Fungsi untuk memindahkan elemen "Logout" ke dalam layout sidebar pada mode responsif
-    function moveLogoutToSidebar() {
-        const logoutContainer = document.getElementById('logoutContainer');
-        const logoutButton = document.querySelector('.navbar-nav .nav-item.form-inline');
-
-        // Jika elemen "Logout" belum dipindahkan ke dalam sidebar
-        if (logoutContainer && logoutButton && !logoutContainer.contains(logoutButton)) {
-            logoutContainer.appendChild(logoutButton);
-        }
-    }
-
-    // Panggil fungsi moveLogoutToSidebar saat halaman dimuat
-    moveLogoutToSidebar();
-
-    // Panggil fungsi moveLogoutToSidebar saat ukuran window berubah (responsif)
-    window.addEventListener('resize', moveLogoutToSidebar);
-</script>

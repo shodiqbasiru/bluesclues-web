@@ -11,12 +11,15 @@
     @endif
     <div class="table-responsive">
         <div class="d-flex justify-content-between">
-            <a href="/admin/dashboard/songs/create" class="btn-primary-dashboard mb-3">Add a song</a>
+            <a href="/admin/dashboard/songs/create" class="btn-primary-dashboard mb-3"><i class="fas fa-circle-plus"></i>
+                Add a song</a>
             <form action="{{ route('songs.index') }}" method="GET" class="mb-3">
                 <div class="input-group">
                     <input type="text" class="form-control" name="search" placeholder="Search songs"
                         value="{{ $searchQuery ?? '' }}">
-                    <button type="submit" class="btn-primary-dashboard">Search</button>
+                    <span class="input-group-text search-dashboard">
+                        <i class="fas fa-search"></i>
+                    </span>
                 </div>
             </form>
         </div>
