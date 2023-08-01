@@ -5,6 +5,7 @@
     <title>Orders Report</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -21,23 +22,28 @@
             text-align: right;
             font-size: 6pt;
         }
+
+        header .logo-report h1 {
+            font-size: 24px;
+        }
     </style>
 
-    <div class="report-created">
-        @php
-            $currentTime = \Carbon\Carbon::now('Asia/Jakarta')->format('F j, Y \a\t h:i A');
-        @endphp
-        <p>Report generated on {{ $currentTime }} (UTC+7)</p>
-    </div>
-
-    <center>
-        <div class="mb-2">
+    <header>
+        <div class="logo-report">
             <h1>Blues Clues</h1>
         </div>
-        <h4>Report Orders</h4>
+        <div class="report-created">
+            @php
+                $currentTime = \Carbon\Carbon::now('Asia/Jakarta')->format('F j, Y \a\t h:i A');
+            @endphp
+            <p>Report generated on {{ $currentTime }} (UTC+7)</p>
+        </div>
+
+    </header>
+    <center>
+        <h4>Orders Report</h4>
     </center>
 
-    <h5></h5>
     <div class="mb-3 mt-3">
         @if ($status)
             @php

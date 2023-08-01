@@ -21,20 +21,26 @@
             text-align: right;
             font-size: 6pt;
         }
+
+        header .logo-report h1 {
+            font-size: 24px;
+        }
     </style>
 
-    <div class="report-created">
-        @php
-            $currentTime = \Carbon\Carbon::now('Asia/Jakarta')->format('F j, Y \a\t h:i A');
-        @endphp
-        <p>Report generated on {{ $currentTime }} (UTC+7)</p>
-    </div>
-
-    <center>
-        <div class="mb-2">
+    <header>
+        <div class="logo-report">
             <h1>Blues Clues</h1>
         </div>
-        <h5>Events</h4>
+        <div class="report-created">
+            @php
+                $currentTime = \Carbon\Carbon::now('Asia/Jakarta')->format('F j, Y \a\t h:i A');
+            @endphp
+            <p>Report generated on {{ $currentTime }} (UTC+7)</p>
+        </div>
+
+    </header>
+    <center>
+        <h4>Events Report</h4>
     </center>
 
     <div class="mb-3 mt-3">

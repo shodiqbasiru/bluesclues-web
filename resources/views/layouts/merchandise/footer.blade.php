@@ -1,7 +1,7 @@
 <footer id="footerStore">
     <div class="wrapper">
         <div class="information">
-            <img src="{{ url('./assets/img/icons/logo-blues.png') }}" alt="">
+            <h5>Connect With Us</h5>
             <p>+6281-8765-0634</p>
             <p>bluesclues@gmail.com</p>
         </div>
@@ -16,16 +16,20 @@
                 <a href="" class="link-item">News & Articles</a>
             </div>
         </div>
+        <div class="logo-blues">
+            <img src="{{ url('./assets/img/icons/logo-blues.png') }}" alt="">
+        </div>
     </div>
     <div class="ftr">
-        <p class="cpy">&#169; 2023 BluesClues eCommerce</p>
         <p>Privacy Policy Terms & Conditions</p>
+        <p class="cpy">&#169; 2023 BluesClues eCommerce</p>
         <div class="f-icon">
-            <a href="#"><img src="{{ url('./assets/img/icons/facebook-b.svg') }}" alt=""></a>
-            <a href="#"><img src="{{ url('./assets/img/icons/instagram-b.svg') }}" alt=""></a>
-            <a href="#"><img src="{{ url('./assets/img/icons/youtube-b.svg') }}" alt=""></a>
-            <a href="#"><img src="{{ url('./assets/img/icons/Spotify-b.svg') }}" alt=""></a>
-            <a href="#"><img src="{{ url('./assets/img/icons/apple-b.svg') }}" alt=""></a>
+            <a href="https://instagram.com/thebluesclaws?igshid=MzRlODBiNWFlZA==" target="blank"><img
+                    src="{{ url('./assets/img/icons/instagram-b.svg') }}" alt=""></a>
+            <a href="https://www.youtube.com/channel/UCIfb4X1VM8uYo5g9y6b585A" target="blank"><img
+                    src="{{ url('./assets/img/icons/youtube-b.svg') }}" alt=""></a>
+            <a href="https://open.spotify.com/artist/7hU8Hx87fbiYz994EcGIz7" target="blank"><img
+                    src="{{ url('./assets/img/icons/Spotify-b.svg') }}" alt=""></a>
 
         </div>
     </div>

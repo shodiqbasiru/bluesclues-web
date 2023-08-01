@@ -59,13 +59,17 @@
 
 /* HEADER */
 
-header a {
+.header {
+    padding: 1rem;
+}
+
+.header a {
     color: #f5f5f5;
     font-size: 22.29px;
     font-weight: 700;
 }
 
-header a img {
+.header a img {
     width: 28.369px;
     height: 24.316px;
     margin-right: 5px;
@@ -359,3 +363,5 @@ body {
     margin-right: 0.25rem;
     text-decoration: none;
 }
+
+

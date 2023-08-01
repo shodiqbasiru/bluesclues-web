@@ -8,7 +8,7 @@
         </div>
         <div class="coming-soon">
             <h2>New Single</h2>
-            <h1>New Available</h1>
+            <h1>Now Available</h1>
         </div>
     </div>
 @endsection

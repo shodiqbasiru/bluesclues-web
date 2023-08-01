@@ -21,7 +21,6 @@ class Product extends Component
     }
 
 
-
     public function render()
     {
         // $categories = MerchCategory::all();
@@ -34,7 +33,7 @@ class Product extends Component
         }
 
         return view('livewire.merchandise.product', [
-            'title' => 'All Prodcuts',
+            'title' => 'All Products',
             'products' => $products,
             // 'categories' => $categories,
 
