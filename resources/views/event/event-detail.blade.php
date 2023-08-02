@@ -8,28 +8,29 @@
         <div class="wrapper">
             <div class="content">
                 <h1>{{ $event->eventname }}</h1>
-                @if ($event->date > now())
-                    <div class="timer-box">
-                        <div class="timer-value" id="days"></div>
-                        <div class="timer-label">days</div>
-                    </div>
-                    <div class="timer-box">
-                        <div class="timer-value" id="hours"></div>
-                        <div class="timer-label">hours</div>
-                    </div>
-                    <div class="timer-box">
-                        <div class="timer-value" id="minutes"></div>
-                        <div class="timer-label">minutes</div>
-                    </div>
-                    <div class="timer-box">
-                        <div class="timer-value" id="seconds"></div>
-                        <div class="timer-label">seconds</div>
-                    </div>
-                @else
-                    <h3 class="pass-event">This event has ended <span
-                            class="time-event">{{ now()->diffInDays($event->date) }} days </span>ago.
-                    </h3>
-                @endif
+                <div class="timer-container">
+                    @if ($event->date > now())
+                        <div class="timer-box">
+                            <div class="timer-value" id="days"></div>
+                            <div class="timer-label">days</div>
+                        </div>
+                        <div class="timer-box">
+                            <div class="timer-value" id="hours"></div>
+                            <div class="timer-label">hours</div>
+                        </div>
+                        <div class="timer-box">
+                            <div class="timer-value" id="minutes"></div>
+                            <div class="timer-label">minutes</div>
+                        </div>
+                        <div class="timer-box">
+                            <div class="timer-value" id="seconds"></div>
+                            <div class="timer-label">seconds</div>
+                        </div>
+                    @else
+                        <h3 class="pass-event">This event has ended {{ now()->diffInDays($event->date) }} days ago.
+                        </h3>
+                    @endif
+                </div>
                 <div class="detail-content">
                     <div class="list-detail">
                         <img src="{{ url('/assets/img/icons/icon-calendar.png') }}" alt="">

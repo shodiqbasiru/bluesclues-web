@@ -1,15 +1,15 @@
 <div class="container product-detail" id="productDetail">
-    <div class="row justify-content-between">
+    <div class="row">
         @if (session('error'))
             <div class="alert alert-error alert-dismissible fade show" role="alert" id="errorAlert">
                 <p>{{ session('error') }}</p>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        <div class="col-lg-6 detail-card">
+        <div class="detail-card">
             <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
         </div>
-        <div class="col-lg-6 content">
+        <div class="content">
             @if (session('success'))
                 <div class="alert alert-box alert-dismissible" id="successAlert">
                     <div class="content">

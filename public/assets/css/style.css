@@ -1278,9 +1278,7 @@ body {
 .detail-event .wrapper {
     position: relative;
     display: grid;
-    /* height: 89vh; */
     place-items: center;
-    /* z-index: 1; */
     padding: 8rem 0;
 }
 
@@ -2773,6 +2771,8 @@ body {
 .recommendations-section .content {
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     gap: 160px;
 }
 
@@ -3911,6 +3911,70 @@ footer .container-fluid p {
     .page-store .content {
         margin: 1rem 5.9rem;
     }
+
+    /* footer store */
+    #footerStore {
+        padding: 2rem 1rem;
+    }
+
+    #footerStore .wrapper {
+        justify-content: center;
+        flex-direction: column-reverse;
+    }
+
+    #footerStore .wrapper .information p:nth-of-type(1) {
+        margin-bottom: 0;
+    }
+    
+    #footerStore .wrapper .logo-blues img {
+        margin: 1rem auto;
+    }
+
+    #footerStore .wrapper .logo-blues {
+        order: 1;
+        margin: 1rem auto;
+    }
+
+    #footerStore .wrapper .information  {
+        order: 2;
+    }
+    
+    #footerStore .wrapper .information p {
+        text-align: center;
+    }
+
+    #footerStore .wrapper h5 {
+        text-align: center;
+        font-size: 24px;
+    }
+
+    #footerStore .wrapper .links .nav-link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    #footerStore .ftr {
+        justify-content: center;
+        flex-direction: column;
+        row-gap: 1rem;
+    }
+
+    #footerStore .ftr .f-icon,
+    #footerStore .ftr p:nth-of-type(1){
+        width: 100%;
+    }
+
+    #footerStore .ftr .f-icon {
+        justify-content: center;
+
+    }
+
+    #footerStore .ftr p {
+        text-align: center;
+    }
 }
 
 @media (max-width: 898px) {
@@ -3955,7 +4019,7 @@ footer .container-fluid p {
     /* footer */
     footer .container-fluid {
         flex-direction: column-reverse;
-        row-gap: 1rem;
+        row-gap: 2rem;
     }
 
     footer .container-fluid .tou,
@@ -4010,6 +4074,9 @@ footer .container-fluid p {
     .h-merchan {
         padding: 9rem 2rem;
     }
+
+    
+
 }
 
 /* `sm` applies to x-small devices (portrait phones, less than 576px) */
@@ -4085,6 +4152,10 @@ footer .container-fluid p {
         margin: 1rem;
     }
 
+    .page-store .content {
+        position: relative;
+    }
+
     .page-store .content .header {
         width: 100%;
         display: flex;
@@ -4099,9 +4170,38 @@ footer .container-fluid p {
         text-align: center;
     }
 
+    .page-store .content .header a{
+        position: absolute;
+        bottom: 0;
+    }
+
     .page-store .content .body {
         place-items: center;
     }
+
+
+    /* product-detail */
+    .product-detail .row {
+        flex-direction: column;
+    }
+
+    .product-detail .detail-card,
+    .product-detail .content {
+        width: 100%;
+    }
+
+    .alert-dismissible {
+        padding-right: 0;
+    }
+    
+    .product-detail .content .alert-box {
+        position: relative;
+        top: 0;
+        right: 0;
+        padding: 1rem;
+    }
+
+    
 
     /* page about */
 
@@ -4116,8 +4216,73 @@ footer .container-fluid p {
         position: static;
     }
 
+    /* Authentication admin & user */
+    .auth {
+        width: 90%;
+    }
+
     /* footer store */
     #footerStore {
         padding: 2rem 1rem;
     }
+
+    #footerStore .wrapper {
+        justify-content: center;
+        flex-direction: column-reverse;
+    }
+
+    #footerStore .wrapper .information p:nth-of-type(1) {
+        margin-bottom: 0;
+    }
+    
+    #footerStore .wrapper .logo-blues img {
+        margin: 1rem auto;
+    }
+
+    #footerStore .wrapper .logo-blues {
+        order: 1;
+        margin: 1rem auto;
+    }
+
+    #footerStore .wrapper .information  {
+        order: 2;
+    }
+    
+    #footerStore .wrapper .information p {
+        text-align: center;
+    }
+
+    #footerStore .wrapper h5 {
+        text-align: center;
+        font-size: 24px;
+    }
+
+    #footerStore .wrapper .links .nav-link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    #footerStore .ftr {
+        justify-content: center;
+        flex-direction: column;
+        row-gap: 1rem;
+    }
+
+    #footerStore .ftr .f-icon,
+    #footerStore .ftr p:nth-of-type(1){
+        width: 100%;
+    }
+
+    #footerStore .ftr .f-icon {
+        justify-content: center;
+
+    }
+
+    #footerStore .ftr p {
+        text-align: center;
+    }
+        
 }
