@@ -1075,6 +1075,77 @@ body {
     margin: 5rem 7rem;
 }
 
+.page-event .box-title {
+    padding: 0.5rem 1rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.page-event .box-title .evt-detail {
+    text-decoration: none;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin-top: -36px;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-event .box-title .evt-detail .title {
+    transform: translateY(0);
+    transition: .2s all ease-in;
+}
+
+.page-event .box-title .evt-detail:hover .title {
+    transform: translateY(100%);
+    transition: .2s all ease-out;
+}
+
+.page-event .box-title .evt-detail .title-hover {
+    transform: translateY(-150%);
+    transition: .2s all ease-out;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 37px;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.page-event .box-title .evt-detail:hover .title-hover {
+    transform: translateY(120%);
+    display: inline-block;
+    transition: .2s all ease-in;
+}
+
+.page-event .card-body .title {
+    color: var(--font-color);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 37px;
+}
+
+.page-event .card-body .title span {
+    color: #adadad;
+    line-height: 22px;
+}
+
+
+
+
+
+
+
+/* .evt-detail:hover::after {
+    content: "Detail";
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-bottom: 2px solid var(--primary-color);
+} */
+
 .wrapper .event-filter {
     margin-bottom: 20px;
     display: flex;
@@ -1154,17 +1225,6 @@ body {
     width: 18px;
 }
 
-.page-event .card-body .title {
-    color: var(--font-color);
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 37px;
-}
-
-.page-event .card-body .title span {
-    color: #adadad;
-    line-height: 22px;
-}
 
 .page-event .card-body .card-logo {
     display: flex;

@@ -31,14 +31,20 @@
                         <div class="card-body event-item"
                             data-date="{{ \Carbon\Carbon::parse($eventItem->formatted_date)->toDateString() }}"
                             data-filter="all currently">
+
                             <div class="date">
                                 <p>{{ \Carbon\Carbon::parse($eventItem->formatted_date)->format('d') }}</p>
                                 <p> {{ \Carbon\Carbon::parse($eventItem->formatted_date)->format('M') }}</p>
                             </div>
-                            <p class="title">
-                                {{ $eventItem->eventname }} <br>
-                                <span>{{ $eventItem->location }}</span>
-                            </p>
+                            <div class="box-title">
+                                <a href="/events/{{ $eventItem->slug }}" class="evt-detail text-decoration-none">
+                                    <p class="title-hover">View Detail</p>
+                                    <p class="title">
+                                        {{ $eventItem->eventname }} <br>
+                                        <span>{{ $eventItem->location }}</span>
+                                    </p>
+                                </a>
+                            </div>
                             <div class="card-logo">
                                 <p>Share :</p>
                                 <div class="icons">
@@ -52,6 +58,7 @@
                                 </div>
 
                             </div>
+
                         </div>
                     @endforeach
                 @endforeach
