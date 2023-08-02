@@ -1281,7 +1281,7 @@ body {
     /* height: 89vh; */
     place-items: center;
     /* z-index: 1; */
-    padding: 5rem 0;
+    padding: 8rem 0;
 }
 
 .detail-event .bg-left {
@@ -1423,6 +1423,17 @@ body {
     letter-spacing: 3.7px;
     text-transform: uppercase;
     margin: 0;
+}
+
+.detail-event .wrapper .content .pass-event {
+    font-size: 24px;
+    margin: 3rem 0;
+    font-weight: 600;
+}
+
+.detail-event .wrapper .content .pass-event .time-event{
+    text-transform: uppercase;
+    color: var(--secondary-color);
 }
 
 /* responsive page event */

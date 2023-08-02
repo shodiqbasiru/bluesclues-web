@@ -3,7 +3,7 @@
 @section('content-page')
     <div class="page-about" id="p-about">
         <div class="hero">
-            <img src="{{ url('/assets/img/about/hero_about.png') }}" alt="">
+            <img src="{{ url('/assets/img/about/hero_about.jpg') }}" alt="">
         </div>
         <div class="container-lg content text-center">
             <img class="blues-logo" src="{{ url('/assets/img/icons/logo_2.png') }}" alt="">
