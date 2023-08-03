@@ -4180,6 +4180,17 @@ footer .container-fluid p {
     }
 
 
+    #products .content .header h2 {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    
+    .page-store .content .header .input-group {
+        width: 100%;
+    }
+
+
     /* product-detail */
     .product-detail .row {
         flex-direction: column;
