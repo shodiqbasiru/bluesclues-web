@@ -47,9 +47,9 @@
                             <th scope="col" width="10%">Date</th>
                             <th scope="col" width="10%">Id Order</th>
                             <th scope="col" width="20%">Orders</th>
-                            <th scope="col" width="15%">proof of payment</th>
-                            <th scope="col" width="20%">Status</th>
                             <th scope="col" width="20%"><strong>Total Price</strong></th>
+                            <th scope="col" width="20%">Status</th>
+                            <th scope="col" width="15%">proof of payment</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,6 +72,34 @@
                                         </div>
                                         <br>
                                     @endforeach
+                                </td>
+                                <td><strong>Rp {{ number_format($order->total_price, 0, ',', '.') }}</strong></td>
+                                <td>
+                                    @if ($order->status == 1)
+                                        <p>
+                                            Waiting for Payment
+                                        </p>
+                                    @elseif($order->status == 2)
+                                        <p>
+                                            Checking Payment
+                                        </p>
+                                    @elseif($order->status == 3)
+                                        <p class="text-success">
+                                            Payment Success
+                                        </p>
+                                    @elseif($order->status == 4)
+                                        <p class="text-cancel">
+                                            Cancelled
+                                        </p>
+                                    @elseif($order->status == 5)
+                                        <p>
+                                            Shipping
+                                        </p>
+                                    @elseif($order->status == 6)
+                                        <p class="text-success">
+                                            Product Received
+                                        </p>
+                                    @endif
                                 </td>
                                 <td>
                                     <div class="icon-status">
@@ -108,34 +136,6 @@
                                         @endif
                                     </div>
                                 </td>
-                                <td>
-                                    @if ($order->status == 1)
-                                        <p>
-                                            Waiting for Payment
-                                        </p>
-                                    @elseif($order->status == 2)
-                                        <p>
-                                            Checking Payment
-                                        </p>
-                                    @elseif($order->status == 3)
-                                        <p class="text-success">
-                                            Payment Success
-                                        </p>
-                                    @elseif($order->status == 4)
-                                        <p class="text-cancel">
-                                            Cancelled
-                                        </p>
-                                    @elseif($order->status == 5)
-                                        <p>
-                                            Shipping
-                                        </p>
-                                    @elseif($order->status == 6)
-                                        <p class="text-success">
-                                            Product Received
-                                        </p>
-                                    @endif
-                                </td>
-                                <td><strong>Rp {{ number_format($order->total_price, 0, ',', '.') }}</strong></td>
                             </tr>
                         @empty
                             <tr>
