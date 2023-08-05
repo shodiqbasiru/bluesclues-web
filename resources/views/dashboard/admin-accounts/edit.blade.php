@@ -7,7 +7,7 @@
     <a href="/admin/dashboard/admins" class="btn btn-transparent me-2">
         <div class="d-flex justify-content-center align-items-center"><span data-feather="arrow-left" class="me-1"></span> Back to Admins</div>
     </a>
-    <h1>Change Password</h1>
+    <h1>Admin Account Settings</h1>
     @if (session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -17,7 +17,7 @@
         <div class="form-group my-3">
             <label for="name">Name:</label>
             <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }} mt-2"
-                value="{{ old('name', $admin->name) }}" id="name" name="name" placeholder="Enter name" readonly>
+                value="{{ old('name', $admin->name) }}" id="name" name="name" placeholder="Enter name">
             @if ($errors->has('name'))
             <span class="invalid-feedback">{{ $errors->first('name') }}</span>
             @endif
@@ -25,7 +25,7 @@
         <div class="form-group my-3">
             <label for="email">email:</label>
             <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} mt-2"
-                value="{{ old('name', $admin->email) }}" id="email" name="email" placeholder="Enter email" readonly>
+                value="{{ old('email', $admin->email) }}" id="email" name="email" placeholder="Enter email" readonly>
             @if ($errors->has('email'))
             <span class="invalid-feedback">{{ $errors->first('email') }}</span>
             @endif

@@ -5,11 +5,18 @@
 
 <div class="container my-5">
     <a href="{{ route('admin.index') }}" class="btn btn-transparent me-2">
-        <div class="d-flex justify-content-center align-items-center"><span data-feather="arrow-left" class="me-1"></span> Back to Admins</div>
+        <div class="d-flex justify-content-center align-items-center"><span data-feather="arrow-left"
+                class="me-1"></span> Back to Admins</div>
     </a>
     <h1>Add admin account</h1>
     @if (session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+    @if ($errors->has('error'))
+    <div class="alert alert-danger alert-dismissible fade show my-2" role="alert">
+        {{ $errors->first('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     @endif
     <form method="POST" action="{{ route('admin.store') }}">
         @csrf
@@ -33,8 +40,8 @@
             <label for="password" class="mylabel">Password</label>
             <input type="password" name="password"
                 class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }} mt-2" id="pasword">
-                @if ($errors->has('password'))
-                <span class="invalid-feedback">{{ $errors->first('password') }}</span>
+            @if ($errors->has('password'))
+            <span class="invalid-feedback">{{ $errors->first('password') }}</span>
             @endif
         </div>
         <div class="form-group my-3">

@@ -59,7 +59,7 @@ class AdminController extends Controller
         if (!empty($searchQuery)) {
             $admins->where(function ($query) use ($searchQuery) {
                 $query->where('name', 'like', "%$searchQuery%")
-                ->orWhere('email', 'like', "%$searchQuery%");
+                    ->orWhere('email', 'like', "%$searchQuery%");
             });
         }
 
@@ -77,33 +77,48 @@ class AdminController extends Controller
     public function create()
     {
         //
-        return view('dashboard.admin-accounts.add', [
-            'title' => 'Admins'
-        ]);
+        if (Auth::guard('admin')->user()->id == 1) {
+            return view('dashboard.admin-accounts.add', [
+                'title' => 'Admins'
+            ]);
+        } else {
+            return redirect('/admin/dashboard/admins')->withErrors(['error' => 'Only the super admin can add accounts']);
+        }
     }
 
     public function store(Request $request)
     {
         // Validate
-        $validatedData = $request->validate(
-            [
-                'name' => 'required|min:5|max:255',
-                'email' => 'required|email:dns|unique:admins',
-                'password' => 'required|min:8|max:255|confirmed',
-            ]
-        );
+        if (Auth::guard('admin')->user()->id == 1) {
+            $validatedData = $request->validate(
+                [
+                    'name' => 'required|min:5|max:255',
+                    'email' => 'required|email:dns|unique:admins',
+                    'password' => 'required|min:8|max:255|confirmed',
+                ]
+            );
 
-        // Create Admin
-        $validatedData['password'] = Hash::make($validatedData['password']);
-        Admin::create($validatedData);
-        return redirect('/admin/dashboard/admins')->with('success', 'Account has been added!');
+            // Create Admin
+            $validatedData['password'] = Hash::make($validatedData['password']);
+            Admin::create($validatedData);
+            return redirect('/admin/dashboard/admins')->with('success', 'Account has been added!');
+        } else {
+            return back()->withErrors(['error' => 'Only the super admin can add accounts']);
+        }
     }
 
     public function destroy(Admin $admin)
     {
-        //
-        Admin::destroy($admin->id);
-        return redirect('/admin/dashboard/admins')->with('success', 'Account has been deleted!');
+        if (Auth::guard('admin')->user()->id == 1) {
+            if ($admin->id == 1) {
+                return back()->withErrors(['error' => 'You cannot delete the super admin account.']);
+            } else {
+                Admin::destroy($admin->id);
+                return redirect('/admin/dashboard/admins')->with('success', 'Account has been deleted!');
+            }
+        } else {
+            return back()->withErrors(['error' => 'Only the super admin can delete accounts']);
+        }
     }
 
     public function edit()
@@ -120,6 +135,7 @@ class AdminController extends Controller
     public function update(Request $request)
     {
         $request->validate([
+            'name' => 'required|min:5|max:255',
             'current_password' => 'required',
             'password' => 'required|min:8|confirmed',
         ]);
@@ -130,14 +146,12 @@ class AdminController extends Controller
         if (Hash::check($currentPassword, $admin->password)) {
             $admin->update([
                 'password' => Hash::make($request->input('password')),
+                'name' => $request->input('name')
             ]);
 
-            return redirect('/admin/dashboard/admins')->with('success', 'Password changed successfully.');
+            return redirect('/admin/dashboard/admins')->with('success', 'Account updated!.');
         } else {
             return back()->withErrors(['current_password' => 'The current password is incorrect.']);
         }
     }
-
-    
-
 }
