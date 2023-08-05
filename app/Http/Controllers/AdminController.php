@@ -136,6 +136,19 @@ class AdminController extends Controller
     {
         $request->validate([
             'name' => 'required|min:5|max:255',
+        ]);
+
+        $admin = Auth::guard('admin')->user();
+        $admin->update([
+            'name' => $request->input('name')
+        ]);
+
+        return back()->with('success', 'Account updated!.');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
             'current_password' => 'required',
             'password' => 'required|min:8|confirmed',
         ]);
@@ -146,10 +159,9 @@ class AdminController extends Controller
         if (Hash::check($currentPassword, $admin->password)) {
             $admin->update([
                 'password' => Hash::make($request->input('password')),
-                'name' => $request->input('name')
             ]);
 
-            return redirect('/admin/dashboard/admins')->with('success', 'Account updated!.');
+            return back()->with('success', 'Password updated!.');
         } else {
             return back()->withErrors(['current_password' => 'The current password is incorrect.']);
         }

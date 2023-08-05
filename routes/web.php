@@ -199,8 +199,9 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin/dashboard/admins', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/dashboard/admins/create', [AdminController::class, 'create'])->name('admin.create');
     Route::post('/admin/dashboard/admins', [AdminController::class, 'store'])->name('admin.store');
-    Route::get('/admin/dashboard/admins/change-password', [AdminController::class, 'edit'])->name('admin.edit');
-    Route::post('/admin/dashboard/admins/change-password', [AdminController::class, 'update'])->name('admin.update');
+    Route::get('/admin/dashboard/admins/edit-account', [AdminController::class, 'edit'])->name('admin.edit');
+    Route::post('/admin/dashboard/admins/edit-account', [AdminController::class, 'update'])->name('admin.update');
+    Route::post('/admin/dashboard/admins/change-password', [AdminController::class, 'updatePassword'])->name('adminPassword.update');
     Route::delete('/admin/dashboard/admins/{admin}', [AdminController::class, 'destroy'])->name('admin.destroy');
 
     Route::get('/admin/dashboard/users', [UserController::class, 'index'])->name('user.index');

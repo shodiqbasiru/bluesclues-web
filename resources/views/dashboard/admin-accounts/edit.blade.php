@@ -7,10 +7,10 @@
     <a href="/admin/dashboard/admins" class="btn btn-transparent me-2">
         <div class="d-flex justify-content-center align-items-center"><span data-feather="arrow-left" class="me-1"></span> Back to Admins</div>
     </a>
-    <h1>Admin Account Settings</h1>
     @if (session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
+    <h1>Admin Account Details</h1>
     <form method="POST" action="{{ route('admin.update') }}">
         @csrf
 
@@ -30,6 +30,13 @@
             <span class="invalid-feedback">{{ $errors->first('email') }}</span>
             @endif
         </div>
+       <button type="submit" class="btn btn-outline-light mt-4">Save</button>
+    </form>
+
+    <hr>
+    <h3>Change Password</h3>
+    <form method="POST" action="{{ route('adminPassword.update') }}">
+        @csrf
         <div class="form-group my-3">
             <label for="current_password" class="mylabel">Current Password</label>
             <input type="password" name="current_password"
@@ -51,7 +58,7 @@
             <input type="password" name="password_confirmation"
                 class="form-control {{ $errors->has('password_confirmation') ? ' is-invalid' : '' }} mt-2" id="pasword">
         </div>
-       <button type="submit" class="btn btn-outline-light mt-4">Save</button>
+       <button type="submit" class="btn btn-outline-light mt-4">Change Password</button>
     </form>
 </div>
 @endsection
