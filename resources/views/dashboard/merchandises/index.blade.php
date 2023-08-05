@@ -17,11 +17,9 @@
                     class="fas fa-circle-plus"></i> Add products</a>
             <form action="{{ route('merchandise.index') }}" method="GET" class="mb-3">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="search" placeholder="Search merchandises"
+                    <input type="text" class="form-control" name="search" placeholder="Search products"
                         value="{{ $searchQuery ?? '' }}">
-                    <span class="input-group-text search-dashboard">
-                        <i class="fas fa-search"></i>
-                    </span>
+                    <button type="submit" class="btn-filter-dashboard"><i class="fas fa-search"></i></button>
                 </div>
             </form>
         </div>

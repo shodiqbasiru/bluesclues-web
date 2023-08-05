@@ -158,10 +158,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control" name="search" placeholder="Search requests"
                         value="{{ $searchQuery ?? '' }}">
-                    <input type="hidden" name="status" value="{{ $status ?? '' }}">
-                    <span class="input-group-text search-dashboard">
-                        <i class="fas fa-search"></i>
-                    </span>
+                    <button type="submit" class="btn-filter-dashboard"><i class="fas fa-search"></i></button>
                 </div>
             </form>
         </div>
