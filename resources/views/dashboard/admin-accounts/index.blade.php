@@ -25,8 +25,10 @@
     <div>
         <a href="{{ route('admin.edit') }}" class="btn-primary-dashboard mb-3">Account Settings</a>
         @if (Auth::guard('admin')->user()->id == 1)
-        <a href="{{ route('admin.create') }}" class="btn-primary-dashboard mb-3">Add an admin account</a>
+        <a href="{{ route('admin.create') }}" class="btn-primary-dashboard mb-3"><i class="fas fa-circle-plus"></i>
+            Add an admin account</a>
         @endif
+        
 
     </div>
     <form action="{{ route('admin.index') }}" method="GET" class="mb-3">
