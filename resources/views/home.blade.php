@@ -82,13 +82,15 @@
             <div class="m-card">
                 @foreach ($products as $product)
                     <div class="card-merch">
-                        <div class="head">
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="">
-                        </div>
-                        <div class="body">
-                            <p class="name">{{ $product->name }}</p>
-                            <p class="price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
-                        </div>
+                        <a href="{{ route('product.detail', $product->slug) }}" class="text-decoration-none">
+                            <div class="head">
+                                <img src="{{ asset('storage/' . $product->image) }}" alt="">
+                            </div>
+                            <div class="body">
+                                <p class="name">{{ $product->name }}</p>
+                                <p class="price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                            </div>
+                        </a>
                     </div>
                 @endforeach
             </div>
