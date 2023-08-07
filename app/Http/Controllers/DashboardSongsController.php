@@ -65,7 +65,7 @@ class DashboardSongsController extends Controller
         //
         $validatedData = $request->validate([
             'title' => 'required|max:255',
-            'image' => 'image|file|max:7168',
+            'image' => 'image|file|max:7168|required',
             'link' => 'required',
             'release_date' => 'required|date|after_or_equal:' . now()->subYears(30)->format('Y-m-d') . '|before_or_equal:' . now()->addYears(10)->format('Y-m-d'),
             'album' => 'required',

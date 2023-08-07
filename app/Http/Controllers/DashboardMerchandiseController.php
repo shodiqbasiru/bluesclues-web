@@ -18,6 +18,9 @@ class DashboardMerchandiseController extends Controller
     public function index(Request $request)
     {
 
+        $category = $request->input('category');
+        $categoryName = MerchCategory::where('id', $category)->pluck('name')->first();
+
         // item number pagination
         $perPage = 10;
         $currentPage = request()->query('page', 1);
@@ -26,6 +29,7 @@ class DashboardMerchandiseController extends Controller
         $searchQuery = $request->input('search');
 
         $merchandise = Merchandise::with(['merchCategory'])->latest();
+        $categories = MerchCategory::all();
 
         if (!empty($searchQuery)) {
             $merchandise->where(function ($query) use ($searchQuery) {
@@ -33,15 +37,24 @@ class DashboardMerchandiseController extends Controller
                 ->orWhere('price', 'like', "%$searchQuery%");
             });
         }
+        if (!empty($category)) {
+            $merchandise->where('category_id', $category);
+        }
 
 
-        $merchandise = $merchandise->paginate($perPage)->appends(['search' => $searchQuery]);
+        $merchandise = $merchandise->paginate($perPage)->appends([
+            'search' => $searchQuery,
+            'category' => $category,
+        ]);
 
         return view('dashboard.merchandises.index', [
             'title' => 'Merchs',
             'merchandise' => $merchandise,
             'startIndex' => $startIndex,
             'searchQuery' => $searchQuery,
+            'category' => $category,
+            'categories' => $categories,
+            'categoryName' => $categoryName,
         ]);
     }
 
@@ -76,7 +89,7 @@ class DashboardMerchandiseController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'price' => ['required', 'numeric', 'min:0', 'max:9999999999'],
-            'image' => 'image|file|max:7168',
+            'image' => 'image|file|max:7168|required',
             'content' => 'required',
             'category_id' => 'required|exists:merch_categories,id',
             'is_available' => 'required|boolean'

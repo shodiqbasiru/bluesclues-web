@@ -53,8 +53,7 @@ class ShowRequestsController extends Controller
         $showRequests = ShowRequest::query();
 
         if ($status === NULL) {
-            $showRequests->where('status', 0)
-                ->orderByDesc('created_at');
+            $showRequests->orderByDesc('created_at');
         } elseif ($status === 'awaiting-approval') {
             $showRequests->where('status', 0)
                 ->orderByDesc('created_at');
