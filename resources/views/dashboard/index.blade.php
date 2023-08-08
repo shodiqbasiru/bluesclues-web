@@ -116,7 +116,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $event->eventname }}</td>
-                                        <td>{{ $event->created_at->format('d F Y') }}</td>
+                                        <td>{{ \Illuminate\Support\Carbon::parse($event->date)->format('d F Y') }}</td>
                                         <td>
                                             <a href="/admin/dashboard/events/{{ $event->slug }}"
                                                 class="text-decoration-none">View Detail</a>
