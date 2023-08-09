@@ -6,6 +6,7 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use PDF;
 
 class DashboardEventsController extends Controller
@@ -90,16 +91,23 @@ class DashboardEventsController extends Controller
         $validatedData = $request->validate([
             'eventname' => 'required|max:255',
             'location' => 'required',
+            'maps' => 'nullable|url',
             'time' => 'required',
             'date' => 'required|date|after_or_equal:' . now()->subYears(10)->format('Y-m-d') . '|before_or_equal:' . now()->addYears(20)->format('Y-m-d'),
+            'is_free' => 'required|boolean',
+            'more_information' => 'nullable|url',
+            'image' => 'image|file|max:5120',
         ]);
 
         // Create a new event record in the database
         $event = new Event;
         $event->eventname = $validatedData['eventname'];
         $event->location = $validatedData['location'];
+        $event->maps = $validatedData['maps'];
         $event->time = $validatedData['time'];
         $event->date = $validatedData['date'];
+        $event->is_free = $validatedData['is_free'];
+        $event->more_information = $validatedData['more_information'];
 
         // Generate a unique slug
         $truncatedEventName = substr($validatedData['eventname'], 0, 50);
@@ -108,6 +116,11 @@ class DashboardEventsController extends Controller
             $slug = Str::slug($truncatedEventName, '-') . '-' . uniqid();
         }
         $event->slug = $slug;
+
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('event-images');
+            $event->image = $validatedData['image'];
+        }
 
         $event->save();
 
@@ -162,16 +175,23 @@ class DashboardEventsController extends Controller
         $validatedData = $request->validate([
             'eventname' => 'required|max:255',
             'location' => 'required',
+            'maps' => 'nullable|url',
             'time' => 'required',
             'date' => 'required|date|after_or_equal:' . now()->subYears(10)->format('Y-m-d') . '|before_or_equal:' . now()->addYears(20)->format('Y-m-d'),
+            'is_free' => 'required|boolean',
+            'more_information' => 'nullable|url',
+            'image' => 'image|file|max:5120',
         ]);
 
-        // Create a new event record in the database
+
         $event = Event::find($event->id);
         $event->eventname = $validatedData['eventname'];
         $event->location = $validatedData['location'];
+        $event->maps = $validatedData['maps'];
         $event->time = $validatedData['time'];
         $event->date = $validatedData['date'];
+        $event->is_free = $validatedData['is_free'];
+        $event->more_information = $validatedData['more_information'];
 
         // Generate a unique slug
         $truncatedEventName = substr($validatedData['eventname'], 0, 50);
@@ -180,6 +200,12 @@ class DashboardEventsController extends Controller
             $slug = Str::slug($truncatedEventName, '-') . '-' . uniqid();
         }
         $event->slug = $slug;
+
+        if ($request->file('image')) {
+            if ($event->image != null) Storage::delete($event->image);
+            $validatedData['image'] = $request->file('image')->store('event-images');
+            $event->image = $validatedData['image'];
+        }
 
         $event->save();
 
@@ -196,6 +222,7 @@ class DashboardEventsController extends Controller
     public function destroy(Event $event)
     {
         //
+        if ($event->image != null) Storage::delete($event->image);
         Event::destroy($event->id);
         return redirect('/admin/dashboard/events')->with('success', 'Event has been deleted!');
     }

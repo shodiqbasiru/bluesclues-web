@@ -88,7 +88,7 @@ class DashboardNewsController extends Controller
         //
         $validatedData = $request->validate([
             'title' => 'required|max:255',
-            'image' => 'image|file|max:7168',
+            'image' => 'image|file|max:5120',
             'content' => 'required',
         ]);
 

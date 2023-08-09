@@ -89,7 +89,7 @@ class DashboardMerchandiseController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'price' => ['required', 'numeric', 'min:0', 'max:9999999999'],
-            'image' => 'image|file|max:7168|required',
+            'image' => 'image|file|max:5120|required',
             'content' => 'required',
             'category_id' => 'required|exists:merch_categories,id',
             'is_available' => 'required|boolean'
@@ -170,7 +170,7 @@ class DashboardMerchandiseController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'price' => ['required', 'numeric', 'min:0', 'max:9999999999'],
-            'image' => 'image|file|max:7168',
+            'image' => 'image|file|max:5120',
             'content' => 'required',
             'category_id' => 'required|exists:merch_categories,id',
             'is_available' => 'required|boolean'

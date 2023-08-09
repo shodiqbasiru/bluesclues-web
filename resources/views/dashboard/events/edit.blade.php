@@ -11,7 +11,7 @@
     @if (session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    <form method="POST" action="{{ route('events.update', $event->slug) }}">
+    <form method="POST" action="{{ route('events.update', $event->slug) }}" enctype="multipart/form-data">
         @method('put')
         @csrf
         <div class="form-group my-3">
@@ -31,6 +31,14 @@
             @endif
         </div>
         <div class="form-group my-3">
+            <label for="maps">Maps:</label>
+            <input type="text" class="form-control{{ $errors->has('maps') ? ' is-invalid' : '' }} mt-2"
+                value="{{ old('maps', $event->maps) }}" id="maps" name="maps" placeholder="Enter maps">
+            @if ($errors->has('maps'))
+            <span class="invalid-feedback">{{ $errors->first('maps') }}</span>
+            @endif
+        </div>
+        <div class="form-group my-3">
             <label for="time">Time:</label>
             <input type="time" class="form-control" id="time" name="time" min="00:00" max="23:59" value="{{ old('time', $event->time) }}"
                 required>
@@ -46,7 +54,58 @@
             <span class="invalid-feedback">{{ $errors->first('date') }}</span>
             @endif
         </div>
+        <div class="form-group my-4">
+            <label for="is_free">Is Free</label>
+            <select name="is_free" id="is_free"
+                class="form-control{{ $errors->has('is_free') ? ' is-invalid' : '' }}">
+                <option value="1" {{ old('is_free', $event->is_free) == 1 ? 'selected' : '' }}>Yes
+                </option>
+                <option value="0" {{ old('is_free', $event->is_free) == 0 ? 'selected' : '' }}>No
+                </option>
+            </select>
+            @if ($errors->has('is_free'))
+            <span class="invalid-feedback">{{ $errors->first('is_free') }}</span>
+            @endif
+        </div>
+        <div class="form-group my-3">
+            <label for="more_information">Link for more information:</label>
+            <input type="text" class="form-control{{ $errors->has('more_information') ? ' is-invalid' : '' }} mt-2"
+                value="{{ old('more_information', $event->more_information) }}" id="more_information" name="more_information" placeholder="Enter link">
+            @if ($errors->has('more_information'))
+            <span class="invalid-feedback">{{ $errors->first('more_information') }}</span>
+            @endif
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload Image</label>
+
+            @if($event->image)
+            <img src="{{ asset('storage/' . $event->image) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                
+            @else
+            <img class="img-preview img-fluid mb-3 col-sm-5">
+                
+            @endif
+            <input class="form-control{{ $errors->has('image') ? ' is-invalid' : '' }}" type="file" id="image"
+                name="image" onchange="previewImage()">
+            @if ($errors->has('image'))
+            <span class="invalid-feedback">{{ $errors->first('image') }}</span>
+            @endif
+        </div>
+        
         <button type="submit" class="btn btn-outline-light mt-4">Save</button>
     </form>
 </div>
+<script>
+    function previewImage(){
+        const image = document.querySelector('#image');
+        const imgPreview = document.querySelector('.img-preview');
+    
+        imgPreview.style.display = 'block';
+        const oFReader = new FileReader();
+        oFReader.readAsDataURL(image.files[0]);
+        oFReader.onload = function(oFREvent){
+            imgPreview.src = oFREvent.target.result;
+        }
+    }
+</script>
 @endsection
