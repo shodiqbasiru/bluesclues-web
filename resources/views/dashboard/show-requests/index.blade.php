@@ -42,10 +42,13 @@
                 <button type="submit" name="status" value="awaiting-approval"
                     class="dropdown-item{{ $status === 'awaiting-approval' ? ' active' : '' }}">Awaiting
                     Approval</button>
-                <button type="submit" name="status" value="approved"
-                    class="dropdown-item{{ $status === 'approved' ? ' active' : '' }}">Approved</button>
+                <button type="submit" name="status" value="accepted"
+                    class="dropdown-item{{ $status === 'accepted' ? ' active' : '' }}">Accepted</button>
                 <button type="submit" name="status" value="rejected"
                     class="dropdown-item{{ $status === 'rejected' ? ' active' : '' }}">Rejected</button>
+                <button type="submit" name="status" value="cancelled"
+                    class="dropdown-item{{ $status === 'cancelled' ? ' active' : '' }}">Cancelled</button>
+
             </div>
         </div>
     </form>
@@ -163,15 +166,20 @@
 
     @if ($searchQuery)
     <div class="mb-3">
+        @php
+        $statusText = '';
+        @endphp
         @if ($status)
         @php
         $statusText = '';
         if ($status === 'awaiting-approval') {
         $statusText = 'Awaiting Approval';
-        } elseif ($status === 'approved') {
-        $statusText = 'Approved';
+        } elseif ($status === 'accepted') {
+        $statusText = 'Accepted';
         } elseif ($status === 'rejected') {
         $statusText = 'Rejected';
+        } elseif ($status === 'cancelled') {
+        $statusText = 'cancelled';
         }
         @endphp
         @endif
@@ -184,15 +192,20 @@
 
     @if ($month && $selectedYear)
     <div class="mb-3">
+        @php
+        $statusText = '';
+        @endphp
         @if ($status)
         @php
         $statusText = '';
         if ($status === 'awaiting-approval') {
         $statusText = 'awaiting approval';
-        } elseif ($status === 'approved') {
-        $statusText = 'approved';
+        } elseif ($status === 'accepted') {
+        $statusText = 'accepted';
         } elseif ($status === 'rejected') {
         $statusText = 'rejected';
+        } elseif ($status === 'cancelled') {
+        $statusText = 'cancelled';
         }
         @endphp
         @endif
@@ -203,15 +216,20 @@
 
     @if ($selectedYearOnly)
     <div class="mb-3">
+        @php
+        $statusText = '';
+        @endphp
         @if ($status)
         @php
         $statusText = '';
         if ($status === 'awaiting-approval') {
         $statusText = 'awaiting approval';
-        } elseif ($status === 'approved') {
-        $statusText = 'approved';
+        } elseif ($status === 'accepted') {
+        $statusText = 'accepted';
         } elseif ($status === 'rejected') {
         $statusText = 'rejected';
+        } elseif ($status === 'cancelled') {
+        $statusText = 'cancelled';
         }
         @endphp
         @endif
@@ -224,18 +242,18 @@
             <tr>
                 <th scope="col">No</th>
                 <th scope="col">Company Name</th>
-                <th scope="col">Email</th>
                 <th scope="col">Date</th>
                 <th scope="col">Event Name</th>
                 <th scope="col">Location</th>
-                <th scope="col">WhatsApp</th>
                 @if ($status === NULL)
+                <th scope="col">Status</th>
                 <th scope="col">Notes/Decision</th>
                 @elseif ($status === 'awaiting-approval')
                 <th scope="col">Decision</th>
                 @else
                 <th scope="col">Notes</th>
                 @endif
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -243,15 +261,27 @@
             <tr class="align-middle">
                 <td class="align-middle">{{ $startIndex + $loop->index }}</td>
                 <td class="align-middle" style="max-width: 100px;">{{ $item->company_name }}</td>
-                <td class="align-middle">{{ $item->email }}</td>
                 <td class="align-middle">{{ \Illuminate\Support\Carbon::parse($item->date)->format('d F Y') }}
                 </td>
                 <td class="align-middle" style="max-width: 100px;">{{ $item->eventname }}</td>
                 <td class="align-middle" style="max-width: 100px;">{{ $item->location }}</td>
-                <td class="align-middle">{{ $item->whatsapp }}</td>
-                
+                @if ($status === NULL)
+                <td class="align-middle">
+                    @if ($item->status == 0)
+                    <span class="badge bg-warning text-dark">Awaiting Approval</span>
+                    @elseif ($item->status == 1)
+                    <span class="badge bg-success">Accepted</span>
+                    @elseif ($item->status == 2)
+                    <span class="badge bg-danger">Rejected</span>
+                    @elseif ($item->status == 3)
+                    <span class="badge bg-secondary">Cancelled</span>
+                    @endif
+
+                </td>
+                @endif
+
                 @if ($item->status == 0)
-                <td>
+                <td class="align-middle" style="max-width: 100px;">
                     <button type="button" class="btn btn-sm btn-success me-2"
                         onclick="showConfirmationModal('approve', {{ $item->id }})"><span>Accept</span></button>
                     <button type="button" class="btn btn-sm btn-danger me-2"
@@ -260,7 +290,10 @@
                 @else
                 <td style="max-width: 100px;">{{ $item->notes }}</td>
                 @endif
-                
+                <td class="align-middle" style="max-width: 100px;">
+                    <a href="/admin/dashboard/show-requests/{{ $item->id }}" class="btn-action-dashboard btn-sm me-2"><i
+                            class="fas fa-eye"></i></a>
+                </td>
             </tr>
             @endforeach
         </tbody>

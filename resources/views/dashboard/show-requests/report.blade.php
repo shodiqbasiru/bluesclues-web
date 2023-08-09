@@ -50,8 +50,8 @@
                 $statusText = '';
                 if ($status === 'awaiting-approval') {
                     $statusText = 'Awaiting Approval';
-                } elseif ($status === 'approved') {
-                    $statusText = 'Approved';
+                } elseif ($status === 'accepted') {
+                    $statusText = 'Accepted';
                 } elseif ($status === 'rejected') {
                     $statusText = 'Rejected';
                 }
@@ -99,7 +99,7 @@
                         @if ($item->status === 0)
                             <span class="badge badge-warning">Awaiting Approval</span>
                         @elseif ($item->status === 1)
-                            <span class="badge badge-success">Approved</span>
+                            <span class="badge badge-success">Accepted</span>
                         @elseif ($item->status === 2)
                             <span class="badge badge-danger">Rejected</span>
                         @endif

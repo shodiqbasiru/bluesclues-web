@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container my-5">
-        <a href="/admin/dashboard/news" class="btn btn-transparent me-2">
+        <a href="{{ url()->previous() }}" class="btn btn-transparent me-2">
             <div class="d-flex justify-content-center align-items-center"><span data-feather="arrow-left"
                     class="me-1"></span> Back to News</div>
         </a>

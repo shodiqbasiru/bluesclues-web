@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Order Details</h1>
     </div>
-    <a href="/admin/dashboard/orders" class="btn btn-transparent me-2 my-3">
+    <a href="{{ url()->previous() }}" class="btn btn-transparent me-2 my-3">
         <div class="d-flex justify-content-center align-items-center"><span data-feather="arrow-left" class="me-1"></span>
             Back to Orders</div>
     </a>

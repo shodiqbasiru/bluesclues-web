@@ -185,6 +185,16 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('/show-requests/{showRequest}/reject', [ShowRequestsController::class, 'reject'])
         ->middleware('admin')
         ->name('show-request.reject');
+
+    Route::post('/show-requests/{showRequest}/cancel', [ShowRequestsController::class, 'cancel'])
+        ->middleware('admin')
+        ->name('show-request.cancel');
+
+    Route::get('/admin/dashboard/show-requests/{showRequest}', [ShowRequestsController::class, 'show']);
+
+    Route::get('/admin/dashboard/show-requests/{showRequest}/add-to-event', [ShowRequestsController::class, 'addToEvent'])
+        ->name('show-request.add-to-event');
+
     Route::get('/admin/dashboard/export-show-requests', [ShowRequestsController::class, 'export'])->name('show-requests.export');
 
     Route::get('/admin/dashboard/orders', [DashboardOrdersController::class, 'index'])
@@ -205,7 +215,6 @@ Route::group(['middleware' => ['admin']], function () {
     Route::delete('/admin/dashboard/admins/{admin}', [AdminController::class, 'destroy'])->name('admin.destroy');
 
     Route::get('/admin/dashboard/users', [UserController::class, 'index'])->name('user.index');
-
 });
 
 

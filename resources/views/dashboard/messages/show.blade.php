@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 mt-5">
-                <a href="/admin/dashboard/messages" class="btn btn-transparent me-2">
+                <a href="{{ url()->previous() }}" class="btn btn-transparent me-2">
                     <div class="d-flex justify-content-center align-items-center"><span data-feather="arrow-left"
                             class="me-1"></span> Back to message</div>
                 </a>

@@ -6,7 +6,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8 mt-5">
                 <div class="d-flex justify-content-center mt-5">
-                    <a href="/admin/dashboard/merchandise" class="btn btn-transparent me-2 mb-2">
+                    <a href="{{ url()->previous() }}" class="btn btn-transparent me-2 mb-2">
                         <div class="d-flex justify-content-center align-items-center"><span data-feather="arrow-left"
                                 class="me-1"></span> Back to Merchs</div>
                     </a>
