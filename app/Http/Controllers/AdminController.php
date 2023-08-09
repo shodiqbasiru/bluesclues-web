@@ -19,6 +19,8 @@ class AdminController extends Controller
 
     public function authenticate(Request $request)
     {
+
+        
         $credentials = $request->validate([
             'email' => 'required|email:dns',
             'password' => 'required'
@@ -28,7 +30,10 @@ class AdminController extends Controller
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/admin/dashboard');
+            // Get the intended URL from the session or use a default URL
+            $intendedUrl = $request->session()->pull('url.intended', '/admin/dashboard');
+
+            return redirect()->intended($intendedUrl);
         }
 
         return back()->with('loginError', 'Invalid email or password.');

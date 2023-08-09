@@ -21,6 +21,9 @@ class IsAdmin
             return $next($request);
         }
 
+        // Store the intended URL in the session
+        session(['url.intended' => $request->url()]);
+
         return redirect('/admin/login');
     }
 }

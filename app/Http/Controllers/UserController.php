@@ -53,6 +53,7 @@ class UserController extends Controller
 
     public function authenticate(Request $request)
     {
+
         $credentials = $request->validate([
             'email' => 'required|email:dns',
             'password' => 'required'
@@ -62,8 +63,10 @@ class UserController extends Controller
 
 
             $request->session()->regenerate();
+            
+            $intendedUrl = $request->session()->pull('url.intended', '/store');
 
-            return redirect()->intended('/store');
+            return redirect()->intended($intendedUrl);
         }
 
         return back()->with('loginError', 'Email or Password is Wrong');

@@ -69,7 +69,7 @@
 
         <p>Please take appropriate action.</p>
 
-        <p>For further details and to take action on this request, click <a href="{{ config('app.url') }}admin/dashboard/show-requests/approved?status=awaiting-approval">here</a>.</p>
+        <p>For further details and to take action on this request, click <a href="{{ config('app.url') }}admin/dashboard/show-requests?status=awaiting-approval">here</a>.</p>
 
     </div>
 </body>

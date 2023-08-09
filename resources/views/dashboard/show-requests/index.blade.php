@@ -129,9 +129,9 @@
 
 <div class="table-responsive">
     <dialog id="approve_confirmation" class="box-dialog" style="max-width: 500px; text-align: center;">
-        <h5>Are you sure you want to approve this show request?</h5>
-        <p>By approving this show request, an email will be sent to the company notifying them that their request has
-            been approved. </p>
+        <h5>Are you sure you want to accept this show request?</h5>
+        <p>By accepting this show request, an email will be sent to the company notifying them that their request has
+            been accepted. </p>
         <form method="POST" action="" id="approve_request">
             @csrf
             <label for="notes">Notes:</label>
@@ -253,7 +253,7 @@
                 @if ($item->status == 0)
                 <td>
                     <button type="button" class="btn btn-sm btn-success me-2"
-                        onclick="showConfirmationModal('approve', {{ $item->id }})"><span>Approve</span></button>
+                        onclick="showConfirmationModal('approve', {{ $item->id }})"><span>Accept</span></button>
                     <button type="button" class="btn btn-sm btn-danger me-2"
                         onclick="showConfirmationModal('reject', {{ $item->id }})"><span>Reject</span></button>
                 </td>

@@ -45,6 +45,9 @@ class ProductDetail extends Component
         }
 
         if (Auth::guest()) {
+            
+            // Store the intended URL in the session
+            session(['url.intended' => url()->previous()]);
             return redirect()->route('login');
         }
 
