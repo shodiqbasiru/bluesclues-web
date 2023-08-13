@@ -8,6 +8,15 @@
         <div class="wrapper">
             <div class="content">
                 <h1>{{ $event->eventname }}</h1>
+                @if (!empty($event->image))
+                    <div class="box-image">
+                        <img id="eventImage" src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->slug }}">
+                    </div>
+                    <div id="imagePopup" class="image-popup">
+                        <span class="close-popup" id="closePopup"></span>
+                        <img id="popupImage" src="" alt="Popup Image">
+                    </div>
+                @endif
                 <div class="timer-container">
                     @if ($event->date > now())
                         <div class="timer-box">
@@ -31,6 +40,7 @@
                         </h3>
                     @endif
                 </div>
+
                 <div class="detail-content">
                     <div class="list-detail">
                         <img src="{{ url('/assets/img/icons/icon-calendar.png') }}" alt="">
@@ -42,7 +52,8 @@
                     </div>
                     <div class="list-detail">
                         <img src="{{ url('/assets/img/icons/icon-location.png') }}" alt="">
-                        <p>{{ $event->location }}</p>
+                        <a href="{{ $event->maps }}" class="text-decoration-none"
+                            target="blank">{{ $event->location }}</a>
                     </div>
                     {{-- <div class="list-detail">
                         <img src="{{ url('/assets/img/icons/icon-location-d.png') }}" alt="">
@@ -62,6 +73,7 @@
 
                     </div>
                 </div>
+                <a href="{{ $event->more_information }}" class="btn btn-home mt-4 mb-1 mx-5">More Information</a>
             </div>
         </div>
     </div>
@@ -93,4 +105,28 @@
 
     // Panggil fungsi countdown saat halaman selesai dimuat
     window.onload = countdown;
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const eventImage = document.getElementById("eventImage");
+        const popupImage = document.getElementById("popupImage");
+        const imagePopup = document.getElementById("imagePopup");
+        const closePopup = document.getElementById("closePopup");
+
+        eventImage.addEventListener("click", function() {
+            const imageUrl = this.getAttribute("src");
+            popupImage.setAttribute("src", imageUrl);
+            imagePopup.style.display = "block";
+        });
+
+        closePopup.addEventListener("click", function() {
+            imagePopup.style.display = "none";
+        });
+
+        imagePopup.addEventListener("click", function(event) {
+            if (event.target === imagePopup) {
+                imagePopup.style.display = "none";
+            }
+        });
+    });
 </script>

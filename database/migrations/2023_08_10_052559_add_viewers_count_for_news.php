@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('events', function (Blueprint $table) {
-            //
-            $table->boolean('is_free')->after('date')->default(true);
-            $table->string('more_information')->after('date')->nullable();
-            $table->string('image')->after('date')->nullable();
+        Schema::table('news', function (Blueprint $table) {
+            $table->unsignedInteger('viewers')->after('content')->nullable();
         });
     }
 
@@ -28,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('events', function (Blueprint $table) {
+        Schema::table('news', function (Blueprint $table) {
             //
         });
     }

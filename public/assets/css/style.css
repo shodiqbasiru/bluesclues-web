@@ -1093,17 +1093,17 @@ body {
 
 .page-event .box-title .evt-detail .title {
     transform: translateY(0);
-    transition: .2s all ease-in;
+    transition: 0.2s all ease-in;
 }
 
 .page-event .box-title .evt-detail:hover .title {
     transform: translateY(100%);
-    transition: .2s all ease-out;
+    transition: 0.2s all ease-out;
 }
 
 .page-event .box-title .evt-detail .title-hover {
     transform: translateY(-150%);
-    transition: .2s all ease-out;
+    transition: 0.2s all ease-out;
     text-transform: uppercase;
     font-weight: 600;
     font-size: 16px;
@@ -1115,7 +1115,7 @@ body {
 .page-event .box-title .evt-detail:hover .title-hover {
     transform: translateY(120%);
     display: inline-block;
-    transition: .2s all ease-in;
+    transition: 0.2s all ease-in;
 }
 
 .page-event .card-body .title {
@@ -1129,22 +1129,6 @@ body {
     color: #adadad;
     line-height: 22px;
 }
-
-
-
-
-
-
-
-/* .evt-detail:hover::after {
-    content: "Detail";
-    display: block;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-bottom: 2px solid var(--primary-color);
-} */
 
 .wrapper .event-filter {
     margin-bottom: 20px;
@@ -1214,17 +1198,41 @@ body {
     justify-content: space-between;
     align-items: center;
     text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .page-event .card-body .date,
-.page-event .card-body .card-logo {
+.page-event .card-body .information {
     width: 20%;
+}
+
+.page-event .card-body .information .htm {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 1rem;
+}
+
+.page-event .card-body .information .htm a {
+    color: #adadad;
+    text-decoration: none;
+}
+
+.page-event .card-body .information .htm a:hover {
+    color: var(--font-color);
+}
+
+.page-event .card-body .information .htm p {
+    text-align: start;
+    color: var(--secondary-color);
+    font-weight: 600;
 }
 
 .page-event .card-body .card-logo a img {
     width: 18px;
 }
-
 
 .page-event .card-body .card-logo {
     display: flex;
@@ -1265,6 +1273,7 @@ body {
 
 /* detail event */
 .detail-event {
+    position: relative;
     margin-top: -100px;
 }
 
@@ -1281,6 +1290,57 @@ body {
     place-items: center;
     padding: 8rem 0;
 }
+
+.detail-event .wrapper .box-image {
+    display: block;
+    margin: 2rem auto;
+    width: 259px;
+    height: auto;
+    overflow: hidden;
+}
+
+.detail-event .wrapper .box-image img {
+    max-width: 100%;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s all;
+}
+
+.detail-event .wrapper .box-image img:hover {
+    transform: scale(1.2);
+    transition: 0.3s all;
+}
+
+.detail-event .wrapper .image-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    z-index: 9999;
+}
+
+.detail-event .wrapper #popupImage {
+    max-width: 100%;
+    max-height: 80%;
+    margin-top: 5%;
+}
+
+.detail-event .wrapper .btn-home {
+    text-transform: capitalize;
+}
+
+/* .detail-event .wrapper .close-popup {
+    position: absolute;
+    top: 20;
+    right: 30px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+} */
 
 .detail-event .bg-left {
     position: absolute;
@@ -1344,7 +1404,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 6px;
-    margin: 46px 0;
+    margin: 0 0 46px 0;
 }
 
 .detail-event .wrapper .content .timer-box {
@@ -1429,7 +1489,7 @@ body {
     font-weight: 600;
 }
 
-.detail-event .wrapper .content .pass-event .time-event{
+.detail-event .wrapper .content .pass-event .time-event {
     text-transform: uppercase;
     color: var(--secondary-color);
 }
@@ -3885,7 +3945,7 @@ footer .container-fluid p {
 }
 
 #footerStore .ftr .f-icon,
-#footerStore .ftr p:nth-of-type(1){
+#footerStore .ftr p:nth-of-type(1) {
     width: 25%;
 }
 
@@ -3925,7 +3985,7 @@ footer .container-fluid p {
     #footerStore .wrapper .information p:nth-of-type(1) {
         margin-bottom: 0;
     }
-    
+
     #footerStore .wrapper .logo-blues img {
         margin: 1rem auto;
     }
@@ -3935,10 +3995,10 @@ footer .container-fluid p {
         margin: 1rem auto;
     }
 
-    #footerStore .wrapper .information  {
+    #footerStore .wrapper .information {
         order: 2;
     }
-    
+
     #footerStore .wrapper .information p {
         text-align: center;
     }
@@ -3963,13 +4023,12 @@ footer .container-fluid p {
     }
 
     #footerStore .ftr .f-icon,
-    #footerStore .ftr p:nth-of-type(1){
+    #footerStore .ftr p:nth-of-type(1) {
         width: 100%;
     }
 
     #footerStore .ftr .f-icon {
         justify-content: center;
-
     }
 
     #footerStore .ftr p {
@@ -4074,9 +4133,6 @@ footer .container-fluid p {
     .h-merchan {
         padding: 9rem 2rem;
     }
-
-    
-
 }
 
 /* `sm` applies to x-small devices (portrait phones, less than 576px) */
@@ -4170,7 +4226,7 @@ footer .container-fluid p {
         text-align: center;
     }
 
-    .page-store .content .header a{
+    .page-store .content .header a {
         position: absolute;
         bottom: 0;
     }
@@ -4179,17 +4235,15 @@ footer .container-fluid p {
         place-items: center;
     }
 
-
     #products .content .header h2 {
         width: 100%;
         text-align: center;
         margin-bottom: 1rem;
     }
-    
+
     .page-store .content .header .input-group {
         width: 100%;
     }
-
 
     /* product-detail */
     .product-detail .row {
@@ -4204,15 +4258,13 @@ footer .container-fluid p {
     .alert-dismissible {
         padding-right: 0;
     }
-    
+
     .product-detail .content .alert-box {
         position: relative;
         top: 0;
         right: 0;
         padding: 1rem;
     }
-
-    
 
     /* page about */
 
@@ -4245,7 +4297,7 @@ footer .container-fluid p {
     #footerStore .wrapper .information p:nth-of-type(1) {
         margin-bottom: 0;
     }
-    
+
     #footerStore .wrapper .logo-blues img {
         margin: 1rem auto;
     }
@@ -4255,10 +4307,10 @@ footer .container-fluid p {
         margin: 1rem auto;
     }
 
-    #footerStore .wrapper .information  {
+    #footerStore .wrapper .information {
         order: 2;
     }
-    
+
     #footerStore .wrapper .information p {
         text-align: center;
     }
@@ -4283,17 +4335,15 @@ footer .container-fluid p {
     }
 
     #footerStore .ftr .f-icon,
-    #footerStore .ftr p:nth-of-type(1){
+    #footerStore .ftr p:nth-of-type(1) {
         width: 100%;
     }
 
     #footerStore .ftr .f-icon {
         justify-content: center;
-
     }
 
     #footerStore .ftr p {
         text-align: center;
     }
-        
 }
