@@ -135,7 +135,7 @@
                             </span>
                         @endif
                     </td>
-                    <td><strong>Rp {{ number_format($order->total_price, 0, ',', '.') }}</strong></td>
+                    <td><strong>Rp {{ number_format($order->total_price + , 0, ',', '.') }}</strong></td>
                 </tr>
 
             @empty

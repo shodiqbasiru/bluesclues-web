@@ -45,6 +45,10 @@
                 <div class="mx-auto mt-3 text-center">
                     <h5 class=" mb-4">Rp {{ number_format($merchandise->price, 0, ',', '.') }}</h5>
                 </div>
+
+                <div class="mx-auto mt-3 text-center">
+                    <h5 class=" mb-4">{{ $merchandise->weight }} g</h5>
+                </div>
                 <div class="mx-auto mt-3">
                     <h5 class=" mb-4">Description:</h5>
                 </div>
