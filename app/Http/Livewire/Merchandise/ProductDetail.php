@@ -62,6 +62,7 @@ class ProductDetail extends Component
 
         $quantity = $validatedData['quantity'];
         $total_price = $quantity * $this->product->price;
+        $total_weight = $quantity * $this->product->weight;
 
         $order = Order::where('user_id', Auth::user()->id)->where('status', 0)->first();
 
@@ -76,6 +77,7 @@ class ProductDetail extends Component
                 $orderDetail->update([
                     'quantity' => $orderDetail->quantity + $quantity,
                     'total_price' => $orderDetail->total_price + $total_price,
+                    'total_weight' => $orderDetail->total_weight + $total_weight,
                 ]);
             } else {
                 // Create a new orderDetail entry
@@ -84,18 +86,21 @@ class ProductDetail extends Component
                     'merchandise_id' => $this->product->id,
                     'quantity' => $quantity,
                     'total_price' => $total_price,
+                    'total_weight' => $total_weight,
                 ]);
             }
 
             // Update the total price of the order
             $order->update([
                 'total_price' => $order->total_price + $total_price,
+                'total_weight' => $order->total_weight + $total_weight,
             ]);
         } else {
             // Create a new order
             $order = Order::create([
                 'user_id' => Auth::user()->id,
                 'total_price' => $total_price,
+                'total_weight' => $total_weight,
                 'status' => 0,
             ]);
             $order->order_number = 'BLS-' . $order->id;
@@ -107,6 +112,7 @@ class ProductDetail extends Component
                 'merchandise_id' => $this->product->id,
                 'quantity' => $quantity,
                 'total_price' => $total_price,
+                'total_weight' => $total_weight,
             ]);
         }
         $this->quantity = 1;

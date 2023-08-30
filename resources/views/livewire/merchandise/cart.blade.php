@@ -83,8 +83,9 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">Shipping fee</td>
-                                    <td align="right">-</td>
+                                    <td colspan="3">Weight</td>
+                                    <td align="right">~{{ $displayed_weight }} Kg</span></td>
+                                    <td></td>
                                 </tr>
                                 <tr class="total-price">
                                     <td colspan="3">Total</td>
@@ -103,8 +104,6 @@
                             </tr>
                         </tbody>
                     </table>
-
-
                 </div>
             </div>
         @endforeach

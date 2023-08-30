@@ -24,19 +24,22 @@ class DatabaseSeeder extends Seeder
          */
         public function run()
         {
-                User::factory(1)->create();
-                // News::factory(54)->create();
-                // Song::factory(31)->create();
-                Admin::factory(1)->create();
-                MerchCategory::factory(3)->create();
-                // Merchandise::factory(100)->create();
-                Event::factory(31)->create();
-                Message::factory(41)->create();
-                ShowRequest::factory(50)->create();
+                // User::factory(1)->create();
+                // // News::factory(54)->create();
+                // // Song::factory(31)->create();
+                // Admin::factory(1)->create();
+                // MerchCategory::factory(3)->create();
+                // // Merchandise::factory(100)->create();
+                // Event::factory(31)->create();
+                // Message::factory(41)->create();
+                // ShowRequest::factory(50)->create();
 
-                // \App\Models\User::factory()->create([
-                //     'name' => 'Test User',
-                //     'email' => 'test@example.com',
-                // ]);
+                // // \App\Models\User::factory()->create([
+                // //     'name' => 'Test User',
+                // //     'email' => 'test@example.com',
+                // // ]);
+
+                $this->call(CouriersTableSeeder::class);
+                $this->call(LocationsTableSeeder::class);
         }
 }

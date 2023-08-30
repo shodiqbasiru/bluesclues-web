@@ -49,6 +49,17 @@
                 @endif
 
             </div>
+
+            <div class="form-group my-4">
+                <label for="weight">Weight (g)</label>
+                <input type="text" name="weight" id="weight"
+                    class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }} mt-2" value="{{ old('weight') }}">
+                @if ($errors->has('weight'))
+                    <span class="invalid-feedback">{{ $errors->first('weight') }}</span>
+                @endif
+
+            </div>
+
             <div class=" mb-3">
                 <label for="image" class="form-label">Upload Image</label>
                 <img class="img-preview img-fluid mb-3 col-sm-5">

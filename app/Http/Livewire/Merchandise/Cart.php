@@ -11,6 +11,7 @@ class Cart extends Component
 {
     // public $order;
     public $order, $quantity = [];
+    public $total_weight, $displayed_weight;
 
     protected $listeners = ['updatedQuantity'];
 
@@ -46,11 +47,15 @@ class Cart extends Component
 
             $order = $orderDetail->order;
             $merchandisePrice = $orderDetail->merchandise->price;
+            $merchandiseWeight = $orderDetail->merchandise->weight;
 
             // Update the order detail and order in memory
             $orderDetail->quantity++;
             $orderDetail->total_price += $merchandisePrice;
+            $orderDetail->total_weight += $merchandiseWeight;
+
             $order->total_price += $merchandisePrice;
+            $order->total_weight += $merchandiseWeight;
 
             // Save the changes in a single update query
             $orderDetail->save();
@@ -68,11 +73,15 @@ class Cart extends Component
         if ($orderDetail->quantity > 1) {
             $order = $orderDetail->order;
             $merchandisePrice = $orderDetail->merchandise->price;
+            $merchandiseWeight = $orderDetail->merchandise->weight;
 
             // Update the order detail and order in memory
             $orderDetail->quantity--;
             $orderDetail->total_price -= $merchandisePrice;
+            $orderDetail->total_weight -= $merchandiseWeight;
+
             $order->total_price -= $merchandisePrice;
+            $order->total_weight -= $merchandiseWeight;
 
             // Save the changes in a single update query
             $orderDetail->save();
@@ -96,6 +105,7 @@ class Cart extends Component
                 $order->delete();
             } else {
                 $order->total_price =  $order->total_price - $orderDetail->total_price;
+                $order->total_weight =  $order->total_weight - $orderDetail->total_weight;
                 $order->save();
             }
 
@@ -127,7 +137,26 @@ class Cart extends Component
             $orderDetails = [];
         }
         // dd($orderDetails);
+        //modify displayed weight
+        $order = Order::where('user_id', Auth::user()->id)
+            ->where('status', 0)
+            ->first();
 
+        if ($order) {
+            $this->total_weight = $order->total_weight;
+            $remainder = $this->total_weight % 1000;
+            $quotient = intval($this->total_weight / 1000);
+
+            if ($remainder > 300) {
+                $this->displayed_weight = $quotient + 1;
+            } else {
+                if ($quotient == 0) {
+                    $this->displayed_weight = 1;
+                } else {
+                    $this->displayed_weight = $quotient;
+                }
+            }
+        }
         return view('livewire.merchandise.cart', [
             'title' => 'Cart Page',
             'order' => $this->order,
