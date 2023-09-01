@@ -11,8 +11,8 @@
     </div>
     <div class="row">
         <div class="col-lg-6 header">
-            <p>Lakukan pembayaran dari rekening bank BCA ke rekening berikut. dengan total <br>
-                pembayaran <strong> Rp {{ number_format($order->total_price + $order->shipping_fee, 0, ',', '.')
+            <p>Make a payment from your BCA bank account to the following account, with a total payment of: <strong> Rp
+                    {{ number_format($order->total_price + $order->shipping_fee, 0, ',', '.')
                     }}</strong>
             </p>
             <img src="{{ url('/assets/img/icons/bca.png') }}" alt="">

@@ -45,7 +45,7 @@ class ProductDetail extends Component
         }
 
         if (Auth::guest()) {
-            
+
             // Store the intended URL in the session
             session(['url.intended' => url()->previous()]);
             return redirect()->route('login');
@@ -66,10 +66,17 @@ class ProductDetail extends Component
 
         $order = Order::where('user_id', Auth::user()->id)->where('status', 0)->first();
 
+
         // Check if order exists
         if ($order) {
+
+            //check if items in cart is more than 10
             $orderDetail = $order->orderDetails()->where('merchandise_id', $this->product->id)->first();
             if ($orderDetail) {
+                if (!$this->checkStockAvailability($orderDetail->quantity + $quantity)) {
+                    return redirect()->back()->with('error', 'Oops! We don\'t have enough in stock for your request. Choose a lower quantity and try again.');
+                }
+
                 if ($orderDetail->quantity + $quantity > 10) {
                     return redirect()->back()->with('error', 'The product could not be added, the maximum number of product is 10.');
                 }
@@ -80,6 +87,14 @@ class ProductDetail extends Component
                     'total_weight' => $orderDetail->total_weight + $total_weight,
                 ]);
             } else {
+
+                if (!$this->checkStockAvailability($quantity)) {
+                    return redirect()->back()->with('error', 'Oops! We don\'t have enough in stock for your request. Choose a lower quantity and try again.');
+                }
+                if ($order->orderDetails()->count() >= 5) {
+                    return redirect()->back()->with('error', 'Your cart is full.');
+                }
+
                 // Create a new orderDetail entry
                 OrderDetail::create([
                     'order_id' => $order->id,
@@ -96,6 +111,12 @@ class ProductDetail extends Component
                 'total_weight' => $order->total_weight + $total_weight,
             ]);
         } else {
+
+            // Check if the quantity is not exceeding the product stock
+            if (!$this->checkStockAvailability($quantity)) {
+                return redirect()->back()->with('error', 'Oops! We don\'t have enough in stock for your request. Choose a lower quantity and try again.');
+            }
+
             // Create a new order
             $order = Order::create([
                 'user_id' => Auth::user()->id,
@@ -105,7 +126,6 @@ class ProductDetail extends Component
             ]);
             $order->order_number = 'BLS-' . $order->id;
             $order->save();
-
             // Create a new orderDetail entry
             OrderDetail::create([
                 'order_id' => $order->id,
@@ -118,6 +138,16 @@ class ProductDetail extends Component
         $this->quantity = 1;
         $this->emit('insertToCart');
         return redirect()->back()->with('success', 'Product added to cart');
+    }
+
+    protected function checkStockAvailability($productQuantity)
+    {
+
+        if ($productQuantity > $this->product->stock) {
+            return false; // Product not available, return false immediately
+        }
+
+        return true; // All products are available
     }
 
     public function incrementQuantity()

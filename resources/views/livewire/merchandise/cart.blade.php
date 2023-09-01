@@ -10,6 +10,15 @@
             </nav>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            @if (session()->has('message'))
+            <div class="alert alert-danger">
+                {{ session('message') }}
+            </div>
+            @endif
+        </div>
+    </div>
     @if (!$order->isEmpty())
         @foreach ($order as $cart)
             <div class="row">
@@ -19,7 +28,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
-                                <th scope="col">Image</th>
+                                <th scope="col"></th>
                                 <th scope="col">Product</th>
                                 <th scope="col">Quantity</th>
                                 <th scope="col">price</th>
@@ -31,10 +40,19 @@
                             @foreach ($order_details as $order_detail)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td class="image"><img src="{{ asset('storage/' . $order_detail->merchandise->image) }}"
+                                    <td class="image">
+                                        <a class="text-decoration-none"
+                                        href="{{ route('product.detail', $order_detail->merchandise->slug) }}">
+                                        <img src="{{ asset('storage/' . $order_detail->merchandise->image) }}"
                                             alt="Product Image">
+                                        </a>
                                     </td>
-                                    <td>{{ $order_detail->merchandise->name }}</td>
+                                    <td>{{ $order_detail->merchandise->name }}
+                                    @if ($order_detail->merchandise->stock < 10)
+                                        <br>
+                                        <small class="text-danger">In stock: {{ $order_detail->merchandise->stock }}</small>
+                                    @endif
+                                    </td>
                                     <td>
                                         <div class="input-group">
                                             <span class="input-group-btn">

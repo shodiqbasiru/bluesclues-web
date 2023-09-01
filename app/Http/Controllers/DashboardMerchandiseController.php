@@ -93,7 +93,7 @@ class DashboardMerchandiseController extends Controller
             'image' => 'image|file|max:5120|required',
             'content' => 'required',
             'category_id' => 'required|exists:merch_categories,id',
-            'is_available' => 'required|boolean'
+            'stock' => ['required', 'numeric', 'min:0', 'max:9999999999'],
         ]);
 
 
@@ -104,7 +104,13 @@ class DashboardMerchandiseController extends Controller
         $merchandise->weight = $validatedData['weight'];
         $merchandise->description = $validatedData['content'];
         $merchandise->category_id = $validatedData['category_id'];
-        $merchandise->is_available = $validatedData['is_available'];
+        $merchandise->stock = $validatedData['stock'];
+
+        if ($validatedData['stock'] > 0) {
+            $merchandise->is_available = 1;
+        } else {
+            $merchandise->is_available = 0;
+        }
 
         $truncatedName = substr($validatedData['name'], 0, 50);
         $slug = Str::slug($truncatedName, '-') . '-' . uniqid();
@@ -174,7 +180,7 @@ class DashboardMerchandiseController extends Controller
             'image' => 'image|file|max:5120',
             'content' => 'required',
             'category_id' => 'required|exists:merch_categories,id',
-            'is_available' => 'required|boolean'
+            'stock' => ['required', 'numeric', 'min:0', 'max:9999999999'],
         ]);
 
 
@@ -187,7 +193,13 @@ class DashboardMerchandiseController extends Controller
         $merchandise->weight = $validatedData['weight'];
         $merchandise->description = $validatedData['content'];
         $merchandise->category_id = $validatedData['category_id'];
-        $merchandise->is_available = $validatedData['is_available'];
+        $merchandise->stock = $validatedData['stock'];
+
+        if ($validatedData['stock'] > 0) {
+            $merchandise->is_available = 1;
+        } else {
+            $merchandise->is_available = 0;
+        }
 
         $truncatedName = substr($validatedData['name'], 0, 50);
         $slug = Str::slug($truncatedName, '-') . '-' . uniqid();
