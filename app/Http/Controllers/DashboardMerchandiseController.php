@@ -34,7 +34,7 @@ class DashboardMerchandiseController extends Controller
         if (!empty($searchQuery)) {
             $merchandise->where(function ($query) use ($searchQuery) {
                 $query->where('name', 'like', "%$searchQuery%")
-                ->orWhere('price', 'like', "%$searchQuery%");
+                    ->orWhere('price', 'like', "%$searchQuery%");
             });
         }
         if (!empty($category)) {
@@ -58,7 +58,7 @@ class DashboardMerchandiseController extends Controller
         ]);
     }
 
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -94,8 +94,6 @@ class DashboardMerchandiseController extends Controller
             'category_id' => 'required|exists:merch_categories,id',
             'is_available' => 'required|boolean'
         ]);
-
-
 
 
         // create a new news merhcandise entry
@@ -176,7 +174,7 @@ class DashboardMerchandiseController extends Controller
             'is_available' => 'required|boolean'
         ]);
 
-        
+
 
 
         // update the merhcandise entry
