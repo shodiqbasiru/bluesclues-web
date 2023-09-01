@@ -49,6 +49,7 @@ class Checkout extends Component
 
     public function mount()
     {
+
         if (!Auth::user()) {
             return redirect()->route('login');
         } else {
@@ -56,6 +57,13 @@ class Checkout extends Component
                 ->where('user_id', Auth::user()->id)
                 ->where('status', 0)
                 ->get();
+
+            // check if all products are available
+
+            $order = $this->order->first();
+            if (!$this->checkStockAvailability($order)) {
+                return redirect()->route('merchandise.cart')->with('message', 'Cart items exceed stock limits. Please update your cart.');
+            }
         }
 
         $this->user = User::where('id', Auth::user()->id)->first();
@@ -74,7 +82,7 @@ class Checkout extends Component
         $this->address = Auth::user()->address;
         $this->postal_code = Auth::user()->postal_code;
 
-        $order = Order::where('user_id', Auth::user()->id)->where('status', 0)->first();
+        $order = $this->order->first();
 
         if (!empty($order)) {
 
@@ -82,9 +90,8 @@ class Checkout extends Component
             if ($this->user->province_id) {
                 $this->province_dest = $this->user->province_id;
                 $this->cities = City::where('province_id', $this->user->province_id)->pluck('title', 'city_id')->toArray();
-                
             }
-    
+
             if ($this->user->city_id) {
                 $this->city_dest = $this->user->city_id;
                 $this->updatedCityDest($this->city_dest);
@@ -130,12 +137,12 @@ class Checkout extends Component
 
     public function updatedCityDest($value)
     {
-        $order = Order::where('user_id', Auth::user()->id)->where('status', 0)->first();
+        $order = $this->order->first();
 
         if (!empty($order)) {
             $this->total_price = $order->total_price;
             $this->total_weight = $order->total_weight;
-        } 
+        }
 
         if ($value) {
             // $this->isLoading = true;
@@ -207,7 +214,7 @@ class Checkout extends Component
         } else {
 
             return redirect()->back()->with('message', 'Shipping is not available for your address.');
-            
+
             // $this->shippingAvailable = false;
             // $this->cost = null;
             // // $this->city_dest = null;
@@ -223,27 +230,39 @@ class Checkout extends Component
         $user->name = $this->name;
         $user->phone_number = $this->phone_number;
         $user->address = $this->address;
-        $user->province_id = $this->province_dest; 
-        $user->city_id = $this->city_dest;   
+        $user->province_id = $this->province_dest;
+        $user->city_id = $this->city_dest;
         $user->postal_code = $this->postal_code;
         $user->update();
 
 
         // update order status
-        $order = Order::where('user_id', Auth::user()->id)->where('status', 0)->first();
+        $order = $this->order->first();
         $order->notes = $this->notes;
         $order->name = $this->name;
         $order->phone_number = $this->phone_number;
         $order->address = $this->address;
         $order->shipping_fee = $shippingFee;
-        $order->province_id = $this->province_dest; 
+        $order->province_id = $this->province_dest;
         $order->city_id = $this->city_dest;
         $order->postal_code = $this->postal_code;
         $order->status = 1;
 
+
+
+        // Check if all products in the order have available stock
+        if (!$this->checkStockAvailability($order)) {
+            return redirect()->route('merchandise.cart')->with('message', 'Cart items exceed stock limits. Please update your cart.');
+        }
+
+        // Decrease stock for products in the order
+        $this->decreaseStock($order);
+
+
         $order_to_email = Order::with('orderDetails.merchandise')
             ->where('id', $order->id)
             ->get();
+
 
         $province_to_mail = $order->province->title;
         $city_to_mail = $order->city->title;
@@ -268,6 +287,52 @@ class Checkout extends Component
 
         return redirect()->route('proof-upload', ['orderId' => $order->id]);
     }
+
+    protected function checkStockAvailability($order)
+    {
+        foreach ($order->orderDetails as $orderDetail) {
+            $merchandise = $orderDetail->merchandise;
+
+            if ($orderDetail->quantity > $merchandise->stock) {
+                return false; // Product not available, return false immediately
+            }
+        }
+
+        return true; // All products are available
+    }
+
+    protected function decreaseStock($order)
+    {
+        // Array to store product data for bulk update
+        $productData = [];
+
+        foreach ($order->orderDetails as $orderDetail) {
+            $merchandise = $orderDetail->merchandise;
+            $newStock = $merchandise->stock - $orderDetail->quantity;
+
+            // Prepare data for bulk update
+            $productData[] = [
+                'id' => $merchandise->id,
+                'stock' => max(0, $newStock),
+                'is_available' => $newStock > 0 ? 1 : 0,
+            ];
+        }
+
+        // Extract the IDs to update
+        $idsToUpdate = collect($productData)->pluck('id');
+
+        // Use a single bulk update query
+        \DB::table('merchandises')
+            ->whereIn('id', $idsToUpdate)
+            ->update(['stock' => \DB::raw('CASE id ' . implode(' ', array_map(function ($data) {
+                return 'WHEN ' . $data['id'] . ' THEN ' . $data['stock'];
+            }, $productData)) . ' END'), 'is_available' => \DB::raw('CASE id ' . implode(' ', array_map(function ($data) {
+                return 'WHEN ' . $data['id'] . ' THEN ' . $data['is_available'];
+            }, $productData)) . ' END'),
+            'updated_at' => now(),
+        ]);
+    }
+
 
     public function getCities($id)
     {

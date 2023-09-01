@@ -157,17 +157,17 @@
         <table class="table table-sm">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Date of Transaction</th>
-                    <th scope="col">Customer Name</th>
-                    <th scope="col">Order Number</th>
-                    <th scope="col">Orders</th>
+                    <th class="align-middle text-center" scope="col">#</th>
+                    <th class="align-middle text-center" scope="col">Date of Transaction</th>
+                    <th class="align-middle text-center" scope="col">Customer Name</th>
+                    <th class="align-middle text-center" scope="col">Order Number</th>
+                    <th class="align-middle text-center" scope="col">Orders</th>
                     @if ($status == null || $status == 'cancelled')
-                        <th scope="col">Status</th>
+                        <th class="align-middle text-center" scope="col">Status</th>
                     @else
-                        <th scope="col">Proof of Payment</th>
+                        <th class="align-middle text-center" scope="col">Proof of Payment</th>
                     @endif
-                    <th colspan="2" scope="col">Total Price</th>
+                    <th class="align-middle text-center" colspan="2" scope="col">Total Price</th>
                 </tr>
             </thead>
             <tbody>
@@ -193,7 +193,8 @@
                         </td>
                         <td class="align-middle">{{ $order->name }}</td>
                         <td class="align-middle">{{ $order->order_number }}</td>
-                        <td class="text-left">
+                        <td class="text-left" style="max-width: 300px;">
+                            <div class="my-3">
                             @foreach ($order->orderDetails->take(3) as $orderDetail)
                                 <div class="d-flex align-items-center">
                                     <img src="{{ asset('storage/' . $orderDetail->merchandise->image) }}"
@@ -203,32 +204,39 @@
                                 </div>
                                 <br>
                             @endforeach
+
+                            @if ($order->orderDetails->count() > 3)
+                                <div class="d-flex align-items-center">
+                                    <span class="mx-2">and {{ $order->orderDetails->count() - 3 }} more...</span>
+                                </div>
+                            @endif
+                            </div>
                         </td>
                         @if ($status == null)
                             <td class="align-middle">
                                 <div class="d-flex flex-column align-items-center justify-content-center">
                                     @if ($order->status == 1)
-                                        <span class="badge badge-warning">
+                                        <span class="badge bg-warning">
                                             Waiting for Payment
                                         </span>
                                     @elseif($order->status == 2)
-                                        <span class="badge badge-info">
+                                        <span class="badge bg-info">
                                             Checking Payment
                                         </span>
                                     @elseif($order->status == 3)
-                                        <span class="badge badge-success">
+                                        <span class="badge bg-success">
                                             Payment Success
                                         </span>
                                     @elseif($order->status == 4)
-                                        <span class="badge badge-danger">
+                                        <span class="badge bg-danger">
                                             Cancelled
                                         </span>
                                     @elseif($order->status == 5)
-                                        <span class="badge badge-primary">
+                                        <span class="badge bg-primary">
                                             Shipping
                                         </span>
                                     @elseif($order->status == 6)
-                                        <span class="badge badge-primary">
+                                        <span class="badge bg-primary">
                                             Product Received
                                         </span>
                                     @endif

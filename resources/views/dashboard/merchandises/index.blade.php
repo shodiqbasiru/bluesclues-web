@@ -64,6 +64,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Category</th>
                 <th scope="col">Price</th>
+                <th scope="col">Stock</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -74,6 +75,7 @@
                 <td style="max-width: 550px;">{{ $item->name }}</td>
                 <td>{{ $item->merchCategory->name }}</td>
                 <td>Rp {{ number_format($item->price, 0, ',', '.') }}</td>
+                <td>{{ $item->stock }}</td>
                 <td>
                     <a href="/admin/dashboard/merchandise/{{ $item->slug }}" class="btn-action-dashboard btn-sm me-2"><i
                             class="fas fa-eye"></i></a>

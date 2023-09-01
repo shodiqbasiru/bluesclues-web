@@ -47,7 +47,7 @@
                             <th scope="col" width="10%">Date</th>
                             <th scope="col" width="10%">Id Order</th>
                             <th scope="col" width="20%">Orders</th>
-                            <th scope="col" width="20%"><strong>Total Price</strong></th>
+                            <th scope="col" width="20%"><strong>Total Price + shipping</strong></th>
                             <th scope="col" width="20%">Status</th>
                             <th scope="col" width="15%">proof of payment</th>
                         </tr>
@@ -63,7 +63,7 @@
                                         <div class="products">
                                             {{-- <img src="{{ asset('storage/' . $orderDetail->merchandise->image) }}"
                                                 class="img-fluid mr-2" width="50"> --}}
-                                            <img src="{{ url('./assets/img/bc-1.png') }}" alt="Product Image">
+                                            <img src="{{ asset('storage/' . $orderDetail->merchandise->image) }}" alt="Product Image">
                                             <div class="text">
                                                 <p>{{ $orderDetail->merchandise->name }}
                                                 </p>
@@ -73,7 +73,7 @@
                                         <br>
                                     @endforeach
                                 </td>
-                                <td><strong>Rp {{ number_format($order->total_price, 0, ',', '.') }}</strong></td>
+                                <td><strong>Rp {{ number_format($order->total_price + $order->shipping_fee , 0, ',', '.') }}</strong></td>
                                 <td>
                                     @if ($order->status == 1)
                                         <p>

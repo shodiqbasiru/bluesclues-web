@@ -1,38 +1,38 @@
 <div class="container product-detail" id="productDetail">
     <div class="row">
         @if (session('error'))
-            <div class="alert alert-error alert-dismissible fade show" role="alert" id="errorAlert">
-                <p>{{ session('error') }}</p>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        <div class="alert alert-error alert-dismissible fade show" role="alert" id="errorAlert">
+            <p>{{ session('error') }}</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         @endif
         <div class="detail-card">
             <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
         </div>
         <div class="content">
             @if (session('success'))
-                <div class="alert alert-box alert-dismissible" id="successAlert">
-                    <div class="content">
-                        <div class="alert-information">
-                            <h3>{{ session('success') }}</h3>
-                        </div>
-                        <div class="body">
-                            <div class="product-added">
-                                <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top"
-                                    alt="{{ $product->name }}">
-                                <div>
-                                    <p class="m-0">{{ $product->name }}</p>
-                                    {{-- <p class="m-0">Qty : {{ $product->quantity }}</p> --}}
-                                </div>
+            <div class="alert alert-box alert-dismissible" id="successAlert">
+                <div class="content">
+                    <div class="alert-information">
+                        <h3>{{ session('success') }}</h3>
+                    </div>
+                    <div class="body">
+                        <div class="product-added">
+                            <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top"
+                                alt="{{ $product->name }}">
+                            <div>
+                                <p class="m-0">{{ $product->name }}</p>
+                                {{-- <p class="m-0">Qty : {{ $product->quantity }}</p> --}}
                             </div>
-
-                            <a href="{{ route('merchandise.cart') }}" class="btn-alert cart">View My Cart</a>
-                            <a href="{{ route('merchandise.checkout') }}" class="btn-alert checkout">Checkout</a>
-                            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">continue
-                                shopping</button>
                         </div>
+
+                        <a href="{{ route('merchandise.cart') }}" class="btn-alert cart">View My Cart</a>
+                        <a href="{{ route('merchandise.checkout') }}" class="btn-alert checkout">Checkout</a>
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">continue
+                            shopping</button>
                     </div>
                 </div>
+            </div>
             @endif
 
             <div class="header">
@@ -40,34 +40,37 @@
                 <h3 class="title">{{ $product->name }}</h3>
                 <h3 class="price">rp {{ number_format($product->price, 0, ',', '.') }}
                     @if ($product->is_available == 1)
-                        <span class="badge text-bg-success">Available</span>
+                    <span class="badge text-bg-success">Available</span>
                     @else
-                        <span class="badge text-bg-danger">Sold Out</span>
+                    <span class="badge text-bg-danger">Sold Out</span>
                     @endif
-
                 </h3>
+                @if (($product->stock > 0) && ($product->stock <= 10))
+                <h4>
+                    <small class="text-danger">Almost Sold Out: {{ $product->stock }} left</small>
+                </h4>
+                @endif
             </div>
             <form>
                 @if ($product->is_available == 1)
-                    <div class="quantity">
-                        <label for="quantity">Qty:</label>
-                        <div class="quantity-control">
-                            <button class="decrement" wire:click.prevent="decrementQuantity">-</button>
-                            <input type="number" id="quantity" min="1" max="10"
-                                wire:model.lazy="quantity">
-                            <button class="increment" wire:click.prevent="incrementQuantity">+</button>
+                <div class="quantity">
+                    <label for="quantity">Qty:</label>
+                    <div class="quantity-control">
+                        <button class="decrement" wire:click.prevent="decrementQuantity">-</button>
+                        <input type="number" id="quantity" min="1" max="10" wire:model.lazy="quantity">
+                        <button class="increment" wire:click.prevent="incrementQuantity">+</button>
 
-                        </div>
                     </div>
-                    <button type="button" class="btn-merchan" wire:click="addToCart">Add to cart</button>
+                </div>
+                <button type="button" class="btn-merchan" wire:click="addToCart">Add to cart</button>
 
-                    <div class="description">
-                        <p>{!! $product->description !!}</p>
-                    </div>
+                <div class="description">
+                    <p>{!! $product->description !!}</p>
+                </div>
                 @else
-                    <div class="description">
-                        <p>{!! $product->description !!}</p>
-                    </div>
+                <div class="description">
+                    <p>{!! $product->description !!}</p>
+                </div>
                 @endif
 
             </form>
@@ -78,9 +81,9 @@
                 <p>Share :</p>
 
                 @foreach ($shareLinks as $platform => $link)
-                    <a href="{{ $link }}" target="_blank" target="_blank"
-                        onclick="openSmallWindow(event, '{{ $link }}')"><img
-                            src="{{ url('./assets/img/icons/icon-' . $platform . '.png') }}" alt=""></a>
+                <a href="{{ $link }}" target="_blank" target="_blank"
+                    onclick="openSmallWindow(event, '{{ $link }}')"><img
+                        src="{{ url('./assets/img/icons/icon-' . $platform . '.png') }}" alt=""></a>
                 @endforeach
             </div>
 
@@ -93,17 +96,16 @@
         <h1 class="text-center my-4">Product Recommendations</h1>
         <div class="content">
             @foreach ($products as $item)
-                <a href="{{ route('product.detail', $item->slug) }}">
-                    <div class="card">
-                        <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top"
-                            alt="{{ $item->name }}">
-                        <button class="btn">Detail</button>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $item->name }}</h5>
-                            <p class="card-price">rp {{ number_format($item->price, 0, ',', '.') }}</p>
-                        </div>
+            <a href="{{ route('product.detail', $item->slug) }}">
+                <div class="card">
+                    <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top" alt="{{ $item->name }}">
+                    <button class="btn">Detail</button>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $item->name }}</h5>
+                        <p class="card-price">rp {{ number_format($item->price, 0, ',', '.') }}</p>
                     </div>
-                </a>
+                </div>
+            </a>
             @endforeach
         </div>
     </div>

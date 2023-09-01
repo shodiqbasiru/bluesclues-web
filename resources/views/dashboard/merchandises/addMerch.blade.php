@@ -79,15 +79,13 @@
                 @endif
             </div>
             <div class="form-group my-4">
-                <label for="is_available">Is Available</label>
-                <select name="is_available" id="is_available"
-                    class="form-control{{ $errors->has('is_available') ? ' is-invalid' : '' }}">
-                    <option value="1" {{ old('is_available') == 1 ? 'selected' : '' }}>Yes</option>
-                    <option value="0" {{ old('is_available') == 0 ? 'selected' : '' }}>No</option>
-                </select>
-                @if ($errors->has('is_available'))
-                    <span class="invalid-feedback">{{ $errors->first('is_available') }}</span>
+                <label for="stock">Stock (pcs)</label>
+                <input type="text" name="stock" id="stock"
+                    class="form-control{{ $errors->has('stock') ? ' is-invalid' : '' }} mt-2" value="{{ old('stock') }}">
+                @if ($errors->has('stock'))
+                    <span class="invalid-feedback">{{ $errors->first('stock') }}</span>
                 @endif
+
             </div>
             <button type="submit" class="btn-primary-dashboard">Add product</button>
         </form>

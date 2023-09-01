@@ -39,23 +39,49 @@
                     <h2 class=" mb-4">{{ $merchandise->name }}</h2>
                 </div>
 
-                <div class="mx-auto mt-3 text-center">
-                    <h3 class=" mb-4">Category: {{ $merchandise->merchCategory->name }}</h3>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <h3><span class="badge bg-primary badge-lg">
+                                    <strong>Category:</strong> {{ $merchandise->merchCategory->name }}
+                                </span>
+                                </h3>
+                            </div>
+                            <div class="text-center">
+                                <h3><span class="badge bg-success badge-lg">
+                                    <strong>Price:</strong> Rp {{ number_format($merchandise->price, 0, ',', '.') }}
+                                </span>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <h3><span class="badge bg-info badge-lg">
+                                    <strong>Weight:</strong> {{ $merchandise->weight }} g
+                                </span>
+                                </h3>
+                            </div>
+                            <div class="text-center">
+                                <h3><span class="badge bg-warning badge-lg">
+                                    <strong>Stock:</strong> {{ $merchandise->stock }} pcs
+                                </span>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+        
+                
+                <div class="card my-5">
+                    <div class="card-body">
+                        <h3 class="card-title mb-4">Descriptions:</h3>
+                        <article class="mb-5">
+                            {!! $merchandise->description !!}
+                        </article>
+                    </div>
                 </div>
-                <div class="mx-auto mt-3 text-center">
-                    <h5 class=" mb-4">Rp {{ number_format($merchandise->price, 0, ',', '.') }}</h5>
-                </div>
-
-                <div class="mx-auto mt-3 text-center">
-                    <h5 class=" mb-4">{{ $merchandise->weight }} g</h5>
-                </div>
-                <div class="mx-auto mt-3">
-                    <h5 class=" mb-4">Description:</h5>
-                </div>
-
-                <article class="mb-5">
-                    {!! $merchandise->description !!}
-                </article>
+                
             </div>
         </div>
     </div>

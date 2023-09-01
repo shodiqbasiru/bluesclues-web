@@ -93,17 +93,14 @@
             @endif
         </div>
         <div class="form-group my-4">
-            <label for="is_available">Is Available</label>
-            <select name="is_available" id="is_available"
-                class="form-control{{ $errors->has('is_available') ? ' is-invalid' : '' }}">
-                <option value="1" {{ old('is_available', $merchandise->is_available) == 1 ? 'selected' : '' }}>Yes
-                </option>
-                <option value="0" {{ old('is_available', $merchandise->is_available) == 0 ? 'selected' : '' }}>No
-                </option>
-            </select>
-            @if ($errors->has('is_available'))
-            <span class="invalid-feedback">{{ $errors->first('is_available') }}</span>
+            <label for="stock">Stock (pcs)</label>
+            <input type="text" name="stock" id="stock"
+                class="form-control{{ $errors->has('stock') ? ' is-invalid' : '' }} mt-2"
+                value="{{ old('stock', $merchandise->stock) }}">
+            @if ($errors->has('stock'))
+            <span class="invalid-feedback">{{ $errors->first('stock') }}</span>
             @endif
+
         </div>
 
         <button type="submit" class="btn btn-outline-light">Save</button>
@@ -123,5 +120,24 @@
             imgPreview.src = oFREvent.target.result;
         }
     }
+    const priceInput = document.getElementById('price');
+        const priceOutput = document.getElementById('priceidr');
+
+        // Add an event listener to the input field to format the value when the user types
+        priceInput.addEventListener('input', () => {
+            // Remove all non-numeric characters from the value
+            let priceValue = priceInput.value.replace(/\D/g, '');
+
+            // Format the value to IDR currency with thousand separators and decimal places
+            let priceFormatted = (Number(priceValue)).toLocaleString('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            });
+
+            // Set the formatted value back to the input field
+            priceOutput.textContent = priceFormatted;
+        });
 </script>
 @endsection

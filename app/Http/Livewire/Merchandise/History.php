@@ -61,17 +61,51 @@ class History extends Component
 
     public function cancelOrder($orderId)
     {
-        $order = Order::find($orderId);
+        $order = Order::with('orderDetails.merchandise')->find($orderId);
 
         if ($order) {
             $order->status = 4; // Set status to "canceled"
             $order->save();
+
+            $this->increaseStockAfterCancel($order); // Increase stock after canceling order
             session()->flash('message', 'Order canceled successfully.');
 
             $this->emit('orderCanceled'); // Emit the "orderCanceled" event
         } else {
             session()->flash('message', 'Order not found.');
         }
+    }
+
+    protected function increaseStockAfterCancel($order)
+    {
+        // Array to store product data for bulk update
+        $productData = [];
+
+        foreach ($order->orderDetails as $orderDetail) {
+            $merchandise = $orderDetail->merchandise;
+            $newStock = $merchandise->stock + $orderDetail->quantity;
+
+            // Prepare data for bulk update
+            $productData[] = [
+                'id' => $merchandise->id,
+                'stock' => max(0, $newStock),
+                'is_available' => $newStock > 0 ? 1 : 0,
+            ];
+        }
+
+        // Extract the IDs to update
+        $idsToUpdate = collect($productData)->pluck('id');
+
+        // Use a single bulk update query
+        \DB::table('merchandises')
+            ->whereIn('id', $idsToUpdate)
+            ->update(['stock' => \DB::raw('CASE id ' . implode(' ', array_map(function ($data) {
+                return 'WHEN ' . $data['id'] . ' THEN ' . $data['stock'];
+            }, $productData)) . ' END'), 'is_available' => \DB::raw('CASE id ' . implode(' ', array_map(function ($data) {
+                return 'WHEN ' . $data['id'] . ' THEN ' . $data['is_available'];
+            }, $productData)) . ' END'),
+            'updated_at' => now(),
+        ]);
     }
 
     public function orderCanceled()

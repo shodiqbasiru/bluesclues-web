@@ -1,21 +1,21 @@
 @extends('dashboard.layouts.main')
 @section('content')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Order Details</h1>
-</div>
-<a href="{{ url()->previous() }}" class="btn btn-transparent me-2 my-3">
-    <div class="d-flex justify-content-center align-items-center"><span data-feather="arrow-left" class="me-1"></span>
-        Back to Orders</div>
-</a>
 
-@if (session('success'))
-<div class="alert alert-success alert-dismissible fade show my-2" role="alert">
-    {{ session('success') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif
 
 <div id="showOrder">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Order Details</h1>
+    </div>
+    <a href="{{ route('order.index') }}" class="btn btn-transparent me-2 my-3">
+        <div class="d-flex justify-content-center align-items-center"><span data-feather="arrow-left" class="me-1"></span>
+            Back to Orders</div>
+    </a>
+    @if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show my-2" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
 
     <div class="card">
         <div class="card-body">
@@ -29,7 +29,7 @@
                 @elseif ($order->status == 4)
                 <span class="badge bg-danger">Cancelled</span>
                 @elseif ($order->status == 5)
-                <span class="badge bg-danger">Shipping</span>
+                <span class="badge bg-warning">Shipping</span>
                 @elseif ($order->status == 6)
                 <span class="badge bg-success">Product Received</span>
                 @endif
