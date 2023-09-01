@@ -14,11 +14,18 @@ class News extends Model
         'slug',
         'excerpt',
         'content',
+        'viewers',
         'published_at'
     ];
 
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function increaseViewers()
+    {
+        $this->viewers = $this->viewers + 1;
+        $this->save();
     }
 }

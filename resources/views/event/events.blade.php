@@ -45,17 +45,34 @@
                                     </p>
                                 </a>
                             </div>
-                            <div class="card-logo">
-                                <p>Share :</p>
-                                <div class="icons">
-                                    @foreach ($eventItem->shareLinks as $platform => $link)
-                                        <a href="{{ $link }}" target="_blank"
-                                            onclick="openSmallWindow(event, '{{ $link }}')"><img
-                                                src="{{ url('./assets/img/icons/icon-' . $platform . '.png') }}"
-                                                alt=""></a>
-                                    @endforeach
-
+                            <div class="information">
+                                <div class="htm">
+                                    <div>
+                                        @if ($eventItem->is_free == 0)
+                                            <p>Paid</p>
+                                        @else
+                                            <p>Free</p>
+                                        @endif
+                                    </div>
+                                    <div>
+                                        @if ($eventItem->more_information)
+                                            <a href="{{ $eventItem->more_information }}">More
+                                                Info</a>
+                                        @endif
+                                    </div>
                                 </div>
+                                {{-- <div class="card-logo">
+                                    <p>Share :</p>
+                                    <div class="icons">
+                                        @foreach ($eventItem->shareLinks as $platform => $link)
+                                            <a href="{{ $link }}" target="_blank"
+                                                onclick="openSmallWindow(event, '{{ $link }}')"><img
+                                                    src="{{ url('./assets/img/icons/icon-' . $platform . '.png') }}"
+                                                    alt=""></a>
+                                        @endforeach
+
+                                    </div>
+                                </div> --}}
 
                             </div>
 
