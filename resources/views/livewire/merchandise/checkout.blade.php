@@ -61,7 +61,7 @@
                         class="form-control @error('province_dest') is-invalid @enderror">
                         <option value="">-- Select Province --</option>
                         @foreach ($provinces as $province => $value)
-                        <option value="{{ $province }}" {{ $province_dest==$province ? 'selected' : '' }}>{{ $value }}
+                        <option value="{{ $province }}" {{ $province_dest==$province ? 'selected' : '' }}>{{ $value }} 
                         </option>
                         @endforeach
                     </select>
