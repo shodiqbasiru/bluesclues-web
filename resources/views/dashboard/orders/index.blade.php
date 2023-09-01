@@ -154,7 +154,7 @@
 
     <div class="table-responsive" id="orderDashboard">
 
-        <table class="table table-sm text-center">
+        <table class="table table-sm">
             <thead>
                 <tr>
                     <th scope="col">#</th>

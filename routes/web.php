@@ -80,7 +80,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/checkout/upload/{orderId}', ProofUpload::class)
         ->name('proof-upload');
     Route::get('/store/history', History::class)
-        ->name('history');;
+        ->name('history');
+
+    Route::get('/province/{id}/cities', [Checkout::class, 'getCities']);
 });
 // Route::post('/cart', [Cart::class, 'addToCart'])->middleware(['auth', 'verified']);
 

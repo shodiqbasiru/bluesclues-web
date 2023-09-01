@@ -89,6 +89,7 @@ class DashboardMerchandiseController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'price' => ['required', 'numeric', 'min:0', 'max:9999999999'],
+            'weight' => ['required', 'numeric', 'min:0', 'max:9999999999'],
             'image' => 'image|file|max:5120|required',
             'content' => 'required',
             'category_id' => 'required|exists:merch_categories,id',
@@ -100,6 +101,7 @@ class DashboardMerchandiseController extends Controller
         $merchandise = new Merchandise;
         $merchandise->name = $validatedData['name'];
         $merchandise->price = $validatedData['price'];
+        $merchandise->weight = $validatedData['weight'];
         $merchandise->description = $validatedData['content'];
         $merchandise->category_id = $validatedData['category_id'];
         $merchandise->is_available = $validatedData['is_available'];
@@ -168,6 +170,7 @@ class DashboardMerchandiseController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'price' => ['required', 'numeric', 'min:0', 'max:9999999999'],
+            'weight' => ['required', 'numeric', 'min:0', 'max:9999999999'],
             'image' => 'image|file|max:5120',
             'content' => 'required',
             'category_id' => 'required|exists:merch_categories,id',
@@ -181,6 +184,7 @@ class DashboardMerchandiseController extends Controller
         $merchandise = Merchandise::find($merchandise->id);
         $merchandise->name = $validatedData['name'];
         $merchandise->price = $validatedData['price'];
+        $merchandise->weight = $validatedData['weight'];
         $merchandise->description = $validatedData['content'];
         $merchandise->category_id = $validatedData['category_id'];
         $merchandise->is_available = $validatedData['is_available'];

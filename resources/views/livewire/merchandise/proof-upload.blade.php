@@ -12,7 +12,9 @@
     <div class="row">
         <div class="col-lg-6 header">
             <p>Lakukan pembayaran dari rekening bank BCA ke rekening berikut. dengan total <br>
-                pembayaran <strong> Rp {{ number_format($order->total_price, 0, ',', '.') }} </strong></p>
+                pembayaran <strong> Rp {{ number_format($order->total_price + $order->shipping_fee, 0, ',', '.')
+                    }}</strong>
+            </p>
             <img src="{{ url('/assets/img/icons/bca.png') }}" alt="">
         </div>
         {{-- <div class="col-lg-6 header">
@@ -39,16 +41,17 @@
                         <label for="proof">Upload Receipt Of Payment</label>
                         <div class="d-flex">
                             @if ($preview)
-                                <img src="{{ $preview }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                            <img src="{{ $preview }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
                             @endif
-                            <input id="proof" type="file"
-                                class="form-control @error('proof') is-invalid @enderror" wire:model="proof">
+                            <input id="proof" type="file" class="form-control @error('proof') is-invalid @enderror"
+                                wire:model="proof">
                         </div>
                     </div>
                     @if ($errors->has('proof'))
-                        <span class="error" role="alert">
-                            <strong>{{ $errors->getBag('default')->first('proof') ?? $messages['postal_code.required'] }}</strong>
-                        </span>
+                    <span class="error" role="alert">
+                        <strong>{{ $errors->getBag('default')->first('proof') ?? $messages['postal_code.required']
+                            }}</strong>
+                    </span>
                     @endif
 
 

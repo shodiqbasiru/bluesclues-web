@@ -25,7 +25,7 @@
 
         <div class="col">
             <h4>Billing details</h4>
-            <form wire:submit.prevent="checkout">
+            <form wire:submit.prevent="checkout" id="checkoutForm">
 
                 <div class="form-group">
                     <label for="name">Full Name<span>*</span></label>
@@ -54,6 +54,42 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="province_dest">Province<span>*</span></label>
+                    <select wire:model="province_dest"
+                        class="form-control  @error('province_dest') is-invalid @enderror">
+                        <option class="select-list" value="">-- Select Province --</option>
+                        @foreach ($provinces as $province => $value)
+                            <option class="select-list " value="{{ $province }}"
+                                {{ $province_dest == $province ? 'selected' : '' }}>
+                                {{ $value }}
+                                {{ $province }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('province_dest'))
+                        <span class="error" role="alert">
+                            <strong>{{ $errors->getBag('default')->first('province_dest') ?? $messages['province_dest.required'] }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="city_dest">City<span>*</span></label>
+                    <select wire:model="city_dest" class="form-control @error('city_dest') is-invalid @enderror">
+                        <option value="" class="select-list ">-- Select City --</option>
+                        @foreach ($cities as $city => $name)
+                            <option class="select-list" value="{{ $city }}"
+                                {{ $city_dest == $city ? 'selected' : '' }}>
+                                {{ $name }} {{ $city }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('city_dest'))
+                        <span class="error" role="alert">
+                            <strong>{{ $errors->getBag('default')->first('city_dest') ?? $messages['city_dest.required'] }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group">
                     <label for="address">Full Address<span>*</span></label>
                     <textarea wire:model="address" class="form-control @error('address') is-invalid @enderror"></textarea>
 
@@ -63,6 +99,8 @@
                         </span>
                     @endif
                 </div>
+
+
 
                 <div class="form-group">
                     <label for="postal_code">Postal Code<span>*</span></label>
@@ -100,7 +138,8 @@
                                 @foreach ($order_details as $index => $order_detail)
                                     @if ($index < 1)
                                         <div class="item-product">
-                                            <img src="{{ url('./assets/img/bc-1.png') }}" alt="Product Image">
+                                            <img src="{{ asset('storage/' . $order_detail->merchandise->image) }}"
+                                                alt="Product Image">
                                             <div class="item-name">
                                                 <p>{{ $order_detail->merchandise->name }}</p>
                                                 <p class="qty">Qty: {{ $order_detail->quantity }}</p>
@@ -122,7 +161,8 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="listProductsLabel">Detail Products
+                                                    <h1 class="modal-title fs-5" id="listProductsLabel">Detail
+                                                        Products
                                                     </h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
@@ -131,7 +171,8 @@
                                                     <table class="table">
                                                         <thead>
                                                             <tr>
-                                                                <th scope="col" width="20%" class="text-center">#
+                                                                <th scope="col" width="20%"
+                                                                    class="text-center">#
                                                                 </th>
                                                                 <th scope="col" width="80%">Name</th>
                                                                 <th scope="col" width="20%">qty</th>
@@ -141,7 +182,7 @@
                                                             @foreach ($order_details as $order_detail)
                                                                 <tr class="items">
                                                                     <th scope="row">
-                                                                        <img src="{{ url('./assets/img/bc-1.png') }}"
+                                                                        <img src="{{ asset('storage/' . $order_detail->merchandise->image) }}"
                                                                             alt="Product Image">
                                                                     </th>
                                                                     <td>
@@ -165,8 +206,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                         <div class="col-lg-5 col-12 pay">
@@ -175,23 +214,67 @@
 
                                 <tbody>
                                     <tr>
-                                        <td colspan="3">Subtotal</td>
+                                        <td colspan="3">Total Order Cost</td>
                                         <td align="right">Rp {{ number_format($order->total_price, 0, ',', '.') }}
                                     </tr>
+                                    @if ($courier)
+                                        <tr>
+                                            <td colspan="3">Courier</td>
+                                            <td align="right">{{ $courier }}: {{ $service }}</td>
+                                        </tr>
+                                    @endif
+                                    <tr>
                                     <tr>
                                         <td colspan="3">Shipping fee</td>
-                                        <td align="right">-</td>
-                                    </tr>
-                                    <tr class="total-price">
-                                        <td colspan="3">Total</td>
-                                        <td align="right">Rp {{ number_format($order->total_price, 0, ',', '.') }}
-                                        </td>
+                                        @if ($cost)
+                                            <td align="right">Rp {{ number_format($cost, 0, ',', '.') }}</td>
+                                        @else
+                                            <td align="right">-</td>
+                                        @endif
                                     </tr>
                                     <tr>
+                                        <td colspan="3">Total Weight</td>
+                                        <td align="right">~{{ $displayed_weight }}
+                                            Kg</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="total-price">
+                                        <td colspan="3">Total Cost (Order + Shipping)</td>
+                                        <td align="right">Rp
+                                            {{ number_format($order->total_price + $cost, 0, ',', '.') }}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
                                         <td class="button" colspan="4" align="right" style="border:none">
-                                            <button type="submit" class="btn-checkout" style="">
-                                                Pay now
-                                            </button>
+                                            @if ($errors->any())
+                                                <div class="alert alert-danger mt-2 text-center alert-dismissible fade show my-2"
+                                                    role="alert">
+                                                    Please correct the errors above before submitting.
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                            @endif
+
+                                            <div wire:loading.class="loading-spinner">
+                                            </div>
+
+                                            <div wire:loading.remove>
+                                                <!-- Display the shipping cost data or other content -->
+                                                @if ($shippingAvailable)
+                                                    <button type="submit" class="btn-checkout" style="">
+                                                        Pay now
+                                                    </button>
+                                                @else
+                                                    <div class="alert alert-danger mt-2 text-center" role="alert">
+                                                        The selected city is currently unavailable for shipping. We
+                                                        apologize for
+                                                        the inconvenience. Please consider selecting an alternate city
+                                                        or contact
+                                                        our customer support for assistance.
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -203,4 +286,3 @@
             </form>
         </div>
     </div>
-</div>
