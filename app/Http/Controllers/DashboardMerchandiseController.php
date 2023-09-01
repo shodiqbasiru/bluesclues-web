@@ -201,12 +201,7 @@ class DashboardMerchandiseController extends Controller
             $merchandise->is_available = 0;
         }
 
-        $truncatedName = substr($validatedData['name'], 0, 50);
-        $slug = Str::slug($truncatedName, '-') . '-' . uniqid();
-        while (Merchandise::where('slug', $slug)->exists()) {
-            $slug = Str::slug($truncatedName, '-') . '-' . uniqid();
-        }
-        $merchandise->slug = $slug;
+
 
         if ($request->file('image')) {
             if ($merchandise->image != null) Storage::delete($merchandise->image);

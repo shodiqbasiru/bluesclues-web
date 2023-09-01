@@ -170,7 +170,7 @@ class DashboardSongsController extends Controller
             $validatedData['image'] = $request->file('image')->store('songs-images');
             $song->image = $validatedData['image'];
         }
-        $song->slug = $slug;
+        // $song->slug = $slug;
         $song->save();
 
         // redirect back to the form with a success message

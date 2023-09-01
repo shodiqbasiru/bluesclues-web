@@ -31,7 +31,7 @@
                 </p>
                 <p>
                     <small class="text-muted">
-                        Last updated: {{ $news->updated_at->diffForHumans() }}
+                        Views: {{ $news->viewers }}
                     </small>
                 </p>
                 @if ($news->image)

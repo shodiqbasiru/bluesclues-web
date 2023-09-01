@@ -177,12 +177,13 @@ class DashboardNewsController extends Controller
         while (News::where('slug', $slug)->exists()) {
             $slug = Str::slug($truncatedTitle, '-') . '-' . uniqid();
         }
+
         if ($request->file('image')) {
             if ($news->image != null) Storage::delete($news->image);
             $validatedData['image'] = $request->file('image')->store('news-images');
             $news->image = $validatedData['image'];
         }
-        $news->slug = $slug;
+        // $news->slug = $slug;
         $news->save();
 
         // redirect back to the form with a success message

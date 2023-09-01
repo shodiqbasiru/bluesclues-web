@@ -193,13 +193,13 @@ class DashboardEventsController extends Controller
         $event->is_free = $validatedData['is_free'];
         $event->more_information = $validatedData['more_information'];
 
-        // Generate a unique slug
-        $truncatedEventName = substr($validatedData['eventname'], 0, 50);
-        $slug = Str::slug($truncatedEventName, '-') . '-' . uniqid();
-        while (Event::where('slug', $slug)->exists()) {
-            $slug = Str::slug($truncatedEventName, '-') . '-' . uniqid();
-        }
-        $event->slug = $slug;
+        // // Generate a unique slug
+        // $truncatedEventName = substr($validatedData['eventname'], 0, 50);
+        // $slug = Str::slug($truncatedEventName, '-') . '-' . uniqid();
+        // while (Event::where('slug', $slug)->exists()) {
+        //     $slug = Str::slug($truncatedEventName, '-') . '-' . uniqid();
+        // }
+        // $event->slug = $slug;
 
         if ($request->file('image')) {
             if ($event->image != null) Storage::delete($event->image);
