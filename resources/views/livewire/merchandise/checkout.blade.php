@@ -62,7 +62,7 @@
                         <option value="">-- Select Province --</option>
                         @foreach ($provinces as $province => $value)
                         <option value="{{ $province }}" {{ $province_dest==$province ? 'selected' : '' }}>{{ $value }}
-                            {{ $province }}</option>
+                        </option>
                         @endforeach
                     </select>
                     @if ($errors->has('province_dest'))
@@ -77,7 +77,7 @@
                     <select wire:model="city_dest" class="form-control @error('city_dest') is-invalid @enderror">
                         <option value="">-- Select City --</option>
                         @foreach($cities as $city => $name)
-                        <option value="{{ $city }}" {{ $city_dest==$city ? 'selected' : '' }}>{{ $name }} {{ $city }}
+                        <option value="{{ $city }}" {{ $city_dest==$city ? 'selected' : '' }}>{{ $name }}
                         </option>
                         @endforeach
                     </select>
@@ -235,7 +235,7 @@
                             <tr>
                                 <td colspan="3">Total Weight</td>
                                 <td align="right">~{{ $displayed_weight }}
-                                        Kg</span>
+                                    Kg</span>
                                 </td>
                             </tr>
                             <tr class="total-price">
