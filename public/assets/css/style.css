@@ -1093,17 +1093,17 @@ body {
 
 .page-event .box-title .evt-detail .title {
     transform: translateY(0);
-    transition: .2s all ease-in;
+    transition: 0.2s all ease-in;
 }
 
 .page-event .box-title .evt-detail:hover .title {
     transform: translateY(100%);
-    transition: .2s all ease-out;
+    transition: 0.2s all ease-out;
 }
 
 .page-event .box-title .evt-detail .title-hover {
     transform: translateY(-150%);
-    transition: .2s all ease-out;
+    transition: 0.2s all ease-out;
     text-transform: uppercase;
     font-weight: 600;
     font-size: 16px;
@@ -1115,7 +1115,7 @@ body {
 .page-event .box-title .evt-detail:hover .title-hover {
     transform: translateY(120%);
     display: inline-block;
-    transition: .2s all ease-in;
+    transition: 0.2s all ease-in;
 }
 
 .page-event .card-body .title {
@@ -1129,12 +1129,6 @@ body {
     color: #adadad;
     line-height: 22px;
 }
-
-
-
-
-
-
 
 /* .evt-detail:hover::after {
     content: "Detail";
@@ -1224,7 +1218,6 @@ body {
 .page-event .card-body .card-logo a img {
     width: 18px;
 }
-
 
 .page-event .card-body .card-logo {
     display: flex;
@@ -1429,7 +1422,7 @@ body {
     font-weight: 600;
 }
 
-.detail-event .wrapper .content .pass-event .time-event{
+.detail-event .wrapper .content .pass-event .time-event {
     text-transform: uppercase;
     color: var(--secondary-color);
 }
@@ -3022,7 +3015,6 @@ nav .breadcrumb .breadcrumb-item .active {
     display: block;
     width: 100%;
     padding: 14px 21px;
-
     color: #fff;
     font-size: 16px;
     font-weight: 400;
@@ -3034,6 +3026,10 @@ nav .breadcrumb .breadcrumb-item .active {
     appearance: none;
     border-radius: 0;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+#checkout .select-list {
+    background-color: #212529;
 }
 
 #checkout .billing-order {
@@ -3885,7 +3881,7 @@ footer .container-fluid p {
 }
 
 #footerStore .ftr .f-icon,
-#footerStore .ftr p:nth-of-type(1){
+#footerStore .ftr p:nth-of-type(1) {
     width: 25%;
 }
 
@@ -3925,7 +3921,7 @@ footer .container-fluid p {
     #footerStore .wrapper .information p:nth-of-type(1) {
         margin-bottom: 0;
     }
-    
+
     #footerStore .wrapper .logo-blues img {
         margin: 1rem auto;
     }
@@ -3935,10 +3931,10 @@ footer .container-fluid p {
         margin: 1rem auto;
     }
 
-    #footerStore .wrapper .information  {
+    #footerStore .wrapper .information {
         order: 2;
     }
-    
+
     #footerStore .wrapper .information p {
         text-align: center;
     }
@@ -3963,13 +3959,12 @@ footer .container-fluid p {
     }
 
     #footerStore .ftr .f-icon,
-    #footerStore .ftr p:nth-of-type(1){
+    #footerStore .ftr p:nth-of-type(1) {
         width: 100%;
     }
 
     #footerStore .ftr .f-icon {
         justify-content: center;
-
     }
 
     #footerStore .ftr p {
@@ -4074,9 +4069,6 @@ footer .container-fluid p {
     .h-merchan {
         padding: 9rem 2rem;
     }
-
-    
-
 }
 
 /* `sm` applies to x-small devices (portrait phones, less than 576px) */
@@ -4170,7 +4162,7 @@ footer .container-fluid p {
         text-align: center;
     }
 
-    .page-store .content .header a{
+    .page-store .content .header a {
         position: absolute;
         bottom: 0;
     }
@@ -4179,17 +4171,15 @@ footer .container-fluid p {
         place-items: center;
     }
 
-
     #products .content .header h2 {
         width: 100%;
         text-align: center;
         margin-bottom: 1rem;
     }
-    
+
     .page-store .content .header .input-group {
         width: 100%;
     }
-
 
     /* product-detail */
     .product-detail .row {
@@ -4204,15 +4194,13 @@ footer .container-fluid p {
     .alert-dismissible {
         padding-right: 0;
     }
-    
+
     .product-detail .content .alert-box {
         position: relative;
         top: 0;
         right: 0;
         padding: 1rem;
     }
-
-    
 
     /* page about */
 
@@ -4245,7 +4233,7 @@ footer .container-fluid p {
     #footerStore .wrapper .information p:nth-of-type(1) {
         margin-bottom: 0;
     }
-    
+
     #footerStore .wrapper .logo-blues img {
         margin: 1rem auto;
     }
@@ -4255,10 +4243,10 @@ footer .container-fluid p {
         margin: 1rem auto;
     }
 
-    #footerStore .wrapper .information  {
+    #footerStore .wrapper .information {
         order: 2;
     }
-    
+
     #footerStore .wrapper .information p {
         text-align: center;
     }
@@ -4283,17 +4271,15 @@ footer .container-fluid p {
     }
 
     #footerStore .ftr .f-icon,
-    #footerStore .ftr p:nth-of-type(1){
+    #footerStore .ftr p:nth-of-type(1) {
         width: 100%;
     }
 
     #footerStore .ftr .f-icon {
         justify-content: center;
-
     }
 
     #footerStore .ftr p {
         text-align: center;
     }
-        
 }
