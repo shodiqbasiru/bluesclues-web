@@ -61,8 +61,10 @@ class Checkout extends Component
             // check if all products are available
 
             $order = $this->order->first();
-            if (!$this->checkStockAvailability($order)) {
-                return redirect()->route('merchandise.cart')->with('message', 'Cart items exceed stock limits. Please update your cart.');
+            if (!empty($order)) {
+                if (!$this->checkStockAvailability($order)) {
+                    return redirect()->route('merchandise.cart')->with('message', 'Cart items exceed stock limits. Please update your cart.');
+                }
             }
         }
 
@@ -324,13 +326,14 @@ class Checkout extends Component
         // Use a single bulk update query
         \DB::table('merchandises')
             ->whereIn('id', $idsToUpdate)
-            ->update(['stock' => \DB::raw('CASE id ' . implode(' ', array_map(function ($data) {
-                return 'WHEN ' . $data['id'] . ' THEN ' . $data['stock'];
-            }, $productData)) . ' END'), 'is_available' => \DB::raw('CASE id ' . implode(' ', array_map(function ($data) {
-                return 'WHEN ' . $data['id'] . ' THEN ' . $data['is_available'];
-            }, $productData)) . ' END'),
-            'updated_at' => now(),
-        ]);
+            ->update([
+                'stock' => \DB::raw('CASE id ' . implode(' ', array_map(function ($data) {
+                    return 'WHEN ' . $data['id'] . ' THEN ' . $data['stock'];
+                }, $productData)) . ' END'), 'is_available' => \DB::raw('CASE id ' . implode(' ', array_map(function ($data) {
+                    return 'WHEN ' . $data['id'] . ' THEN ' . $data['is_available'];
+                }, $productData)) . ' END'),
+                'updated_at' => now(),
+            ]);
     }
 
 

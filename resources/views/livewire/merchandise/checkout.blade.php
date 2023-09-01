@@ -62,7 +62,7 @@
                             <option class="select-list " value="{{ $province }}"
                                 {{ $province_dest == $province ? 'selected' : '' }}>
                                 {{ $value }}
-                                {{ $province }}</option>
+                                </option>
                         @endforeach
                     </select>
                     @if ($errors->has('province_dest'))
@@ -78,7 +78,7 @@
                         @foreach ($cities as $city => $name)
                             <option class="select-list" value="{{ $city }}"
                                 {{ $city_dest == $city ? 'selected' : '' }}>
-                                {{ $name }} {{ $city }}
+                                {{ $name }}
                             </option>
                         @endforeach
                     </select>
