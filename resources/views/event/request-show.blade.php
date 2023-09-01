@@ -39,7 +39,7 @@
                 @endif
             </div> --}}
             <div class="col-12">
-                <label for="date" class="form-label">Date*</label>
+                <label for="date" class="form-label">Event date*</label>
                 <input type="date" name="date" class="form-control {{ $errors->has('date') ? ' is-invalid' : '' }}"
                     value="{{ old('date') }}" id="date">
                 @if ($errors->has('date'))
@@ -47,7 +47,7 @@
                 @endif
             </div>
             <div class="col-12">
-                <label for="location" class="form-label">Location*</label>
+                <label for="location" class="form-label">Event Location*</label>
                 <input type="text" name="location"
                     class="form-control {{ $errors->has('location') ? ' is-invalid' : '' }}" value="{{ old('location') }}"
                     id="location">

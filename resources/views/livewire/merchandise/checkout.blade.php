@@ -14,9 +14,9 @@
     <div class="row">
         <div class="col-md-12">
             @if (session()->has('message'))
-            <div class="alert alert-danger">
-                {{ session('message') }}
-            </div>
+                <div class="alert alert-danger">
+                    {{ session('message') }}
+                </div>
             @endif
         </div>
     </div>
@@ -34,10 +34,9 @@
 
 
                     @if ($errors->has('name'))
-                    <span class="error" role="alert">
-                        <strong>{{ $errors->getBag('default')->first('name') ?? $messages['postal_code.required']
-                            }}</strong>
-                    </span>
+                        <span class="error" role="alert">
+                            <strong>{{ $errors->getBag('default')->first('name') ?? $messages['postal_code.required'] }}</strong>
+                        </span>
                     @endif
                 </div>
 
@@ -48,57 +47,56 @@
                         value="{{ old('phone_number') }}" autocomplete="name" autofocus>
 
                     @if ($errors->has('phone_number'))
-                    <span class="error" role="alert">
-                        <strong>{{ $errors->getBag('default')->first('phone_number') ??
-                            $messages['postal_code.required'] }}</strong>
-                    </span>
+                        <span class="error" role="alert">
+                            <strong>{{ $errors->getBag('default')->first('phone_number') ?? $messages['postal_code.required'] }}</strong>
+                        </span>
                     @endif
                 </div>
 
                 <div class="form-group">
                     <label for="province_dest">Province<span>*</span></label>
                     <select wire:model="province_dest"
-                        class="form-control @error('province_dest') is-invalid @enderror">
-                        <option value="">-- Select Province --</option>
+                        class="form-control  @error('province_dest') is-invalid @enderror">
+                        <option class="select-list" value="">-- Select Province --</option>
                         @foreach ($provinces as $province => $value)
-                        <option value="{{ $province }}" {{ $province_dest==$province ? 'selected' : '' }}>{{ $value }}
-                        </option>
+                            <option class="select-list " value="{{ $province }}"
+                                {{ $province_dest == $province ? 'selected' : '' }}>
+                                {{ $value }}
+                                {{ $province }}</option>
                         @endforeach
                     </select>
                     @if ($errors->has('province_dest'))
-                    <span class="error" role="alert">
-                        <strong>{{ $errors->getBag('default')->first('province_dest') ??
-                            $messages['province_dest.required'] }}</strong>
-                    </span>
+                        <span class="error" role="alert">
+                            <strong>{{ $errors->getBag('default')->first('province_dest') ?? $messages['province_dest.required'] }}</strong>
+                        </span>
                     @endif
                 </div>
                 <div class="form-group">
                     <label for="city_dest">City<span>*</span></label>
                     <select wire:model="city_dest" class="form-control @error('city_dest') is-invalid @enderror">
-                        <option value="">-- Select City --</option>
-                        @foreach($cities as $city => $name)
-                        <option value="{{ $city }}" {{ $city_dest==$city ? 'selected' : '' }}>{{ $name }}
-                        </option>
+                        <option value="" class="select-list ">-- Select City --</option>
+                        @foreach ($cities as $city => $name)
+                            <option class="select-list" value="{{ $city }}"
+                                {{ $city_dest == $city ? 'selected' : '' }}>
+                                {{ $name }} {{ $city }}
+                            </option>
                         @endforeach
                     </select>
                     @if ($errors->has('city_dest'))
-                    <span class="error" role="alert">
-                        <strong>{{ $errors->getBag('default')->first('city_dest') ?? $messages['city_dest.required']
-                            }}</strong>
-                    </span>
+                        <span class="error" role="alert">
+                            <strong>{{ $errors->getBag('default')->first('city_dest') ?? $messages['city_dest.required'] }}</strong>
+                        </span>
                     @endif
                 </div>
 
                 <div class="form-group">
                     <label for="address">Full Address<span>*</span></label>
-                    <textarea wire:model="address"
-                        class="form-control @error('address') is-invalid @enderror"></textarea>
+                    <textarea wire:model="address" class="form-control @error('address') is-invalid @enderror"></textarea>
 
                     @if ($errors->has('address'))
-                    <span class="error" role="alert">
-                        <strong>{{ $errors->getBag('default')->first('address') ?? $messages['postal_code.required']
-                            }}</strong>
-                    </span>
+                        <span class="error" role="alert">
+                            <strong>{{ $errors->getBag('default')->first('address') ?? $messages['postal_code.required'] }}</strong>
+                        </span>
                     @endif
                 </div>
 
@@ -111,10 +109,9 @@
                         value="{{ old('postal_code') }}" autocomplete="name" autofocus>
 
                     @if ($errors->has('postal_code'))
-                    <span class="error" role="alert">
-                        <strong>{{ $errors->getBag('default')->first('postal_code') ??
-                            $messages['postal_code.required'] }}</strong>
-                    </span>
+                        <span class="error" role="alert">
+                            <strong>{{ $errors->getBag('default')->first('postal_code') ?? $messages['postal_code.required'] }}</strong>
+                        </span>
                     @endif
 
 
@@ -124,162 +121,168 @@
                     <textarea wire:model="notes" class="form-control @error('notes') is-invalid @enderror"></textarea>
 
                     @error('notes')
-                    <span class="error" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                        <span class="error" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
 
                 <div class="row billing-order justify-content-between">
                     @foreach ($orders as $order)
-                    <div class="col-12">
-                        <h4>Your Order</h4>
-                    </div>
-                    <div class="col-lg-4 col-12">
-                        <h5>Product</h5>
-                        <div class="list-products">
-                            @foreach ($order_details as $index => $order_detail)
-                            @if ($index < 1) <div class="item-product">
-                                <img src="{{ asset('storage/' . $order_detail->merchandise->image) }}"
-                                    alt="Product Image">
-                                <div class="item-name">
-                                    <p>{{ $order_detail->merchandise->name }}</p>
-                                    <p class="qty">Qty: {{ $order_detail->quantity }}</p>
-                                </div>
+                        <div class="col-12">
+                            <h4>Your Order</h4>
                         </div>
-                        @endif
-                        @endforeach
-                        <div class="more-products">
-                            <p>
-                                Total products: {{ $total_quantity }}
-                            </p>
-                            <button type="button" class="btn-checkout" data-bs-toggle="modal"
-                                data-bs-target="#listProducts">
-                                show more products...
-                            </button>
-
-                            <div class="modal fade" id="listProducts" tabindex="-1" aria-labelledby="listProductsLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="listProductsLabel">Detail Products
-                                            </h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                        <div class="col-lg-4 col-12">
+                            <h5>Product</h5>
+                            <div class="list-products">
+                                @foreach ($order_details as $index => $order_detail)
+                                    @if ($index < 1)
+                                        <div class="item-product">
+                                            <img src="{{ asset('storage/' . $order_detail->merchandise->image) }}"
+                                                alt="Product Image">
+                                            <div class="item-name">
+                                                <p>{{ $order_detail->merchandise->name }}</p>
+                                                <p class="qty">Qty: {{ $order_detail->quantity }}</p>
+                                            </div>
                                         </div>
-                                        <div class="modal-body">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col" width="20%" class="text-center">#
-                                                        </th>
-                                                        <th scope="col" width="80%">Name</th>
-                                                        <th scope="col" width="20%">qty</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($order_details as $order_detail)
-                                                    <tr class="items">
-                                                        <th scope="row">
-                                                            <img src="{{ asset('storage/' . $order_detail->merchandise->image) }}"
-                                                                alt="Product Image">
-                                                        </th>
-                                                        <td>
-                                                            <div class="cell-content">
+                                    @endif
+                                @endforeach
+                                <div class="more-products">
+                                    <p>
+                                        Total products: {{ $total_quantity }}
+                                    </p>
+                                    <button type="button" class="btn-checkout" data-bs-toggle="modal"
+                                        data-bs-target="#listProducts">
+                                        show more products...
+                                    </button>
 
-                                                                {{ $order_detail->merchandise->name }}
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="cell-content">
-                                                                x{{ $order_detail->quantity }}
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
+                                    <div class="modal fade" id="listProducts" tabindex="-1"
+                                        aria-labelledby="listProductsLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="listProductsLabel">Detail
+                                                        Products
+                                                    </h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col" width="20%"
+                                                                    class="text-center">#
+                                                                </th>
+                                                                <th scope="col" width="80%">Name</th>
+                                                                <th scope="col" width="20%">qty</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($order_details as $order_detail)
+                                                                <tr class="items">
+                                                                    <th scope="row">
+                                                                        <img src="{{ asset('storage/' . $order_detail->merchandise->image) }}"
+                                                                            alt="Product Image">
+                                                                    </th>
+                                                                    <td>
+                                                                        <div class="cell-content">
 
-                                                </tbody>
-                                            </table>
+                                                                            {{ $order_detail->merchandise->name }}
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="cell-content">
+                                                                            x{{ $order_detail->quantity }}
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-5 col-12 pay">
-                    <h5>Total</h5>
-                    <table class="table">
+                        <div class="col-lg-5 col-12 pay">
+                            <h5>Total</h5>
+                            <table class="table">
 
-                        <tbody>
-                            <tr>
-                                <td colspan="3">Total Order Cost</td>
-                                <td align="right">Rp {{ number_format($order->total_price, 0, ',', '.') }}
-                            </tr>
-                            @if ($courier)
-                            <tr>
-                                <td colspan="3">Courier</td>
-                                <td align="right">{{ $courier }}: {{ $service }}</td>
-                            </tr>
-                            @endif
-                            <tr>
-                            <tr>
-                                <td colspan="3">Shipping fee</td>
-                                @if ($cost)
-                                <td align="right">Rp {{ number_format($cost, 0, ',', '.') }}</td>
-                                @else
-                                <td align="right">-</td>
-                                @endif
-                            </tr>
-                            <tr>
-                                <td colspan="3">Total Weight</td>
-                                <td align="right">~{{ $displayed_weight }}
-                                    Kg</span>
-                                </td>
-                            </tr>
-                            <tr class="total-price">
-                                <td colspan="3">Total Cost (Order + Shipping)</td>
-                                <td align="right">Rp {{ number_format($order->total_price + $cost, 0, ',', '.') }}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td class="button" colspan="4" align="right" style="border:none">
-                                    @if ($errors->any())
-                                    <div class="alert alert-danger mt-2 text-center alert-dismissible fade show my-2"
-                                        role="alert">
-                                        Please correct the errors above before submitting.
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
-                                    </div>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3">Total Order Cost</td>
+                                        <td align="right">Rp {{ number_format($order->total_price, 0, ',', '.') }}
+                                    </tr>
+                                    @if ($courier)
+                                        <tr>
+                                            <td colspan="3">Courier</td>
+                                            <td align="right">{{ $courier }}: {{ $service }}</td>
+                                        </tr>
                                     @endif
-
-                                    <div wire:loading.class="loading-spinner">
-                                    </div>
-
-                                    <div wire:loading.remove>
-                                        <!-- Display the shipping cost data or other content -->
-                                        @if ($shippingAvailable)
-                                        <button type="submit" class="btn-checkout" style="">
-                                            Pay now
-                                        </button>
+                                    <tr>
+                                    <tr>
+                                        <td colspan="3">Shipping fee</td>
+                                        @if ($cost)
+                                            <td align="right">Rp {{ number_format($cost, 0, ',', '.') }}</td>
                                         @else
-                                        <div class="alert alert-danger mt-2 text-center" role="alert">
-                                            The selected city is currently unavailable for shipping. We apologize for
-                                            the inconvenience. Please consider selecting an alternate city or contact
-                                            our customer support for assistance.
-                                        </div>
+                                            <td align="right">-</td>
                                         @endif
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                @endforeach
-        </div>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">Total Weight</td>
+                                        <td align="right">~{{ $displayed_weight }}
+                                            Kg</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="total-price">
+                                        <td colspan="3">Total Cost (Order + Shipping)</td>
+                                        <td align="right">Rp
+                                            {{ number_format($order->total_price + $cost, 0, ',', '.') }}
+                                        </td>
+                                    </tr>
 
-        </form>
+                                    <tr>
+                                        <td class="button" colspan="4" align="right" style="border:none">
+                                            @if ($errors->any())
+                                                <div class="alert alert-danger mt-2 text-center alert-dismissible fade show my-2"
+                                                    role="alert">
+                                                    Please correct the errors above before submitting.
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                            @endif
+
+                                            <div wire:loading.class="loading-spinner">
+                                            </div>
+
+                                            <div wire:loading.remove>
+                                                <!-- Display the shipping cost data or other content -->
+                                                @if ($shippingAvailable)
+                                                    <button type="submit" class="btn-checkout" style="">
+                                                        Pay now
+                                                    </button>
+                                                @else
+                                                    <div class="alert alert-danger mt-2 text-center" role="alert">
+                                                        The selected city is currently unavailable for shipping. We
+                                                        apologize for
+                                                        the inconvenience. Please consider selecting an alternate city
+                                                        or contact
+                                                        our customer support for assistance.
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    @endforeach
+                </div>
+
+            </form>
+        </div>
     </div>
-</div>

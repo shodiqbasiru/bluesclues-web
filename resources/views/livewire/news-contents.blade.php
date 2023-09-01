@@ -11,11 +11,24 @@
                 @endif
 
                 <h3><a href="/news/{{ $newsitem->slug }}" class="text-decoration-none">{{ $newsitem->title }}</a></h3>
-                <p>
-                    <small class="text-muted">
-                        {{ $newsitem->created_at->diffForHumans() }}
-                    </small>
-                </p>
+                <div class="d-flex justify-content-between">
+                    <p>
+                        <small class="text-muted">
+                            {{ $newsitem->created_at->diffForHumans() }}
+                        </small>
+                    </p>
+
+                    <p>
+                        <small class="text-muted">
+                            @if (!empty($newsitem->viewers))
+                                {{ $newsitem->viewers }} <i class="fas fa-eye ms-1"></i>
+                            @else
+                                0 <i class="fas fa-eye ms-1"></i>
+                            @endif
+                        </small>
+                    </p>
+
+                </div>
 
                 {{ $newsitem->excerpt }}
 
