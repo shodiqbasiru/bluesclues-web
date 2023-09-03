@@ -1444,7 +1444,7 @@ body {
     display: flex;
     flex-direction: column;
     max-width: 100%;
-    /* width: 40%; */
+    width: 40%;
     margin: 0 auto;
 }
 
@@ -1453,8 +1453,13 @@ body {
     gap: 24px;
     align-items: center;
     max-width: 100%;
-    /* margin: 0 auto; */
     margin-bottom: 22px;
+}
+
+.detail-event .detail-content .list-detail p,
+.detail-event .detail-content .list-detail a {
+    width: 100%;
+    text-align: left;
 }
 
 .detail-event .detail-content .list-detail p {
