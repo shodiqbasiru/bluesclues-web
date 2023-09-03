@@ -1,85 +1,89 @@
 @extends('layouts.main')
 
 @section('content-page')
-    <div class="detail-event" id="detailEvent">
-        <div class="bg-left"></div>
-        <div class="bg-right"></div>
-        <div class="bg-opacity"></div>
-        <div class="wrapper">
-            <div class="content">
-                <h1>{{ $event->eventname }}</h1>
-                @if (!empty($event->image))
-                    <div class="box-image">
-                        <img id="eventImage" src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->slug }}">
-                    </div>
-                    <div id="imagePopup" class="image-popup">
-                        <span class="close-popup" id="closePopup"></span>
-                        <img id="popupImage" src="" alt="Popup Image">
-                    </div>
-                @endif
-                <div class="timer-container">
-                    @if ($event->date > now())
-                        <div class="timer-box">
-                            <div class="timer-value" id="days"></div>
-                            <div class="timer-label">days</div>
-                        </div>
-                        <div class="timer-box">
-                            <div class="timer-value" id="hours"></div>
-                            <div class="timer-label">hours</div>
-                        </div>
-                        <div class="timer-box">
-                            <div class="timer-value" id="minutes"></div>
-                            <div class="timer-label">minutes</div>
-                        </div>
-                        <div class="timer-box">
-                            <div class="timer-value" id="seconds"></div>
-                            <div class="timer-label">seconds</div>
-                        </div>
-                    @else
-                        <h3 class="pass-event">This event has ended {{ now()->diffInDays($event->date) }} days ago.
-                        </h3>
-                    @endif
+<div class="detail-event" id="detailEvent">
+    <div class="bg-left"></div>
+    <div class="bg-right"></div>
+    <div class="bg-opacity"></div>
+    <div class="wrapper">
+        <div class="content">
+            <h1>{{ $event->eventname }}</h1>
+            @if (!empty($event->image))
+            <div class="box-image">
+                <img id="eventImage" src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->slug }}">
+            </div>
+            <div id="imagePopup" class="image-popup">
+                <span class="close-popup" id="closePopup"></span>
+                <img id="popupImage" src="" alt="Popup Image">
+            </div>
+            @endif
+            <div class="timer-container">
+                @if ($event->date > now())
+                <div class="timer-box">
+                    <div class="timer-value" id="days"></div>
+                    <div class="timer-label">days</div>
                 </div>
-
-                <div class="detail-content">
-                    <div class="list-detail">
-                        <img src="{{ url('/assets/img/icons/icon-calendar.png') }}" alt="">
-                        <p>{{ date('F d, Y', strtotime($event->date)) }}</p>
-                    </div>
-                    <div class="list-detail">
-                        <img src="{{ url('/assets/img/icons/icon-clock.png') }}" alt="">
-                        <p>{{ date('g:i A', strtotime($event->time)) }}</p>
-                    </div>
-                    <div class="list-detail">
-                        <img src="{{ url('/assets/img/icons/icon-location.png') }}" alt="">
-                        <a href="{{ $event->maps }}" class="text-decoration-none"
-                            target="blank">{{ $event->location }}</a>
-                    </div>
-                    {{-- <div class="list-detail">
-                        <img src="{{ url('/assets/img/icons/icon-location-d.png') }}" alt="">
-                        <p>{{ $event->location }}</p>
-                    </div> --}}
+                <div class="timer-box">
+                    <div class="timer-value" id="hours"></div>
+                    <div class="timer-label">hours</div>
                 </div>
-                <div class="share">
-                    <p>Share this event</p>
-                    <div class="icons">
-
-                        @foreach ($shareLinks as $platform => $link)
-                            <a href="{{ $link }}" target="_blank" target="_blank"
-                                onclick="openSmallWindow(event, '{{ $link }}')"><img
-                                    src="{{ url('./assets/img/icons/icon-' . $platform . '.png') }}" alt=""></a>
-                        @endforeach
-
-
-                    </div>
+                <div class="timer-box">
+                    <div class="timer-value" id="minutes"></div>
+                    <div class="timer-label">minutes</div>
                 </div>
-                @if ($event->more_information)
-                    <a href="{{ $event->more_information }}" class="btn btn-home mt-4 mb-1 mx-5">More Information</a>
+                <div class="timer-box">
+                    <div class="timer-value" id="seconds"></div>
+                    <div class="timer-label">seconds</div>
+                </div>
+                @else
+                <h3 class="pass-event">This event has ended {{ now()->diffInDays($event->date) }} days ago.
+                </h3>
                 @endif
             </div>
+
+            <div class="detail-content">
+                <div class="list-detail">
+                    <img src="{{ url('/assets/img/icons/icon-calendar.png') }}" alt="">
+                    <p>{{ date('F d, Y', strtotime($event->date)) }}</p>
+                </div>
+                <div class="list-detail">
+                    <img src="{{ url('/assets/img/icons/icon-clock.png') }}" alt="">
+                    <p>{{ date('g:i A', strtotime($event->time)) }}</p>
+                </div>
+                <div class="list-detail">
+                    <img src="{{ url('/assets/img/icons/icon-location.png') }}" alt="">
+                    @if ($event->maps)
+                    <a href="{{ $event->maps }}" class="text-decoration-none" target="blank">{{ $event->location }}</a>
+                    @else
+                    <p>{{ $event->location }}</p>
+                    @endif
+
+                </div>
+                {{-- <div class="list-detail">
+                    <img src="{{ url('/assets/img/icons/icon-location-d.png') }}" alt="">
+                    <p>{{ $event->location }}</p>
+                </div> --}}
+            </div>
+            <div class="share">
+                <p>Share this event</p>
+                <div class="icons">
+
+                    @foreach ($shareLinks as $platform => $link)
+                    <a href="{{ $link }}" target="_blank" target="_blank"
+                        onclick="openSmallWindow(event, '{{ $link }}')"><img
+                            src="{{ url('./assets/img/icons/icon-' . $platform . '.png') }}" alt=""></a>
+                    @endforeach
+
+
+                </div>
+            </div>
+            @if ($event->more_information)
+            <a href="{{ $event->more_information }}" class="btn btn-home mt-4 mb-1 mx-5">More Information</a>
+            @endif
         </div>
     </div>
-    </div>
+</div>
+</div>
 @endsection
 
 <script>
