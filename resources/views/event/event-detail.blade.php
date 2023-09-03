@@ -73,7 +73,9 @@
 
                     </div>
                 </div>
-                <a href="{{ $event->more_information }}" class="btn btn-home mt-4 mb-1 mx-5">More Information</a>
+                @if ($event->more_information)
+                    <a href="{{ $event->more_information }}" class="btn btn-home mt-4 mb-1 mx-5">More Information</a>
+                @endif
             </div>
         </div>
     </div>
