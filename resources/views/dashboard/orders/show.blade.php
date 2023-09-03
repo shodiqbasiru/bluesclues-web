@@ -123,14 +123,19 @@
                         <td><strong>Recipient Name</strong></td>
                         <td>: {{ $order->name }}</td>
                     </tr>
+
+                    @if ($order->province_id)
                     <tr>
                         <td><strong>Province</strong></td>
                         <td>: {{ $order->province->title }}</td>
                     </tr>
+                    @endif
+                    @if ($order->city_id)
                     <tr>
                         <td><strong>City</strong></td>
                         <td>: {{ $order->city->title }}</td>
                     </tr>
+                    @endif
                     <tr>
                         <td><strong>Full Address</strong></td>
                         <td>: {{ $order->address }}</td>
