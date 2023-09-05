@@ -188,6 +188,6 @@ class DashboardOrdersController extends Controller
 
         $filename = preg_replace('/[^a-zA-Z0-9\-]/', '_', $filename);
 
-        return $pdf->download($filename . '.pdf');
+        return $pdf->stream($filename . '.pdf');
     }
 }

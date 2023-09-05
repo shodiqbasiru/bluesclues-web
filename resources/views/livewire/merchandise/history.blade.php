@@ -63,12 +63,21 @@
                                         <div class="products">
                                             {{-- <img src="{{ asset('storage/' . $orderDetail->merchandise->image) }}"
                                                 class="img-fluid mr-2" width="50"> --}}
+                                            @if ($orderDetail->merchandise)
                                             <img src="{{ asset('storage/' . $orderDetail->merchandise->image) }}" alt="Product Image">
                                             <div class="text">
                                                 <p>{{ $orderDetail->merchandise->name }}
                                                 </p>
                                                 <p>{{ $orderDetail->quantity }}</p>
                                             </div>
+                                            @else
+                                            <img src="{{ url('./assets/img/icons/question-mark-29.svg') }}" alt="Product Image">
+                                            <div class="text">
+                                                <p>unknown product
+                                                </p>
+                                                <p>{{ $orderDetail->quantity }}</p>
+                                            </div>
+                                            @endif
                                         </div>
                                         <br>
                                     @endforeach
@@ -127,7 +136,7 @@
                                             <button class="btn-receive"
                                                 wire:click="receiveOrder('{{ $order->id }}')" wire:loading.remove
                                                 wire:target="receiveOrder('{{ $order->id }}')"><i
-                                                    class="fas fa-check"></i> Product received</button>
+                                                    class="fas fa-check"></i> Confirm Receipt</button>
                                             <span wire:loading
                                                 wire:target="receiveOrder('{{ $order->id }}')">Menerima
                                                 Pesanan...</span>

@@ -91,7 +91,7 @@ class ProductDetail extends Component
                 if (!$this->checkStockAvailability($quantity)) {
                     return redirect()->back()->with('error', 'Oops! We don\'t have enough in stock for your request. Choose a lower quantity and try again.');
                 }
-                if ($order->orderDetails()->count() >= 5) {
+                if ($order->orderDetails()->count() >= 10) {
                     return redirect()->back()->with('error', 'Your cart is full.');
                 }
 

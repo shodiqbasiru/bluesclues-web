@@ -196,6 +196,9 @@
                         <td class="text-left" style="max-width: 300px;">
                             <div class="my-3">
                             @foreach ($order->orderDetails->take(3) as $orderDetail)
+
+
+                            @if ($orderDetail->merchandise)
                                 <div class="d-flex align-items-center">
                                     <img src="{{ asset('storage/' . $orderDetail->merchandise->image) }}"
                                         class="img-fluid mr-2" width="50">
@@ -203,6 +206,15 @@
                                         <strong>({{ $orderDetail->quantity }})</strong></span>
                                 </div>
                                 <br>
+                            @else
+                            <div class="d-flex align-items-center">
+                                <img src="{{ url('./assets/img/icons/question-mark-29.svg') }}"
+                                    class="img-fluid mr-2" width="50" style="filter: brightness(0) invert(1);">
+                                <span class="mx-2 fst-italic">Unknown item
+                                    <strong>({{ $orderDetail->quantity }})</strong></span>
+                            </div>
+                            <br>
+                            @endif
                             @endforeach
 
                             @if ($order->orderDetails->count() > 3)

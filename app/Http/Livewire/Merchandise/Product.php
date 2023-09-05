@@ -26,10 +26,12 @@ class Product extends Component
         // $categories = MerchCategory::all();
 
         if ($this->search) {
-            $products = Merchandise::where('name', 'like', '%' . $this->search . '%')->paginate(8);
+            $products = Merchandise::where('name', 'like', '%' . $this->search . '%')
+            ->orderBy('created_at', 'desc')
+            ->paginate(8);
         } else {
 
-            $products = Merchandise::paginate(8);
+            $products = Merchandise::orderBy('created_at', 'desc')->paginate(8);
         }
 
         return view('livewire.merchandise.product', [
