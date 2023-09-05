@@ -97,15 +97,25 @@
                 <tbody>
                     @foreach ($order->orderDetails as $orderDetail)
                         <tr>
+                            @if ($orderDetail->merchandise)
                             <td class="align-middle">
                                 <div class="d-flex align-items-center">
                                     <img src="{{ asset('storage/' . $orderDetail->merchandise->image) }}" class="img-fluid mr-2" width="70">
                                 </div>
                             </td>
                             <td class="align-middle">{{ $orderDetail->merchandise->name }}</td>
+                            @else
+                            <td class="align-middle">
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ url('./assets/img/icons/question-mark-29.svg') }}" class="img-fluid mr-2" width="70" style="filter: brightness(0) invert(1);">
+                                </div>
+                            </td>
+                            <td class="align-middle fst-italic">Unknown item</td>
+                            @endif
                             <td class="align-middle">(Quantity: {{ $orderDetail->quantity }})</td>
                         </tr>
                     @endforeach
+                            
                 </tbody>
             </table>
             

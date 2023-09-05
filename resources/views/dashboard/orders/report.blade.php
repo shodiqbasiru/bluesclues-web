@@ -34,7 +34,7 @@
         </div>
         <div class="report-created">
             @php
-                $currentTime = \Carbon\Carbon::now('Asia/Jakarta')->format('F j, Y \a\t h:i A');
+            $currentTime = \Carbon\Carbon::now('Asia/Jakarta')->format('F j, Y \a\t h:i A');
             @endphp
             <p>Report generated on {{ $currentTime }} (UTC+7)</p>
         </div>
@@ -46,35 +46,35 @@
 
     <div class="mb-3 mt-3">
         @if ($status)
-            @php
-                $statusText = '';
-                if ($status === 'waiting-for-payment') {
-                    $statusText = 'Waiting For Payment Orders';
-                } elseif ($status === 'checking-payment') {
-                    $statusText = 'Checking Payment Orders';
-                } elseif ($status === 'success') {
-                    $statusText = 'Payment Success Orders';
-                } elseif ($status === 'cancelled') {
-                    $statusText = 'Cancelled Orders';
-                } elseif ($status === 'shipping') {
-                    $statusText = 'Shipping Orders';
-                } elseif ($status === 'product-received') {
-                    $statusText = 'Product Received Orders';
-                }
-            @endphp
-            <h5> {{ $statusText }} Report</h5>
+        @php
+        $statusText = '';
+        if ($status === 'waiting-for-payment') {
+        $statusText = 'Waiting For Payment Orders';
+        } elseif ($status === 'checking-payment') {
+        $statusText = 'Checking Payment Orders';
+        } elseif ($status === 'success') {
+        $statusText = 'Payment Success Orders';
+        } elseif ($status === 'cancelled') {
+        $statusText = 'Cancelled Orders';
+        } elseif ($status === 'shipping') {
+        $statusText = 'Shipping Orders';
+        } elseif ($status === 'product-received') {
+        $statusText = 'Product Received Orders';
+        }
+        @endphp
+        <h5> {{ $statusText }} Report</h5>
         @endif
 
         @if ($month && $selectedYear)
-            <h5> {{ date('F', mktime(0, 0, 0, $month, 1)) }} {{ $selectedYear }}</h5>
+        <h5> {{ date('F', mktime(0, 0, 0, $month, 1)) }} {{ $selectedYear }}</h5>
         @endif
 
         @if ($selectedYearOnly)
-            <h5> {{ $selectedYearOnly }}</h5>
+        <h5> {{ $selectedYearOnly }}</h5>
         @endif
 
         @if (!$status && !$month && !$selectedYear && !$selectedYearOnly)
-            <h5>All Orders</h5>
+        <h5>All Orders</h5>
         @endif
     </div>
 
@@ -92,56 +92,62 @@
         </thead>
         <tbody>
             @forelse ($orders as $order)
-                <tr>
-                    <td>
-                        {{ $loop->iteration }}
-                    </td>
-                    <td>{{ \Illuminate\Support\Carbon::parse($order->created_at)->format('d F Y') }}
-                    </td>
-                    <td>{{ $order->name }}</td>
-                    <td>{{ $order->order_number }}</td>
-                    <td>
-                        @foreach ($order->orderDetails->take(3) as $orderDetail)
-                            <div>
-                                <span class="mx-2">{{ $orderDetail->merchandise->name }}
-                                    <strong>({{ $orderDetail->quantity }})</strong></span>
-                            </div>
-                        @endforeach
-                    </td>
-                    <td>
-                        @if ($order->status == 1)
-                            <span class="badge badge-warning">
-                                Waiting for Payment
-                            </span>
-                        @elseif($order->status == 2)
-                            <span class="badge badge-info">
-                                Checking Payment
-                            </span>
-                        @elseif($order->status == 3)
-                            <span class="badge badge-success">
-                                Payment Success
-                            </span>
-                        @elseif($order->status == 4)
-                            <span class="badge badge-danger">
-                                Cancelled
-                            </span>
-                        @elseif($order->status == 5)
-                            <span class="badge badge-primary">
-                                Shipping
-                            </span>
-                        @elseif($order->status == 6)
-                            <span class="badge badge-primary">
-                                Product Received
-                            </span>
-                        @endif
-                    </td>
-                    <td><strong>Rp {{ number_format($order->total_price + , 0, ',', '.') }}</strong></td>
-                </tr>
+            <tr>
+                <td>
+                    {{ $loop->iteration }}
+                </td>
+                <td>{{ \Illuminate\Support\Carbon::parse($order->created_at)->format('d F Y') }}
+                </td>
+                <td>{{ $order->name }}</td>
+                <td>{{ $order->order_number }}</td>
+                <td>
+                    @foreach ($order->orderDetails as $orderDetail)
+                    <div>
+                        <span class="mx-2">
+                            @if ($orderDetail->merchandise)
+                            {{ $orderDetail->merchandise->name }}
+                            @else
+                            <em><strong class="fst-italic">?Unknown item</strong></em>
+                            @endif
+                            <strong>({{ $orderDetail->quantity }})</strong>
+                        </span>
+                    </div>
+                    @endforeach
+                </td>
+                <td>
+                    @if ($order->status == 1)
+                    <span class="badge badge-warning">
+                        Waiting for Payment
+                    </span>
+                    @elseif($order->status == 2)
+                    <span class="badge badge-info">
+                        Checking Payment
+                    </span>
+                    @elseif($order->status == 3)
+                    <span class="badge badge-success">
+                        Payment Success
+                    </span>
+                    @elseif($order->status == 4)
+                    <span class="badge badge-danger">
+                        Cancelled
+                    </span>
+                    @elseif($order->status == 5)
+                    <span class="badge badge-primary">
+                        Shipping
+                    </span>
+                    @elseif($order->status == 6)
+                    <span class="badge badge-primary">
+                        Product Received
+                    </span>
+                    @endif
+                </td>
+                <td><strong>Rp {{ number_format($order->total_price , 0, ',', '.') }}</strong></td>
+            </tr>
 
             @empty
-                <tr>
-                    <td colspan="7">Data Empty</td>
-                </tr>
+            <tr>
+                <td colspan="7">Data Empty</td>
+            </tr>
 
             @endforelse
             <tr>
