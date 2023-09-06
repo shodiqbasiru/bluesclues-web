@@ -44,6 +44,9 @@
                             <p class="card-price">rp {{ number_format($item->price, 0, ',', '.') }}</p>
                         </div>
                     </a>
+                    @if ($item->created_at->diffInDays() < 3)
+                        <span class="badge new">New Product</span>
+                    @endif
                 </div>
             @endforeach
         </div>

@@ -26,10 +26,15 @@
                                 <p class="card-price">rp {{ number_format($product->price, 0, ',', '.') }}</p>
                             </div>
                             @if ($product->is_available != 1)
-                                <span class="sold-out">
+                                <span class="badge sold-out">
                                     sold out
                                 </span>
+                            @elseif ($product->created_at->diffInDays() < 3)
+                                <span class="badge new">
+                                    new product
+                                </span>
                             @endif
+
                         </div>
                     </a>
                 @endforeach

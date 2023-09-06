@@ -2394,24 +2394,34 @@ body {
     background-color: transparent;
     width: 300px;
     border: none;
+    overflow-x: hidden;
 }
 
-.page-store .content .body .card .sold-out {
+.page-store .content .body .card .badge {
     position: absolute;
     top: 0;
     left: 0;
     margin-top: 22px;
     margin-left: 25px;
     border-radius: 40px;
-    border: 1px solid #fff;
-    background: #fff;
     padding: 7px 15px;
-    color: #0a0a0a;
     text-align: center;
     font-size: 10px;
     font-weight: 300;
     letter-spacing: 1px;
     text-transform: capitalize;
+}
+
+.page-store .content .body .card .sold-out {
+    border: 1px solid #fff;
+    background: #fff;
+    color: #0a0a0a;
+}
+
+.page-store .content .body .card .new {
+    border: 1px solid #c6a814;
+    background: #c6a814;
+    color: #f3f3f3;
 }
 
 .page-store .content .body .card .btn {
@@ -2436,9 +2446,12 @@ body {
 
 .recommendations-section .content .card img,
 .page-store .content .body .card img {
-    width: 100%;
+    max-width: 100%;
+    width: 90%;
     height: 200px;
     object-fit: contain;
+    display: block;
+    margin: 0 auto;
 }
 
 .recommendations-section .content .card:hover img,

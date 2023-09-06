@@ -12,6 +12,7 @@ class Store extends Component
     {
         $products = Merchandise::where('is_available', 1)
             ->take(4)
+            ->orderby('created_at', 'desc')
             ->get();
 
         return view('livewire.merchandise.store', [
