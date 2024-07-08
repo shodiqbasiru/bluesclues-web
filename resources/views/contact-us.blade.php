@@ -15,8 +15,8 @@
         <div class="content">
             <div class="contact-information">
                 <h4>Contact Information</h4>
-                <p><span>Email :</span> bluesclues@gmail.com</p>
-                <p><span>Phone :</span> +6281122456908</p>
+                <p><span>Email :</span> thebluesclaws@gmail.com </p>
+                <p><span>Phone :</span> +6282118840393 </p>
             </div>
             <div class="form">
                 <h4>Get in touch</h4>
